@@ -16,19 +16,19 @@ export default function Toast({ message, type = 'success', onClose, duration = 3
   const isSuccess = type === 'success';
 
   return (
-    <div className="fixed top-5 left-1/2 -translate-x-1/2 sm:left-auto sm:right-6 sm:translate-x-0 sm:bottom-6 sm:top-auto z-50 flex items-center gap-3 px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-xl border transition-all duration-200 max-w-sm w-[calc(100vw-2rem)] sm:w-auto bg-slate-900/95 border-slate-800 text-white">
+    <div className="fixed top-6 right-4 left-4 sm:left-auto sm:right-6 z-[99999] flex items-center gap-3 px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-xl border transition-all duration-200 max-w-sm w-auto bg-slate-900/95 border-slate-800 text-white">
       {isSuccess ? (
-        <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 shadow-sm shadow-emerald-500/20">
           <CheckCircle2 className="w-4 h-4" />
         </div>
       ) : (
-        <div className="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center flex-shrink-0 shadow-sm shadow-rose-500/20">
           <AlertCircle className="w-4 h-4" />
         </div>
       )}
       <div className="flex-1 min-w-0">
         <p className="text-xs font-bold text-white">
-          {isSuccess ? 'Success' : 'Login Notice'}
+          {isSuccess ? 'Success' : 'Notice'}
         </p>
         <p className="text-[11px] text-slate-300 truncate">{message}</p>
       </div>

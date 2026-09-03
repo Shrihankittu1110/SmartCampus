@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import { Lock, Mail, AlertCircle, ArrowRight, ArrowLeft, Sparkles, Shield, User, Eye, EyeOff } from 'lucide-react';
-import Toast from '../../components/common/Toast';
 
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
+  const { showToast, flashToast } = useToast();
 
   const searchParams = new URLSearchParams(location.search);
   const initialEmail = searchParams.get('email') || '';
@@ -18,7 +19,6 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -35,20 +35,12 @@ export default function Login() {
 
     try {
       await login({ email, password });
-      setToast({
-        message: 'Login successful! Entering portal...',
-        type: 'success',
-      });
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 700);
+      flashToast('Login successful! Welcome to Anurag University.', 'success');
+      navigate('/dashboard');
     } catch (err) {
       const msg = err.response?.data?.message || err.message || 'Login failed. Please check credentials.';
       setError(msg);
-      setToast({
-        message: msg,
-        type: 'error',
-      });
+      showToast(msg, 'error');
     } finally {
       setLoading(false);
     }
@@ -58,10 +50,7 @@ export default function Login() {
     setEmail(demoEmail);
     setPassword(demoPassword);
     setError('');
-    setToast({
-      message: `Loaded ${roleLabel} demo credentials`,
-      type: 'success',
-    });
+    showToast(`Loaded ${roleLabel} demo credentials`, 'success');
   };
 
   return (
@@ -219,16 +208,6 @@ export default function Login() {
           </button>
         </div>
       </div>
-
-      {/* Floating Status & Toast Popups */}
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-          duration={3500}
-        />
-      )}
     </div>
   );
 }
