@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Lock, Mail, AlertCircle, ArrowRight, ArrowLeft, Sparkles, Shield, User } from 'lucide-react';
+import { Lock, Mail, AlertCircle, ArrowRight, ArrowLeft, Sparkles, Shield, User, Eye, EyeOff } from 'lucide-react';
+import Toast from '../../components/common/Toast';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -14,8 +15,10 @@ export default function Login() {
 
   const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState(initialPassword);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -32,18 +35,33 @@ export default function Login() {
 
     try {
       await login({ email, password });
-      navigate('/dashboard');
+      setToast({
+        message: 'Login successful! Entering portal...',
+        type: 'success',
+      });
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 700);
     } catch (err) {
-      setError(err.response?.data?.message || err.message || 'Login failed.');
+      const msg = err.response?.data?.message || err.message || 'Login failed. Please check credentials.';
+      setError(msg);
+      setToast({
+        message: msg,
+        type: 'error',
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  const handleFillDemo = (demoEmail, demoPassword) => {
+  const handleFillDemo = (demoEmail, demoPassword, roleLabel) => {
     setEmail(demoEmail);
     setPassword(demoPassword);
     setError('');
+    setToast({
+      message: `Loaded ${roleLabel} demo credentials`,
+      type: 'success',
+    });
   };
 
   return (
@@ -112,13 +130,25 @@ export default function Login() {
               <Lock className="h-4 w-4 text-slate-500" />
             </div>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="block w-full pl-10 pr-3 py-2.5 text-xs text-white bg-slate-950/60 border border-slate-700/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 placeholder-slate-500 transition-all"
+              className="block w-full pl-10 pr-10 py-2.5 text-xs text-white bg-slate-950/60 border border-slate-700/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 placeholder-slate-500 transition-all"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? (
+                <EyeOff className="h-4 w-4 text-indigo-400" />
+              ) : (
+                <Eye className="h-4 w-4 text-slate-400 hover:text-white" />
+              )}
+            </button>
           </div>
         </div>
 
@@ -141,54 +171,64 @@ export default function Login() {
         <div className="grid grid-cols-2 gap-2 text-[10px] sm:text-[11px]">
           <button
             type="button"
-            onClick={() => handleFillDemo('superadmin@campusflow.edu', 'Admin@123')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-purple-950/40 hover:border-purple-500/50 border border-slate-800 transition-all text-slate-300 min-w-0"
+            onClick={() => handleFillDemo('superadmin@campusflow.edu', 'Admin@123', 'Super Admin')}
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-purple-950/40 hover:border-purple-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
           >
             <span className="font-bold text-white block truncate">Super Admin</span>
             <span className="text-purple-400 text-[9px] sm:text-[10px] block truncate">Global Control</span>
           </button>
           <button
             type="button"
-            onClick={() => handleFillDemo('admin@anurag.edu.in', 'Admin@123')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-indigo-950/40 hover:border-indigo-500/50 border border-slate-800 transition-all text-slate-300 min-w-0"
+            onClick={() => handleFillDemo('admin@anurag.edu.in', 'Admin@123', 'Campus Admin')}
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-indigo-950/40 hover:border-indigo-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
           >
             <span className="font-bold text-white block truncate">Campus Admin</span>
             <span className="text-indigo-400 text-[9px] sm:text-[10px] block truncate">Anurag University</span>
           </button>
           <button
             type="button"
-            onClick={() => handleFillDemo('faculty.cs@anurag.edu.in', 'Faculty@123')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-teal-950/40 hover:border-teal-500/50 border border-slate-800 transition-all text-slate-300 min-w-0"
+            onClick={() => handleFillDemo('faculty.cs@anurag.edu.in', 'Faculty@123', 'Faculty (CSE)')}
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-teal-950/40 hover:border-teal-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
           >
             <span className="font-bold text-white block truncate">Faculty (CSE)</span>
             <span className="text-teal-400 text-[9px] sm:text-[10px] block truncate">Dr. Alan Turing</span>
           </button>
           <button
             type="button"
-            onClick={() => handleFillDemo('student1@anurag.edu.in', 'Student@123')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-cyan-950/40 hover:border-cyan-500/50 border border-slate-800 transition-all text-slate-300 min-w-0"
+            onClick={() => handleFillDemo('student1@anurag.edu.in', 'Student@123', 'Rahul Sharma')}
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-cyan-950/40 hover:border-cyan-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
           >
             <span className="font-bold text-white block truncate">Student (Safe)</span>
             <span className="text-cyan-400 text-[9px] sm:text-[10px] block truncate">Rahul (CGPA 8.8)</span>
           </button>
           <button
             type="button"
-            onClick={() => handleFillDemo('student3@anurag.edu.in', 'Student@123')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-amber-950/40 hover:border-amber-500/50 border border-slate-800 transition-all text-slate-300 min-w-0"
+            onClick={() => handleFillDemo('student3@anurag.edu.in', 'Student@123', 'Amit Kumar')}
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-amber-950/40 hover:border-amber-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
           >
             <span className="font-bold text-white block truncate">Student (Alert)</span>
             <span className="text-amber-400 text-[9px] sm:text-[10px] block truncate">Amit (Att: 58%)</span>
           </button>
           <button
             type="button"
-            onClick={() => handleFillDemo('placement@anurag.edu.in', 'Placement@123')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-violet-950/40 hover:border-violet-500/50 border border-slate-800 transition-all text-slate-300 min-w-0"
+            onClick={() => handleFillDemo('placement@anurag.edu.in', 'Placement@123', 'Placement Cell')}
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-violet-950/40 hover:border-violet-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
           >
             <span className="font-bold text-white block truncate">Placement Cell</span>
             <span className="text-violet-400 text-[9px] sm:text-[10px] block truncate">Marcus Brody</span>
           </button>
         </div>
       </div>
+
+      {/* Floating Status & Toast Popups */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+          duration={3500}
+        />
+      )}
     </div>
   );
 }
