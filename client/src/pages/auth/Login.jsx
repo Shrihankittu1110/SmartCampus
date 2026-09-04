@@ -94,10 +94,11 @@ export default function Login() {
             <input
               type="email"
               required
+              disabled={loading}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="user@apex.edu"
-              className="block w-full pl-10 pr-3 py-2.5 text-xs text-white bg-slate-950/60 border border-slate-700/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 placeholder-slate-500 transition-all"
+              className="block w-full pl-10 pr-3 py-2.5 text-xs text-white bg-slate-950/60 border border-slate-700/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 placeholder-slate-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-900/50"
             />
           </div>
         </div>
@@ -109,7 +110,10 @@ export default function Login() {
             </label>
             <Link
               to="/forgot-password"
-              className="text-xs text-indigo-400 hover:text-indigo-300 font-medium"
+              tabIndex={loading ? -1 : 0}
+              className={`text-xs text-indigo-400 font-medium transition-colors ${
+                loading ? 'pointer-events-none opacity-50' : 'hover:text-indigo-300'
+              }`}
             >
               Forgot password?
             </Link>
@@ -121,15 +125,17 @@ export default function Login() {
             <input
               type={showPassword ? 'text' : 'password'}
               required
+              disabled={loading}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="block w-full pl-10 pr-10 py-2.5 text-xs text-white bg-slate-950/60 border border-slate-700/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 placeholder-slate-500 transition-all"
+              className="block w-full pl-10 pr-10 py-2.5 text-xs text-white bg-slate-950/60 border border-slate-700/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 placeholder-slate-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-900/50"
             />
             <button
               type="button"
+              disabled={loading}
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
+              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? (
@@ -144,10 +150,19 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 hover:brightness-110 shadow-lg shadow-indigo-500/25 disabled:opacity-50 transition-all cursor-pointer"
+          className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 hover:brightness-110 shadow-lg shadow-indigo-500/25 disabled:opacity-60 disabled:cursor-not-allowed transition-all cursor-pointer"
         >
-          {loading ? 'Authenticating...' : 'Sign In'}
-          <ArrowRight className="w-4 h-4" />
+          {loading ? (
+            <>
+              <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <span>Authenticating...</span>
+            </>
+          ) : (
+            <>
+              <span>Sign In</span>
+              <ArrowRight className="w-4 h-4" />
+            </>
+          )}
         </button>
       </form>
 
@@ -160,48 +175,54 @@ export default function Login() {
         <div className="grid grid-cols-2 gap-2 text-[10px] sm:text-[11px]">
           <button
             type="button"
+            disabled={loading}
             onClick={() => handleFillDemo('superadmin@campusflow.edu', 'Admin@123', 'Super Admin')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-purple-950/40 hover:border-purple-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-purple-950/40 hover:border-purple-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Super Admin</span>
             <span className="text-purple-400 text-[9px] sm:text-[10px] block truncate">Global Control</span>
           </button>
           <button
             type="button"
+            disabled={loading}
             onClick={() => handleFillDemo('admin@anurag.edu.in', 'Admin@123', 'Campus Admin')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-indigo-950/40 hover:border-indigo-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-indigo-950/40 hover:border-indigo-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Campus Admin</span>
             <span className="text-indigo-400 text-[9px] sm:text-[10px] block truncate">Anurag University</span>
           </button>
           <button
             type="button"
+            disabled={loading}
             onClick={() => handleFillDemo('faculty.cs@anurag.edu.in', 'Faculty@123', 'Faculty (CSE)')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-teal-950/40 hover:border-teal-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-teal-950/40 hover:border-teal-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Faculty (CSE)</span>
             <span className="text-teal-400 text-[9px] sm:text-[10px] block truncate">Dr. Alan Turing</span>
           </button>
           <button
             type="button"
+            disabled={loading}
             onClick={() => handleFillDemo('student1@anurag.edu.in', 'Student@123', 'Rahul Sharma')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-cyan-950/40 hover:border-cyan-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-cyan-950/40 hover:border-cyan-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Student (Safe)</span>
             <span className="text-cyan-400 text-[9px] sm:text-[10px] block truncate">Rahul (CGPA 8.8)</span>
           </button>
           <button
             type="button"
+            disabled={loading}
             onClick={() => handleFillDemo('student3@anurag.edu.in', 'Student@123', 'Amit Kumar')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-amber-950/40 hover:border-amber-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-amber-950/40 hover:border-amber-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Student (Alert)</span>
             <span className="text-amber-400 text-[9px] sm:text-[10px] block truncate">Amit (Att: 58%)</span>
           </button>
           <button
             type="button"
+            disabled={loading}
             onClick={() => handleFillDemo('placement@anurag.edu.in', 'Placement@123', 'Placement Cell')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-violet-950/40 hover:border-violet-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer"
+            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-violet-950/40 hover:border-violet-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Placement Cell</span>
             <span className="text-violet-400 text-[9px] sm:text-[10px] block truncate">Marcus Brody</span>
