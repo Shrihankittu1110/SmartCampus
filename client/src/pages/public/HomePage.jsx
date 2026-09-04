@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import {
@@ -26,11 +26,54 @@ import {
   XCircle,
   Menu,
   X,
+  Zap,
 } from 'lucide-react';
+
+// Custom hook for scroll-triggered motion animations
+function useScrollReveal(threshold = 0.12) {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return [ref, isVisible];
+}
 
 export default function HomePage() {
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  // Scroll listener for sticky nav elevation
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Section Motion Observers
+  const [heroRef, heroVisible] = useScrollReveal(0.05);
+  const [simulatorRef, simulatorVisible] = useScrollReveal(0.1);
+  const [personasRef, personasVisible] = useScrollReveal(0.08);
+  const [featuresRef, featuresVisible] = useScrollReveal(0.08);
+  const [placementsRef, placementsVisible] = useScrollReveal(0.1);
+  const [faqRef, faqVisible] = useScrollReveal(0.08);
+  const [ctaRef, ctaVisible] = useScrollReveal(0.1);
 
   // Interactive Simulator State
   const [activeTab, setActiveTab] = useState('student');
@@ -178,20 +221,28 @@ export default function HomePage() {
       <div className="absolute top-[600px] left-[-150px] w-[500px] h-[500px] bg-cyan-600/10 blur-3xl rounded-full pointer-events-none -z-10" />
       <div className="absolute top-[1200px] right-[-150px] w-[600px] h-[600px] bg-indigo-500/10 blur-3xl rounded-full pointer-events-none -z-10" />
 
-      {/* Top Glassmorphic Navigation */}
-      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-slate-800/80 transition-all">
+      {/* Top Glassmorphic Navigation with Scroll Motion */}
+      <nav
+        className={`sticky top-0 z-50 backdrop-blur-xl transition-all duration-300 ${
+          scrolled
+            ? 'bg-slate-950/90 border-b border-indigo-500/25 shadow-2xl shadow-indigo-950/40 py-0.5'
+            : 'bg-slate-950/60 border-b border-slate-800/70 py-0'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[1.5px] shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[1.5px] shadow-lg shadow-indigo-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all">
                 <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
                   <GraduationCap className="w-5 h-5 text-indigo-400 group-hover:text-cyan-400 transition-colors" />
                 </div>
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-lg tracking-tight text-white">CampusFlow</span>
+                  <span className="font-extrabold text-lg tracking-tight text-white group-hover:text-indigo-300 transition-colors">
+                    CampusFlow
+                  </span>
                   <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
                     AU
                   </span>
@@ -202,20 +253,25 @@ export default function HomePage() {
 
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center gap-8 text-xs font-semibold text-slate-300">
-              <a href="#simulator" className="hover:text-white transition-colors">
-                Interactive Preview
+              <a href="#simulator" className="hover:text-white transition-colors relative group py-1">
+                <span>Interactive Preview</span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
-              <a href="#personas" className="hover:text-white transition-colors">
-                Role Portals
+              <a href="#personas" className="hover:text-white transition-colors relative group py-1">
+                <span>Role Portals</span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
-              <a href="#features" className="hover:text-white transition-colors">
-                Features
+              <a href="#features" className="hover:text-white transition-colors relative group py-1">
+                <span>Features</span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
-              <a href="#placements" className="hover:text-white transition-colors">
-                Placement Hub
+              <a href="#placements" className="hover:text-white transition-colors relative group py-1">
+                <span>Placement Hub</span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
-              <a href="#faq" className="hover:text-white transition-colors">
-                FAQ
+              <a href="#faq" className="hover:text-white transition-colors relative group py-1">
+                <span>FAQ</span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
             </div>
 
@@ -224,7 +280,7 @@ export default function HomePage() {
               {user ? (
                 <Link
                   to="/dashboard"
-                  className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-lg shadow-indigo-500/25 transition-all cursor-pointer"
+                  className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
                 >
                   <span>Go to Dashboard</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -239,7 +295,7 @@ export default function HomePage() {
                   </Link>
                   <a
                     href="#personas"
-                    className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-lg shadow-indigo-500/25 transition-all cursor-pointer"
+                    className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
                   >
                     <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
                     <span>Try Demo Portals</span>
@@ -312,11 +368,45 @@ export default function HomePage() {
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      {/* Hero Section with Parallax & Floating Motion Elements */}
+      <section ref={heroRef} className="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
+        {/* Floating Decorative Badges with Gentle Physics */}
+        <div className="hidden lg:flex absolute top-28 left-6 xl:left-12 items-center gap-3 px-4 py-2.5 rounded-2xl bg-slate-900/85 border border-slate-800/90 backdrop-blur-xl shadow-2xl shadow-indigo-500/15 animate-float-slow z-20 pointer-events-none">
+          <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center">
+            <CheckCircle2 className="w-4 h-4" />
+          </div>
+          <div className="text-left">
+            <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Real-Time Sync</span>
+            <span className="text-xs font-bold text-white">98.4% Attendance Accuracy</span>
+          </div>
+        </div>
+
+        <div className="hidden lg:flex absolute top-36 right-6 xl:right-12 items-center gap-3 px-4 py-2.5 rounded-2xl bg-slate-900/85 border border-slate-800/90 backdrop-blur-xl shadow-2xl shadow-cyan-500/15 animate-float-delayed z-20 pointer-events-none">
+          <div className="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center">
+            <Briefcase className="w-4 h-4" />
+          </div>
+          <div className="text-left">
+            <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Top CTC Drive</span>
+            <span className="text-xs font-bold text-white">45 LPA • Google / Microsoft</span>
+          </div>
+        </div>
+
+        <div className="hidden xl:flex absolute bottom-16 left-20 items-center gap-3 px-4 py-2 rounded-2xl bg-slate-900/85 border border-slate-800/90 backdrop-blur-xl shadow-2xl shadow-purple-500/15 animate-float z-20 pointer-events-none">
+          <div className="w-7 h-7 rounded-xl bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center">
+            <Sparkles className="w-3.5 h-3.5" />
+          </div>
+          <div className="text-left">
+            <span className="text-xs font-bold text-slate-200">Zero-Hallucination AI Engine</span>
+          </div>
+        </div>
+
+        <div
+          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 transition-all duration-700 transform ${
+            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           {/* Tag Pill */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-[11px] font-semibold text-indigo-300 mb-6 shadow-xs backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-[11px] font-semibold text-indigo-300 mb-6 shadow-xs backdrop-blur-md animate-bounce-slow">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
@@ -341,47 +431,52 @@ export default function HomePage() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <a
               href="#simulator"
-              className="px-6 py-3.5 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-xl shadow-indigo-500/25 transition-all flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3.5 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-1 transition-all flex items-center gap-2 cursor-pointer group"
             >
               <span>Explore Interactive Simulator</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#personas"
-              className="px-6 py-3.5 text-xs sm:text-sm font-bold text-slate-200 bg-slate-900/80 hover:bg-slate-800/80 border border-slate-700/80 rounded-xl transition-all flex items-center gap-2 backdrop-blur-md"
+              className="px-6 py-3.5 text-xs sm:text-sm font-bold text-slate-200 bg-slate-900/80 hover:bg-slate-800/80 border border-slate-700/80 rounded-xl hover:-translate-y-1 transition-all flex items-center gap-2 backdrop-blur-md hover:border-cyan-500/40 shadow-sm hover:shadow-cyan-500/10"
             >
               <Users className="w-4 h-4 text-cyan-400" />
               <span>Launch 1-Click Role Portals</span>
             </a>
           </div>
 
-          {/* Live Metrics Ticker */}
+          {/* Live Metrics Ticker with Staggered Scroll-Reveal & Hover Lift */}
           <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto">
-            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 backdrop-blur-md">
-              <span className="block text-2xl font-extrabold text-indigo-400">98.4%</span>
-              <span className="text-[11px] font-semibold text-slate-400">Attendance Accuracy</span>
-            </div>
-            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 backdrop-blur-md">
-              <span className="block text-2xl font-extrabold text-cyan-400">15+</span>
-              <span className="text-[11px] font-semibold text-slate-400">Active Campus Drives</span>
-            </div>
-            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 backdrop-blur-md">
-              <span className="block text-2xl font-extrabold text-emerald-400">45 LPA</span>
-              <span className="text-[11px] font-semibold text-slate-400">Top CTC Offered</span>
-            </div>
-            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 backdrop-blur-md">
-              <span className="block text-2xl font-extrabold text-purple-400">100%</span>
-              <span className="text-[11px] font-semibold text-slate-400">Server Eligibility Guard</span>
-            </div>
+            {[
+              { val: '98.4%', label: 'Attendance Accuracy', color: 'text-indigo-400' },
+              { val: '15+', label: 'Active Campus Drives', color: 'text-cyan-400' },
+              { val: '45 LPA', label: 'Top CTC Offered', color: 'text-emerald-400' },
+              { val: '100%', label: 'Server Eligibility Guard', color: 'text-purple-400' },
+            ].map((m, idx) => (
+              <div
+                key={m.label}
+                className={`p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 backdrop-blur-md transition-all duration-700 transform hover:-translate-y-2 hover:scale-105 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/10 ${
+                  heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{ transitionDelay: `${idx * 100}ms` }}
+              >
+                <span className={`block text-2xl font-extrabold ${m.color}`}>{m.val}</span>
+                <span className="text-[11px] font-semibold text-slate-400">{m.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Interactive Simulator Section */}
-      <section id="simulator" className="py-16 md:py-24 bg-slate-950/40 border-y border-slate-800/60 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Interactive Simulator Section with Scroll Motion */}
+      <section id="simulator" ref={simulatorRef} className="py-16 md:py-24 bg-slate-950/40 border-y border-slate-800/60 relative">
+        <div
+          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-700 transform ${
+            simulatorVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-[0.98]'
+          }`}
+        >
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2 flex items-center justify-center gap-1.5">
+            <h2 className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2 flex items-center justify-center gap-1.5 animate-pulse-slow">
               <Sliders className="w-3.5 h-3.5" />
               <span>Interactive Live Preview</span>
             </h2>
@@ -795,13 +890,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5-Role Interactive Portal Selector */}
-      <section id="personas" className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <h2 className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2 flex items-center justify-center gap-1.5">
+      {/* 5-Role Interactive Portal Selector with Scroll Motion */}
+      <section id="personas" ref={personasRef} className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          className={`text-center max-w-3xl mx-auto mb-14 transition-all duration-700 transform ${
+            personasVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
+          <div className="inline-flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 animate-pulse-slow">
             <Users className="w-3.5 h-3.5" />
             <span>Role-Based Command Centers</span>
-          </h2>
+          </div>
           <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
             Launch Any Persona with 1-Click
           </h3>
@@ -811,12 +910,15 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {rolePersonas.map((p) => {
+          {rolePersonas.map((p, idx) => {
             const Icon = p.icon;
             return (
               <div
                 key={p.id}
-                className="p-6 rounded-2xl bg-slate-950/70 border border-slate-800 hover:border-slate-700 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl group"
+                className={`p-6 rounded-2xl bg-slate-950/70 border border-slate-800 hover:border-indigo-500/60 transition-all duration-500 flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:shadow-indigo-500/15 group transform ${
+                  personasVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-[0.97]'
+                }`}
+                style={{ transitionDelay: `${idx * 100}ms` }}
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -855,14 +957,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Architectural Pillars & Feature Grid */}
-      <section id="features" className="py-16 md:py-24 bg-slate-950/40 border-t border-slate-800/80">
+      {/* Architectural Pillars & Feature Grid with Scroll Motion */}
+      <section id="features" ref={featuresRef} className="py-16 md:py-24 bg-slate-950/40 border-t border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <h2 className="text-xs font-bold text-cyan-400 uppercase tracking-widest mb-2 flex items-center justify-center gap-1.5">
+          <div
+            className={`text-center max-w-3xl mx-auto mb-14 transition-all duration-700 transform ${
+              featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
+            <div className="inline-flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 animate-pulse-slow">
               <Layers className="w-3.5 h-3.5" />
               <span>Full-Stack Architecture</span>
-            </h2>
+            </div>
             <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
               Engineered for Precision, Zero Bloat
             </h3>
@@ -877,14 +983,19 @@ export default function HomePage() {
               return (
                 <div
                   key={idx}
-                  className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-indigo-500/40 transition-all group"
+                  className={`p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-indigo-500/50 transition-all duration-500 group hover:-translate-y-2 hover:scale-[1.01] hover:shadow-2xl hover:shadow-indigo-500/10 transform ${
+                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ transitionDelay: `${idx * 80}ms` }}
                 >
                   <div
-                    className={`w-10 h-10 rounded-xl bg-gradient-to-br ${f.gradient} p-2 flex items-center justify-center text-white mb-4 shadow-md group-hover:scale-110 transition-transform`}
+                    className={`w-10 h-10 rounded-xl bg-gradient-to-br ${f.gradient} p-2 flex items-center justify-center text-white mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}
                   >
                     <Icon className="w-5 h-5" />
                   </div>
-                  <h4 className="text-sm font-bold text-white mb-2">{f.title}</h4>
+                  <h4 className="text-sm font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">
+                    {f.title}
+                  </h4>
                   <p className="text-xs text-slate-400 leading-relaxed">{f.description}</p>
                 </div>
               );
@@ -893,9 +1004,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Placement Hub Banner */}
-      <section id="placements" className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 md:p-12 rounded-3xl bg-gradient-to-r from-indigo-950/80 via-slate-900 to-purple-950/80 border border-indigo-500/30 relative overflow-hidden">
+      {/* Placement Hub Banner with Scroll Zoom Motion */}
+      <section id="placements" ref={placementsRef} className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          className={`p-8 md:p-12 rounded-3xl bg-gradient-to-r from-indigo-950/80 via-slate-900 to-purple-950/80 border border-indigo-500/30 hover:border-indigo-500/60 shadow-2xl shadow-indigo-950/50 relative overflow-hidden transition-all duration-700 transform ${
+            placementsVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.96] translate-y-12'
+          }`}
+        >
           <div className="max-w-2xl relative z-10">
             <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-2 block">
               Corporate Recruitment Engine
@@ -908,15 +1023,15 @@ export default function HomePage() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-4 text-xs font-semibold text-slate-200">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-slate-800">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-emerald-500/40 transition-colors">
                 <Check className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Google (42 LPA)</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-slate-800">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-emerald-500/40 transition-colors">
                 <Check className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Microsoft (38 LPA)</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-slate-800">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-emerald-500/40 transition-colors">
                 <Check className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Amazon AWS (28 LPA)</span>
               </div>
@@ -925,10 +1040,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FAQ Accordion Section */}
-      <section id="faq" className="py-16 md:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2">Frequently Asked</h2>
+      {/* FAQ Accordion Section with Staggered Cascades */}
+      <section id="faq" ref={faqRef} className="py-16 md:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          className={`text-center mb-12 transition-all duration-700 transform ${
+            faqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
+          <div className="inline-flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 animate-pulse-slow">
+            <Zap className="w-3.5 h-3.5" />
+            <span>Frequently Asked Questions</span>
+          </div>
           <h3 className="text-2xl sm:text-3xl font-extrabold text-white">Questions & Architecture Details</h3>
         </div>
 
@@ -936,7 +1058,10 @@ export default function HomePage() {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className="rounded-2xl bg-slate-900/40 border border-slate-800 overflow-hidden transition-colors"
+              className={`rounded-2xl bg-slate-900/40 border border-slate-800 hover:border-indigo-500/40 overflow-hidden transition-all duration-500 transform ${
+                faqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+              style={{ transitionDelay: `${idx * 80}ms` }}
             >
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? -1 : idx)}
@@ -950,7 +1075,7 @@ export default function HomePage() {
                 />
               </button>
               {openFaq === idx && (
-                <div className="px-4 pb-5 sm:px-5 text-xs text-slate-400 leading-relaxed border-t border-slate-800/60 pt-3">
+                <div className="px-4 pb-5 sm:px-5 text-xs text-slate-400 leading-relaxed border-t border-slate-800/60 pt-3 animate-in fade-in duration-200">
                   {faq.a}
                 </div>
               )}
@@ -959,9 +1084,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Final Call to Action */}
-      <section className="py-16 border-t border-slate-800/80 bg-slate-950/80 text-center">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Final Call to Action with Scroll Motion */}
+      <section ref={ctaRef} className="py-20 border-t border-slate-800/80 bg-slate-950/80 text-center relative overflow-hidden">
+        <div
+          className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-700 transform ${
+            ctaVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-8'
+          }`}
+        >
           <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
             Ready to Explore CampusFlow?
           </h3>
@@ -971,13 +1100,13 @@ export default function HomePage() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/login"
-              className="px-6 py-3 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-lg shadow-indigo-500/25 transition-all"
+              className="px-6 py-3 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all"
             >
               Sign In to Your Workspace
             </Link>
             <a
               href="#personas"
-              className="px-6 py-3 text-xs sm:text-sm font-bold text-slate-300 bg-slate-900 hover:bg-slate-800 rounded-xl border border-slate-700 transition-all"
+              className="px-6 py-3 text-xs sm:text-sm font-bold text-slate-300 bg-slate-900 hover:bg-slate-800 rounded-xl border border-slate-700 hover:border-slate-600 hover:-translate-y-0.5 transition-all"
             >
               Select Demo Persona
             </a>
