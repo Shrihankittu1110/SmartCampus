@@ -58,11 +58,20 @@ export default function HomePage() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  // Scroll listener for sticky nav elevation
+  // Scroll listener for sticky nav elevation & top reading progress indicator
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+      const totalScroll = document.documentElement.scrollTop;
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (windowHeight > 0) {
+        setScrollProgress(Math.min(100, Math.max(0, (totalScroll / windowHeight) * 100)));
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -74,6 +83,9 @@ export default function HomePage() {
   const [placementsRef, placementsVisible] = useScrollReveal(0.1);
   const [faqRef, faqVisible] = useScrollReveal(0.08);
   const [ctaRef, ctaVisible] = useScrollReveal(0.1);
+
+  // Interactive Flagship Command Console Preview State
+  const [heroPreviewTab, setHeroPreviewTab] = useState('overview');
 
   // Interactive Simulator State
   const [activeTab, setActiveTab] = useState('student');
@@ -215,7 +227,13 @@ export default function HomePage() {
   const isEligibleForInfosys = demoCgpa >= 6.0 && demoBacklogs <= 1;
 
   return (
-    <div className="min-h-screen bg-[#070A12] text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-indigo-300 relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#070A12] text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-indigo-300 relative overflow-x-hidden bg-grid-pattern">
+      {/* Top Reading Scroll Progress Indicator */}
+      <div
+        className="fixed top-0 left-0 h-[2.5px] bg-gradient-to-r from-indigo-500 via-cyan-400 to-violet-500 z-[100] transition-all duration-75"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
       {/* Ambient Lighting Mesh Orbs */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-b from-indigo-600/15 via-violet-600/10 to-transparent blur-3xl pointer-events-none -z-10" />
       <div className="absolute top-[600px] left-[-150px] w-[500px] h-[500px] bg-cyan-600/10 blur-3xl rounded-full pointer-events-none -z-10" />
@@ -464,6 +482,251 @@ export default function HomePage() {
                 <span className="text-[11px] font-semibold text-slate-400">{m.label}</span>
               </div>
             ))}
+          </div>
+
+          {/* Flagship Interactive Glass Command Console Mockup */}
+          <div className="mt-14 max-w-5xl mx-auto rounded-3xl p-1.5 sm:p-2 bg-gradient-to-b from-slate-700/40 via-slate-800/20 to-slate-900/60 border border-slate-700/60 shadow-2xl shadow-indigo-950/70 backdrop-blur-2xl">
+            <div className="rounded-[22px] bg-slate-950/95 border border-slate-800/90 overflow-hidden text-left shadow-2xl">
+              {/* Console Window Header */}
+              <div className="px-4 sm:px-6 py-3.5 border-b border-slate-800/80 bg-slate-900/70 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-3 h-3 rounded-full bg-rose-500/80 border border-rose-600/40" />
+                    <span className="w-3 h-3 rounded-full bg-amber-500/80 border border-amber-600/40" />
+                    <span className="w-3 h-3 rounded-full bg-emerald-500/80 border border-emerald-600/40" />
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-[11px] text-slate-300 font-mono">
+                    <span className="text-emerald-400">●</span>
+                    <span className="text-white font-bold">au.campusflow.edu</span>
+                    <span className="text-slate-500">/workspace/live-session</span>
+                  </div>
+                </div>
+
+                {/* Interactive Console Navigation Tabs */}
+                <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-950/90 border border-slate-800 text-[11px] font-semibold">
+                  {[
+                    { id: 'overview', label: 'Campus Overview' },
+                    { id: 'study', label: 'AI Study Hub' },
+                    { id: 'placements', label: 'Placement Funnel' },
+                    { id: 'attendance', label: 'Biometrics Guard' },
+                  ].map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => setHeroPreviewTab(t.id)}
+                      className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
+                        heroPreviewTab === t.id
+                          ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/30 font-bold'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Console Window Body */}
+              <div className="p-5 sm:p-7">
+                {heroPreviewTab === 'overview' && (
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Overall Standing</span>
+                        <span className="text-xl font-extrabold text-emerald-400">89.4%</span>
+                        <span className="text-[10px] text-slate-500 block">Attendance Safe</span>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Cumulative GPA</span>
+                        <span className="text-xl font-extrabold text-cyan-400">8.82</span>
+                        <span className="text-[10px] text-slate-500 block">Top 5% Cohort</span>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Eligible Drives</span>
+                        <span className="text-xl font-extrabold text-indigo-400">12 Offers</span>
+                        <span className="text-[10px] text-slate-500 block">Google, MSFT, AWS</span>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <span className="text-[10px] uppercase font-bold text-slate-400 block">System Verification</span>
+                        <span className="text-xl font-extrabold text-purple-400">Active</span>
+                        <span className="text-[10px] text-slate-500 block">Zero-Trust JWT</span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                            <BookOpen className="w-3.5 h-3.5 text-indigo-400" />
+                            <span>Today's Academic Schedule</span>
+                          </span>
+                          <span className="text-[10px] font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">Semester 6 CSE</span>
+                        </div>
+                        <div className="space-y-2 text-xs">
+                          <div className="p-2 rounded-lg bg-slate-950/60 border border-slate-800 flex justify-between items-center">
+                            <div>
+                              <span className="font-semibold text-white block">Distributed Cloud Systems</span>
+                              <span className="text-[10px] text-slate-400">Dr. Alan Turing • Hall 204</span>
+                            </div>
+                            <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">PRESENT</span>
+                          </div>
+                          <div className="p-2 rounded-lg bg-slate-950/60 border border-slate-800 flex justify-between items-center">
+                            <div>
+                              <span className="font-semibold text-white block">Full-Stack Lab Practicum</span>
+                              <span className="text-[10px] text-slate-400">Lab CSE-3 • In Progress</span>
+                            </div>
+                            <span className="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded animate-pulse">LIVE</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                            <span>Live Campus Activity Feed</span>
+                          </span>
+                          <span className="text-[10px] text-emerald-400 flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                            <span>Syncing</span>
+                          </span>
+                        </div>
+                        <div className="space-y-2 text-xs">
+                          <div className="p-2 rounded-lg bg-slate-950/60 border border-slate-800 flex justify-between items-center">
+                            <span className="text-slate-300 truncate">Microsoft SWE Drive interview slots released</span>
+                            <span className="text-[10px] text-slate-500 font-mono">10m ago</span>
+                          </div>
+                          <div className="p-2 rounded-lg bg-slate-950/60 border border-slate-800 flex justify-between items-center">
+                            <span className="text-slate-300 truncate">AI generated 7-day revision roadmap for Algorithms</span>
+                            <span className="text-[10px] text-slate-500 font-mono">25m ago</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {heroPreviewTab === 'study' && (
+                  <div className="space-y-4">
+                    <div className="p-4 rounded-2xl bg-indigo-950/30 border border-indigo-500/30 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center flex-shrink-0">
+                        <Sparkles className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-bold text-white">Hybrid Deterministic AI Revision Engine</h4>
+                        <p className="text-[11px] text-slate-300">
+                          Formulates custom 7-day study roadmaps based on attendance deficits and mid-term exam weighting.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <span className="text-[10px] font-bold text-cyan-400 block mb-1">Day 1-2 • Priority 1</span>
+                        <span className="font-bold text-white block">Dynamic Programming</span>
+                        <span className="text-[10px] text-slate-400 block mt-1">Weighted 28% of Final Exam</span>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <span className="text-[10px] font-bold text-indigo-400 block mb-1">Day 3-4 • Priority 2</span>
+                        <span className="font-bold text-white block">Graph Algorithms & Trees</span>
+                        <span className="text-[10px] text-slate-400 block mt-1">BFS/DFS, Dijkstra Pathing</span>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <span className="text-[10px] font-bold text-emerald-400 block mb-1">Day 5-7 • Mock Tests</span>
+                        <span className="font-bold text-white block">Full Lab Exam Simulation</span>
+                        <span className="text-[10px] text-slate-400 block mt-1">Timed Code Submissions</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {heroPreviewTab === 'placements' && (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="font-bold text-white text-xs">Google SWE</span>
+                          <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">42 LPA</span>
+                        </div>
+                        <span className="text-[11px] text-slate-400 block">Criteria: CGPA ≥ 8.5 • 0 Backlogs</span>
+                        <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400">
+                          <CheckCircle2 className="w-3 h-3" /> Eligible on Server
+                        </span>
+                      </div>
+                      <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="font-bold text-white text-xs">Microsoft Azure</span>
+                          <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">38 LPA</span>
+                        </div>
+                        <span className="text-[11px] text-slate-400 block">Criteria: CGPA ≥ 8.0 • 0 Backlogs</span>
+                        <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400">
+                          <CheckCircle2 className="w-3 h-3" /> Eligible on Server
+                        </span>
+                      </div>
+                      <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="font-bold text-white text-xs">Amazon AWS</span>
+                          <span className="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">28 LPA</span>
+                        </div>
+                        <span className="text-[11px] text-slate-400 block">Criteria: CGPA ≥ 7.5 • 0 Backlogs</span>
+                        <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-cyan-400">
+                          <CheckCircle2 className="w-3 h-3" /> Eligible on Server
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {heroPreviewTab === 'attendance' && (
+                  <div className="space-y-4">
+                    <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                      <div>
+                        <span className="text-xs font-bold text-white block">75% Mandatory Attendance Regulatory Guard</span>
+                        <span className="text-[11px] text-slate-400 block mt-0.5">
+                          Autonomous institutions mandate 75% for hall-ticket eligibility. The server enforces instant warnings at 76%.
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="text-right">
+                          <span className="text-xl font-extrabold text-emerald-400">89.4%</span>
+                          <span className="text-[10px] text-slate-400 block font-semibold">Safe Standing</span>
+                        </div>
+                        <div className="w-12 h-12 rounded-full border-4 border-emerald-500 border-t-emerald-400 flex items-center justify-center font-bold text-xs text-white">
+                          89%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Institutional Accreditation & Enterprise Trust Strip */}
+          <div className="mt-16 pt-10 border-t border-slate-800/60 max-w-6xl mx-auto">
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest text-center mb-6">
+              Accredited Institutional Framework • Built for Autonomous Universities
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
+              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center hover:border-indigo-500/40 transition-colors">
+                <span className="block text-xs font-black text-amber-400">NAAC A+</span>
+                <span className="text-[10px] text-slate-400 font-semibold">Autonomous Grade</span>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center hover:border-indigo-500/40 transition-colors">
+                <span className="block text-xs font-black text-cyan-400">NBA Accredited</span>
+                <span className="text-[10px] text-slate-400 font-semibold">CSE, ECE, MECH</span>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center hover:border-indigo-500/40 transition-colors">
+                <span className="block text-xs font-black text-emerald-400">AICTE Approved</span>
+                <span className="text-[10px] text-slate-400 font-semibold">Technical Standard</span>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center hover:border-indigo-500/40 transition-colors">
+                <span className="block text-xs font-black text-indigo-400">NIRF Ranked</span>
+                <span className="text-[10px] text-slate-400 font-semibold">Top Tier Category</span>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center hover:border-indigo-500/40 transition-colors">
+                <span className="block text-xs font-black text-purple-400">Anurag University</span>
+                <span className="text-[10px] text-slate-400 font-semibold">Code: AU Hyderabad</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -957,83 +1220,288 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Architectural Pillars & Feature Grid with Scroll Motion */}
-      <section id="features" ref={featuresRef} className="py-16 md:py-24 bg-slate-950/40 border-t border-slate-800/80">
+      {/* Architectural Bento Grid with Scroll Motion */}
+      <section id="features" ref={featuresRef} className="py-20 md:py-28 bg-slate-950/40 border-t border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
-            className={`text-center max-w-3xl mx-auto mb-14 transition-all duration-700 transform ${
+            className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 transform ${
               featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
             <div className="inline-flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 animate-pulse-slow">
               <Layers className="w-3.5 h-3.5" />
-              <span>Full-Stack Architecture</span>
+              <span>Full-Stack Architecture & Bento Layout</span>
             </div>
             <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Engineered for Precision, Zero Bloat
+              Engineered for Precision, Zero Hallucinations
             </h3>
             <p className="mt-3 text-xs sm:text-sm text-slate-400">
-              Built strictly on the classic MERN stack (MongoDB, Express, React, Node.js) with production-grade security, indexing, and deterministic fallbacks.
+              Built on production-grade MERN primitives with multi-tenant MongoDB isolation, deterministic rule engines, and sub-millisecond cryptographic JWT authorization.
             </p>
           </div>
 
+          {/* High-End Bento Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((f, idx) => {
-              const Icon = f.icon;
-              return (
-                <div
-                  key={idx}
-                  className={`p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-indigo-500/50 transition-all duration-500 group hover:-translate-y-2 hover:scale-[1.01] hover:shadow-2xl hover:shadow-indigo-500/10 transform ${
-                    featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                  }`}
-                  style={{ transitionDelay: `${idx * 80}ms` }}
-                >
-                  <div
-                    className={`w-10 h-10 rounded-xl bg-gradient-to-br ${f.gradient} p-2 flex items-center justify-center text-white mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}
-                  >
-                    <Icon className="w-5 h-5" />
+            {/* Bento 1: Large 2-Col AI Study Engine */}
+            <div
+              className={`lg:col-span-2 p-7 rounded-3xl bg-slate-900/40 border border-slate-800/80 hover:border-indigo-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-indigo-500/10 transform ${
+                featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-500 p-2.5 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
+                    <Sparkles className="w-6 h-6" />
                   </div>
-                  <h4 className="text-sm font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">
-                    {f.title}
-                  </h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">{f.description}</p>
+                  <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                    Dual Hybrid AI Engine
+                  </span>
                 </div>
-              );
-            })}
+                <h4 className="text-lg font-extrabold text-white mb-2 group-hover:text-indigo-300 transition-colors">
+                  Deterministic Study Diagnostics & AI Roadmaps
+                </h4>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-xl">
+                  Connects live student course enrollments with historical syllabus exam weighting. If Gemini API credentials are omitted, it automatically falls back to an intelligent mathematical rules engine that formulates accredited 7-day revision plans without hallucinations.
+                </p>
+              </div>
+
+              {/* Interactive Mock Prompt Banner */}
+              <div className="mt-6 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono">
+                <div className="flex items-center justify-between text-slate-400 pb-2 border-b border-slate-800/80 text-[11px]">
+                  <span>AI Request: Study Roadmap • CSE Semester 6</span>
+                  <span className="text-emerald-400 font-bold">200 OK • 18ms</span>
+                </div>
+                <div className="pt-3 space-y-1.5 text-slate-300 text-[11px]">
+                  <p className="text-cyan-400 font-semibold">→ Primary Focus: Dynamic Programming & Binary Search Trees (28% marks)</p>
+                  <p className="text-indigo-400 font-semibold">→ Secondary Focus: Cloud Distributed Transaction Isolation (22% marks)</p>
+                  <p className="text-slate-400">→ Scheduled Practice: 3 Timed Lab Coding Challenges</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Bento 2: 75% Attendance Guardrail */}
+            <div
+              className={`p-7 rounded-3xl bg-slate-900/40 border border-slate-800/80 hover:border-emerald-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-emerald-500/10 transform ${
+                featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: '100ms' }}
+            >
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 p-2.5 flex items-center justify-center text-white mb-4 shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <h4 className="text-base font-extrabold text-white mb-2 group-hover:text-emerald-300 transition-colors">
+                  75% Attendance Regulatory Guard
+                </h4>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Autonomous university regulations mandate a minimum of 75% attendance for examination eligibility. Real-time notifications alert students when attendance drops under 76%.
+                </p>
+              </div>
+
+              <div className="mt-6 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <span className="text-xs font-bold text-white block">Threshold Monitor</span>
+                  <span className="text-[10px] text-emerald-400 font-semibold">Safe Standing: 89.4%</span>
+                </div>
+                <div className="w-10 h-10 rounded-full border-2 border-emerald-400 flex items-center justify-center font-bold text-xs text-white">
+                  ✓
+                </div>
+              </div>
+            </div>
+
+            {/* Bento 3: Server-Side Placement Engine */}
+            <div
+              className={`p-7 rounded-3xl bg-slate-900/40 border border-slate-800/80 hover:border-violet-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-violet-500/10 transform ${
+                featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: '150ms' }}
+            >
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-500 p-2.5 flex items-center justify-center text-white mb-4 shadow-lg shadow-violet-500/20 group-hover:scale-110 transition-transform">
+                  <Briefcase className="w-6 h-6" />
+                </div>
+                <h4 className="text-base font-extrabold text-white mb-2 group-hover:text-violet-300 transition-colors">
+                  Deterministic Server Placement Guard
+                </h4>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Even if a visitor tampers with the frontend client, the backend placementController enforces strict database-level checks on live CGPA and backlogs before recording any application.
+                </p>
+              </div>
+
+              <div className="mt-6 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1.5 text-[11px]">
+                <div className="flex justify-between items-center text-slate-300">
+                  <span>Google SWE (CGPA ≥ 8.5):</span>
+                  <span className="text-emerald-400 font-bold">ALLOWED</span>
+                </div>
+                <div className="flex justify-between items-center text-slate-300">
+                  <span>Backlogs Allowed:</span>
+                  <span className="text-rose-400 font-bold">0 MAX</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bento 4: Large 2-Col Multi-Tenant Isolation */}
+            <div
+              className={`lg:col-span-2 p-7 rounded-3xl bg-slate-900/40 border border-slate-800/80 hover:border-blue-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-blue-500/10 transform ${
+                featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: '200ms' }}
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 p-2.5 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                    <Building2 className="w-6 h-6" />
+                  </div>
+                  <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">
+                    Enterprise Multi-Tenancy
+                  </span>
+                </div>
+                <h4 className="text-lg font-extrabold text-white mb-2 group-hover:text-blue-300 transition-colors">
+                  Institutional Scoping & Cross-Campus Scalability
+                </h4>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-xl">
+                  Every user, department, course, subject, attendance log, and job drive is indexed and partitioned by institutional boundaries. A single CampusFlow cluster can power multiple autonomous colleges with zero cross-tenant data leakage.
+                </p>
+              </div>
+
+              <div className="mt-6 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-blue-400" />
+                  <span className="font-semibold text-white">Anurag University (Code AU)</span>
+                </div>
+                <span className="text-[11px] text-slate-400 font-mono">Scoped Collections: 14 • Isolated DB Indexing</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Placement Hub Banner with Scroll Zoom Motion */}
-      <section id="placements" ref={placementsRef} className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Placement Hub with Interactive Screener */}
+      <section id="placements" ref={placementsRef} className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className={`p-8 md:p-12 rounded-3xl bg-gradient-to-r from-indigo-950/80 via-slate-900 to-purple-950/80 border border-indigo-500/30 hover:border-indigo-500/60 shadow-2xl shadow-indigo-950/50 relative overflow-hidden transition-all duration-700 transform ${
+          className={`p-8 md:p-12 rounded-3xl bg-gradient-to-r from-indigo-950/80 via-slate-900 to-purple-950/80 border border-indigo-500/30 hover:border-indigo-500/60 shadow-2xl shadow-indigo-950/60 relative overflow-hidden transition-all duration-700 transform ${
             placementsVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.96] translate-y-12'
           }`}
         >
-          <div className="max-w-2xl relative z-10">
-            <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-2 block">
-              Corporate Recruitment Engine
-            </span>
-            <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-snug">
-              Connected with Leading Tech Enterprises
-            </h3>
-            <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
-              CampusFlow automates end-to-end recruitment drives for Anurag University students. From dynamic criteria evaluation to multi-stage interview scheduling, offers are tracked with zero administrative friction.
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            {/* Left Column Description */}
+            <div className="lg:col-span-6">
+              <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-2 block">
+                Corporate Recruitment Engine
+              </span>
+              <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-snug">
+                Connected with Industry Leaders & Global Tech Giants
+              </h3>
+              <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                CampusFlow automates the entire recruitment lifecycle for Anurag University students—from dynamic criteria screening to multi-stage interview scheduling and offer letter verification.
+              </p>
 
-            <div className="mt-6 flex flex-wrap gap-4 text-xs font-semibold text-slate-200">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-emerald-500/40 transition-colors">
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Google (42 LPA)</span>
+              <div className="mt-6 flex flex-wrap gap-2.5 text-xs font-semibold text-slate-200">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Google (42 LPA)</span>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Microsoft (38 LPA)</span>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Amazon AWS (28 LPA)</span>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>TCS Digital (9.5 LPA)</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-emerald-500/40 transition-colors">
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Microsoft (38 LPA)</span>
+            </div>
+
+            {/* Right Column: Live Interactive Placement Eligibility Screener */}
+            <div className="lg:col-span-6 p-6 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-xl backdrop-blur-xl">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                <span className="text-xs font-extrabold text-white uppercase tracking-wider">
+                  Live Eligibility Screener Sandbox
+                </span>
+                <span className="text-[10px] text-indigo-400 font-bold bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
+                  Dynamic Server Evaluation
+                </span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-slate-800 hover:border-emerald-500/40 transition-colors">
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Amazon AWS (28 LPA)</span>
+
+              <div className="space-y-4 mt-5">
+                {/* CGPA Slider */}
+                <div>
+                  <div className="flex justify-between text-xs font-semibold mb-1.5">
+                    <span className="text-slate-300">Your Current CGPA:</span>
+                    <span className="text-indigo-400 font-bold">{demoCgpa.toFixed(1)} / 10.0</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5.0"
+                    max="10.0"
+                    step="0.1"
+                    value={demoCgpa}
+                    onChange={(e) => setDemoCgpa(parseFloat(e.target.value))}
+                    className="w-full accent-indigo-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer"
+                  />
+                </div>
+
+                {/* Backlogs Selector */}
+                <div>
+                  <div className="flex justify-between text-xs font-semibold mb-1.5">
+                    <span className="text-slate-300">Active Backlogs:</span>
+                    <span className="text-cyan-400 font-bold">{demoBacklogs} Active</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[0, 1, 2].map((b) => (
+                      <button
+                        key={b}
+                        onClick={() => setDemoBacklogs(b)}
+                        className={`py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          demoBacklogs === b
+                            ? 'bg-cyan-600 text-white shadow-xs'
+                            : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+                        }`}
+                      >
+                        {b === 2 ? '2+ Backlogs' : `${b} Backlog`}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Live Real-Time Drive Unlocks */}
+                <div className="pt-2 space-y-2 text-xs">
+                  <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+                    <div>
+                      <span className="font-bold text-white block">Google Software Engineer (42 LPA)</span>
+                      <span className="text-[10px] text-slate-400">Min CGPA 8.5 • 0 Backlogs</span>
+                    </div>
+                    {isEligibleForGoogle ? (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">
+                        ELIGIBLE
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400">
+                        INELIGIBLE
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+                    <div>
+                      <span className="font-bold text-white block">Microsoft Azure Core (38 LPA)</span>
+                      <span className="text-[10px] text-slate-400">Min CGPA 8.0 • 0 Backlogs</span>
+                    </div>
+                    {demoCgpa >= 8.0 && demoBacklogs === 0 ? (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">
+                        ELIGIBLE
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400">
+                        INELIGIBLE
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1041,7 +1509,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ Accordion Section with Staggered Cascades */}
-      <section id="faq" ref={faqRef} className="py-16 md:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="faq" ref={faqRef} className="py-20 md:py-28 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className={`text-center mb-12 transition-all duration-700 transform ${
             faqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -1114,18 +1582,79 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Professional Footer */}
-      <footer className="py-8 bg-slate-950 border-t border-slate-900 text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <GraduationCap className="w-4 h-4 text-indigo-400" />
-            <span className="font-bold text-slate-400">CampusFlow</span>
-            <span>• Anurag University, Hyderabad, Telangana</span>
+      {/* Enterprise Multi-Column Footer */}
+      <footer className="py-14 bg-slate-950 border-t border-slate-900 text-xs text-slate-400">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+            {/* Col 1: Brand & University Info */}
+            <div className="lg:col-span-2 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
+                  <GraduationCap className="w-4 h-4" />
+                </div>
+                <span className="text-base font-extrabold text-white">CampusFlow OS</span>
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                  AU Hyderabad
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+                Unified institutional operating platform engineered for Anurag University. Integrating academic tracking, AI revision assistance, biometric attendance guardrails, and automated job drive funnels.
+              </p>
+              <div className="text-[11px] text-slate-500">
+                Venkatapur, Ghatkesar, Medchal-Malkajgiri district, Hyderabad, Telangana 500088
+              </div>
+            </div>
+
+            {/* Col 2: Institutional Portals */}
+            <div className="space-y-2.5">
+              <span className="text-xs font-bold text-white uppercase tracking-wider block">Portals</span>
+              <ul className="space-y-1.5 text-slate-400 text-xs">
+                <li><a href="#personas" className="hover:text-white transition-colors">Super Administrator</a></li>
+                <li><a href="#personas" className="hover:text-white transition-colors">Campus Administrator</a></li>
+                <li><a href="#personas" className="hover:text-white transition-colors">Faculty Suite</a></li>
+                <li><a href="#personas" className="hover:text-white transition-colors">Student Workstation</a></li>
+                <li><a href="#personas" className="hover:text-white transition-colors">Placement Officer</a></li>
+              </ul>
+            </div>
+
+            {/* Col 3: Core Modules */}
+            <div className="space-y-2.5">
+              <span className="text-xs font-bold text-white uppercase tracking-wider block">Modules</span>
+              <ul className="space-y-1.5 text-slate-400 text-xs">
+                <li><a href="#simulator" className="hover:text-white transition-colors">Attendance Guardrail</a></li>
+                <li><a href="#features" className="hover:text-white transition-colors">Deterministic AI Engine</a></li>
+                <li><a href="#placements" className="hover:text-white transition-colors">Corporate Placement Hub</a></li>
+                <li><a href="#simulator" className="hover:text-white transition-colors">Department Governance</a></li>
+                <li><a href="#features" className="hover:text-white transition-colors">Audit Telemetry</a></li>
+              </ul>
+            </div>
+
+            {/* Col 4: Accreditations */}
+            <div className="space-y-2.5">
+              <span className="text-xs font-bold text-white uppercase tracking-wider block">Accreditations</span>
+              <ul className="space-y-1.5 text-slate-400 text-xs">
+                <li><span className="text-amber-400 font-semibold">NAAC A+ Grade</span></li>
+                <li><span className="text-cyan-400 font-semibold">NBA Accredited (CSE/ECE)</span></li>
+                <li><span className="text-emerald-400 font-semibold">AICTE Approved</span></li>
+                <li><span className="text-indigo-400 font-semibold">UGC Autonomous</span></li>
+                <li><span className="text-purple-400 font-semibold">NIRF Tier 1 Ranked</span></li>
+              </ul>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 text-[11px] text-slate-400">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>All Systems Operational (v1.2.0 • MERN Stack Only)</span>
+          {/* Footer Bottom Strip */}
+          <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
+            <div>
+              © 2026 CampusFlow OS • Anurag University. All rights reserved.
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1.5 text-emerald-400 font-semibold">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                All Services Online
+              </span>
+              <span>•</span>
+              <span>MERN Stack Production Release</span>
+            </div>
           </div>
         </div>
       </footer>

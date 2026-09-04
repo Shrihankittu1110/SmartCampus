@@ -15,18 +15,24 @@ export const ToastProvider = ({ children }) => {
     return null;
   });
 
-  const showToast = useCallback((message, type = "success", duration = 3500) => {
-    setToast({ message, type, duration });
+  const showToast = useCallback((message, type = "success", title = null, duration = 3500) => {
+    try {
+      sessionStorage.removeItem("cf_flash_toast");
+    } catch {}
+    setToast({ message, type, title, duration });
   }, []);
 
-  const flashToast = useCallback((message, type = "success") => {
+  const flashToast = useCallback((message, type = "success", title = null, duration = 3500) => {
     try {
-      sessionStorage.setItem("cf_flash_toast", JSON.stringify({ message, type, duration: 3500 }));
+      sessionStorage.setItem("cf_flash_toast", JSON.stringify({ message, type, title, duration }));
     } catch {}
-    setToast({ message, type, duration: 3500 });
+    setToast({ message, type, title, duration });
   }, []);
 
   const hideToast = useCallback(() => {
+    try {
+      sessionStorage.removeItem("cf_flash_toast");
+    } catch {}
     setToast(null);
   }, []);
 
@@ -37,6 +43,7 @@ export const ToastProvider = ({ children }) => {
         <Toast
           message={toast.message}
           type={toast.type}
+          title={toast.title}
           duration={toast.duration || 3500}
           onClose={hideToast}
         />

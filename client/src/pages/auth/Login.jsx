@@ -35,12 +35,12 @@ export default function Login() {
 
     try {
       await login({ email, password });
-      flashToast('Login successful! Welcome to Anurag University.', 'success');
+      flashToast('Welcome back to Anurag University.', 'success', 'Login Successful');
       navigate('/dashboard');
     } catch (err) {
       const msg = err.response?.data?.message || err.message || 'Login failed. Please check credentials.';
       setError(msg);
-      showToast(msg, 'error');
+      showToast(msg, 'error', 'Login Failed');
     } finally {
       setLoading(false);
     }
@@ -50,7 +50,7 @@ export default function Login() {
     setEmail(demoEmail);
     setPassword(demoPassword);
     setError('');
-    showToast(`Loaded ${roleLabel} demo credentials`, 'success');
+    showToast(`Autofilled ${roleLabel} demo credentials into form`, 'info', 'Credentials Loaded');
   };
 
   return (

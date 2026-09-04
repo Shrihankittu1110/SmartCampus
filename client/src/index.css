@@ -132,3 +132,23 @@
   background-size: 200% 100%;
   animation: shimmerGlow 3s infinite;
 }
+
+/* Professional Enterprise Tech Mesh & Grid Patterns */
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.bg-dot-mesh {
+  background-image: radial-gradient(rgba(99, 102, 241, 0.18) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+.spotlight-gradient {
+  background: radial-gradient(750px circle at 50% 0%, rgba(99, 102, 241, 0.18), transparent 70%);
+}
+
+.glass-command-bar {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(2, 6, 23, 0.95) 100%);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.12);
+}

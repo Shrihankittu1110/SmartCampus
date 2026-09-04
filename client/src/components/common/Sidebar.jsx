@@ -20,15 +20,22 @@ import {
   Award,
   ChevronRight,
 } from 'lucide-react';
+import { useToast } from '../../context/ToastContext';
 
 export default function Sidebar({ isOpen, onClose }) {
   const { user, logout } = useAuth();
+  const { flashToast } = useToast();
   const navigate = useNavigate();
 
   if (!user) return null;
 
   const handleLogout = async () => {
-    await logout();
+    try {
+      await logout();
+      flashToast('You have been safely logged out of your session.', 'logout', 'Logged Out');
+    } catch {
+      flashToast('Logged out of your session.', 'logout', 'Logged Out');
+    }
     navigate('/login');
   };
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { CheckCircle2, AlertCircle, X } from 'lucide-react';
+import { CheckCircle2, AlertCircle, X, LogOut, Info } from 'lucide-react';
 
-export default function Toast({ message, type = 'success', onClose, duration = 3500 }) {
+export default function Toast({ message, type = 'success', title, onClose, duration = 3500 }) {
   useEffect(() => {
     if (duration) {
       const timer = setTimeout(() => {
@@ -14,21 +14,43 @@ export default function Toast({ message, type = 'success', onClose, duration = 3
   if (!message) return null;
 
   const isSuccess = type === 'success';
+  const isLogout = type === 'logout';
+  const isInfo = type === 'info';
+  const isError = type === 'error';
+
+  let defaultTitle = 'Notice';
+  if (isSuccess) defaultTitle = 'Success';
+  else if (isLogout) defaultTitle = 'Logged Out';
+  else if (isInfo) defaultTitle = 'Information';
+  else if (isError) defaultTitle = 'Error';
+
+  const displayTitle = title || defaultTitle;
 
   return (
-    <div className="fixed top-6 right-4 left-4 sm:left-auto sm:right-6 z-[99999] flex items-center gap-3 px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-xl border transition-all duration-200 max-w-sm w-auto bg-slate-900/95 border-slate-800 text-white">
-      {isSuccess ? (
+    <div className="fixed top-6 right-4 left-4 sm:left-auto sm:right-6 z-[99999] flex items-center gap-3 px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-xl border transition-all duration-200 max-w-sm w-auto bg-slate-900/95 border-slate-800 text-white animate-in fade-in slide-in-from-top-4">
+      {isSuccess && (
         <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 shadow-sm shadow-emerald-500/20">
           <CheckCircle2 className="w-4 h-4" />
         </div>
-      ) : (
+      )}
+      {isLogout && (
+        <div className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center flex-shrink-0 shadow-sm shadow-indigo-500/20">
+          <LogOut className="w-4 h-4" />
+        </div>
+      )}
+      {isInfo && (
+        <div className="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center flex-shrink-0 shadow-sm shadow-cyan-500/20">
+          <Info className="w-4 h-4" />
+        </div>
+      )}
+      {isError && (
         <div className="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center flex-shrink-0 shadow-sm shadow-rose-500/20">
           <AlertCircle className="w-4 h-4" />
         </div>
       )}
       <div className="flex-1 min-w-0">
         <p className="text-xs font-bold text-white">
-          {isSuccess ? 'Success' : 'Notice'}
+          {displayTitle}
         </p>
         <p className="text-[11px] text-slate-300 truncate">{message}</p>
       </div>
