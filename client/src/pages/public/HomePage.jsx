@@ -227,69 +227,69 @@ export default function HomePage() {
   const isEligibleForInfosys = demoCgpa >= 6.0 && demoBacklogs <= 1;
 
   return (
-    <div className="min-h-screen bg-[#070A12] text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-indigo-300 relative overflow-x-hidden bg-grid-pattern">
+    <div className="min-h-screen bg-space-cobalt text-white font-sans selection:bg-orange-500/30 selection:text-orange-200 relative overflow-x-hidden bg-grid-pattern">
       {/* Top Reading Scroll Progress Indicator */}
       <div
-        className="fixed top-0 left-0 h-[2.5px] bg-gradient-to-r from-indigo-500 via-cyan-400 to-violet-500 z-[100] transition-all duration-75"
+        className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-[#ff6b00] via-[#ff8800] to-[#ffa133] z-[100] transition-all duration-75 shadow-sm shadow-orange-500/50"
         style={{ width: `${scrollProgress}%` }}
       />
 
       {/* Ambient Lighting Mesh Orbs */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-b from-indigo-600/15 via-violet-600/10 to-transparent blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-[600px] left-[-150px] w-[500px] h-[500px] bg-cyan-600/10 blur-3xl rounded-full pointer-events-none -z-10" />
-      <div className="absolute top-[1200px] right-[-150px] w-[600px] h-[600px] bg-indigo-500/10 blur-3xl rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-b from-blue-500/25 via-indigo-600/15 to-transparent blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-[600px] left-[-150px] w-[500px] h-[500px] bg-blue-600/15 blur-3xl rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-[1200px] right-[-150px] w-[600px] h-[600px] bg-orange-500/10 blur-3xl rounded-full pointer-events-none -z-10" />
 
       {/* Top Glassmorphic Navigation with Scroll Motion */}
       <nav
         className={`sticky top-0 z-50 backdrop-blur-xl transition-all duration-300 ${
           scrolled
-            ? 'bg-slate-950/90 border-b border-indigo-500/25 shadow-2xl shadow-indigo-950/40 py-0.5'
-            : 'bg-slate-950/60 border-b border-slate-800/70 py-0'
+            ? 'bg-[#0e1450]/92 border-b border-white/15 shadow-2xl shadow-blue-950/60 py-0.5'
+            : 'bg-[#141b68]/70 border-b border-white/10 py-0'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[1.5px] shadow-lg shadow-indigo-500/20 group-hover:scale-110 group-hover:rotate-2 transition-all">
-                <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                  <GraduationCap className="w-5 h-5 text-indigo-400 group-hover:text-cyan-400 transition-colors" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#ff6b00] to-[#ffa133] p-[1.5px] shadow-lg shadow-orange-500/30 group-hover:scale-110 group-hover:rotate-2 transition-all">
+                <div className="w-full h-full bg-[#0e1450] rounded-[10px] flex items-center justify-center">
+                  <GraduationCap className="w-5 h-5 text-orange-400 group-hover:text-white transition-colors" />
                 </div>
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-lg tracking-tight text-white group-hover:text-indigo-300 transition-colors">
+                  <span className="font-extrabold text-lg tracking-tight text-white group-hover:text-orange-300 transition-colors">
                     CampusFlow
                   </span>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/20">
                     AU
                   </span>
                 </div>
-                <span className="text-[10px] text-slate-400 tracking-wider block">Anurag University OS</span>
+                <span className="text-[10px] text-blue-200/80 tracking-wider block">Anurag University OS</span>
               </div>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center gap-8 text-xs font-semibold text-slate-300">
+            <div className="hidden md:flex items-center gap-8 text-xs font-semibold text-blue-100/90">
               <a href="#simulator" className="hover:text-white transition-colors relative group py-1">
                 <span>Interactive Preview</span>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 rounded-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ff6b00] group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
               <a href="#personas" className="hover:text-white transition-colors relative group py-1">
                 <span>Role Portals</span>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 rounded-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ff6b00] group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
               <a href="#features" className="hover:text-white transition-colors relative group py-1">
                 <span>Features</span>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 rounded-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ff6b00] group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
               <a href="#placements" className="hover:text-white transition-colors relative group py-1">
                 <span>Placement Hub</span>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 rounded-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ff6b00] group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
               <a href="#faq" className="hover:text-white transition-colors relative group py-1">
                 <span>FAQ</span>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300 rounded-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ff6b00] group-hover:w-full transition-all duration-300 rounded-full" />
               </a>
             </div>
 
@@ -298,7 +298,7 @@ export default function HomePage() {
               {user ? (
                 <Link
                   to="/dashboard"
-                  className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
+                  className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-white btn-vivid-orange rounded-xl cursor-pointer"
                 >
                   <span>Go to Dashboard</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -307,15 +307,15 @@ export default function HomePage() {
                 <>
                   <Link
                     to="/login"
-                    className="px-3.5 py-2 text-xs font-semibold text-slate-300 hover:text-white rounded-xl hover:bg-slate-900 border border-transparent hover:border-slate-800 transition-all"
+                    className="px-3.5 py-2 text-xs font-semibold text-blue-100 hover:text-white rounded-xl hover:bg-white/10 border border-transparent hover:border-white/20 transition-all"
                   >
                     Sign In
                   </Link>
                   <a
                     href="#personas"
-                    className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
+                    className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white btn-vivid-orange rounded-xl cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
+                    <Sparkles className="w-3.5 h-3.5 text-white" />
                     <span>Try Demo Portals</span>
                   </a>
                 </>
@@ -326,7 +326,7 @@ export default function HomePage() {
             <div className="sm:hidden flex items-center">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-900"
+                className="p-2 rounded-lg text-blue-200 hover:text-white hover:bg-white/10"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -336,32 +336,32 @@ export default function HomePage() {
 
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <div className="sm:hidden px-4 pt-2 pb-4 bg-slate-950/95 border-b border-slate-800 space-y-2">
+          <div className="sm:hidden px-4 pt-2 pb-4 bg-[#0e1450]/98 border-b border-white/15 space-y-2">
             <a
               href="#simulator"
               onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-xs font-semibold text-slate-300"
+              className="block py-2 text-xs font-semibold text-blue-100 hover:text-white"
             >
               Interactive Preview
             </a>
             <a
               href="#personas"
               onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-xs font-semibold text-slate-300"
+              className="block py-2 text-xs font-semibold text-blue-100 hover:text-white"
             >
               Role Portals
             </a>
             <a
               href="#features"
               onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-xs font-semibold text-slate-300"
+              className="block py-2 text-xs font-semibold text-blue-100 hover:text-white"
             >
               Features
             </a>
             <a
               href="#faq"
               onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-xs font-semibold text-slate-300"
+              className="block py-2 text-xs font-semibold text-blue-100 hover:text-white"
             >
               FAQ
             </a>
@@ -369,14 +369,14 @@ export default function HomePage() {
               {user ? (
                 <Link
                   to="/dashboard"
-                  className="w-full text-center py-2.5 text-xs font-bold text-white bg-gradient-to-r from-indigo-500 to-violet-600 rounded-xl shadow-md"
+                  className="w-full text-center py-2.5 text-xs font-bold text-white btn-vivid-orange rounded-xl shadow-md"
                 >
                   Go to Dashboard →
                 </Link>
               ) : (
                 <Link
                   to="/login"
-                  className="w-full text-center py-2.5 text-xs font-bold text-white bg-indigo-600 rounded-xl"
+                  className="w-full text-center py-2.5 text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl"
                 >
                   Sign In to Portal
                 </Link>
@@ -389,32 +389,32 @@ export default function HomePage() {
       {/* Hero Section with Parallax & Floating Motion Elements */}
       <section ref={heroRef} className="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
         {/* Floating Decorative Badges with Gentle Physics */}
-        <div className="hidden lg:flex absolute top-28 left-6 xl:left-12 items-center gap-3 px-4 py-2.5 rounded-2xl bg-slate-900/85 border border-slate-800/90 backdrop-blur-xl shadow-2xl shadow-indigo-500/15 animate-float-slow z-20 pointer-events-none">
-          <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center">
+        <div className="hidden lg:flex absolute top-28 left-6 xl:left-12 items-center gap-3 px-4 py-2.5 rounded-2xl bg-[#0f154d]/85 border border-white/15 backdrop-blur-xl shadow-2xl shadow-blue-950/60 animate-float-slow z-20 pointer-events-none">
+          <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center">
             <CheckCircle2 className="w-4 h-4" />
           </div>
           <div className="text-left">
-            <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Real-Time Sync</span>
+            <span className="text-[10px] text-blue-200/80 uppercase font-bold tracking-wider block">Real-Time Sync</span>
             <span className="text-xs font-bold text-white">98.4% Attendance Accuracy</span>
           </div>
         </div>
 
-        <div className="hidden lg:flex absolute top-36 right-6 xl:right-12 items-center gap-3 px-4 py-2.5 rounded-2xl bg-slate-900/85 border border-slate-800/90 backdrop-blur-xl shadow-2xl shadow-cyan-500/15 animate-float-delayed z-20 pointer-events-none">
-          <div className="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center">
+        <div className="hidden lg:flex absolute top-36 right-6 xl:right-12 items-center gap-3 px-4 py-2.5 rounded-2xl bg-[#0f154d]/85 border border-white/15 backdrop-blur-xl shadow-2xl shadow-blue-950/60 animate-float-delayed z-20 pointer-events-none">
+          <div className="w-8 h-8 rounded-xl bg-orange-500/20 text-orange-400 border border-orange-500/30 flex items-center justify-center">
             <Briefcase className="w-4 h-4" />
           </div>
           <div className="text-left">
-            <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Top CTC Drive</span>
+            <span className="text-[10px] text-blue-200/80 uppercase font-bold tracking-wider block">Top CTC Drive</span>
             <span className="text-xs font-bold text-white">45 LPA • Google / Microsoft</span>
           </div>
         </div>
 
-        <div className="hidden xl:flex absolute bottom-16 left-20 items-center gap-3 px-4 py-2 rounded-2xl bg-slate-900/85 border border-slate-800/90 backdrop-blur-xl shadow-2xl shadow-purple-500/15 animate-float z-20 pointer-events-none">
-          <div className="w-7 h-7 rounded-xl bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center">
+        <div className="hidden xl:flex absolute bottom-16 left-20 items-center gap-3 px-4 py-2 rounded-2xl bg-[#0f154d]/85 border border-white/15 backdrop-blur-xl shadow-2xl shadow-blue-950/60 animate-float z-20 pointer-events-none">
+          <div className="w-7 h-7 rounded-xl bg-white/10 text-orange-400 border border-white/20 flex items-center justify-center">
             <Sparkles className="w-3.5 h-3.5" />
           </div>
           <div className="text-left">
-            <span className="text-xs font-bold text-slate-200">Zero-Hallucination AI Engine</span>
+            <span className="text-xs font-bold text-white">Zero-Hallucination AI Engine</span>
           </div>
         </div>
 
@@ -424,10 +424,10 @@ export default function HomePage() {
           }`}
         >
           {/* Tag Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-[11px] font-semibold text-indigo-300 mb-6 shadow-xs backdrop-blur-md animate-bounce-slow">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-[11px] font-semibold text-white mb-6 shadow-xs backdrop-blur-md animate-bounce-slow">
             <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
             </span>
             <span>Enterprise Multi-Tenant College OS • Anurag University Edition</span>
           </div>
@@ -435,13 +435,13 @@ export default function HomePage() {
           {/* Main Headline */}
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.15] max-w-4xl mx-auto">
             The Intelligent Operating System for{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-violet-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-orange-400">
               Modern Higher Education
             </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-5 text-sm sm:text-base md:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed font-normal">
+          <p className="mt-5 text-sm sm:text-base md:text-lg text-blue-100/85 max-w-2xl mx-auto leading-relaxed font-normal">
             A unified full-stack MERN platform uniting Anurag University students, faculty, administrators, and corporate recruiters with AI academic diagnostics, real-time attendance guardrails, and automated job drive funnels.
           </p>
 
@@ -449,16 +449,16 @@ export default function HomePage() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <a
               href="#simulator"
-              className="px-6 py-3.5 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-1 transition-all flex items-center gap-2 cursor-pointer group"
+              className="px-6 py-3.5 text-xs sm:text-sm font-bold text-white btn-vivid-orange rounded-xl flex items-center gap-2 cursor-pointer group"
             >
               <span>Explore Interactive Simulator</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#personas"
-              className="px-6 py-3.5 text-xs sm:text-sm font-bold text-slate-200 bg-slate-900/80 hover:bg-slate-800/80 border border-slate-700/80 rounded-xl hover:-translate-y-1 transition-all flex items-center gap-2 backdrop-blur-md hover:border-cyan-500/40 shadow-sm hover:shadow-cyan-500/10"
+              className="px-6 py-3.5 text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl hover:-translate-y-1 transition-all flex items-center gap-2 backdrop-blur-md shadow-sm hover:border-white/40"
             >
-              <Users className="w-4 h-4 text-cyan-400" />
+              <Users className="w-4 h-4 text-orange-400" />
               <span>Launch 1-Click Role Portals</span>
             </a>
           </div>
@@ -466,44 +466,44 @@ export default function HomePage() {
           {/* Live Metrics Ticker with Staggered Scroll-Reveal & Hover Lift */}
           <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto">
             {[
-              { val: '98.4%', label: 'Attendance Accuracy', color: 'text-indigo-400' },
-              { val: '15+', label: 'Active Campus Drives', color: 'text-cyan-400' },
-              { val: '45 LPA', label: 'Top CTC Offered', color: 'text-emerald-400' },
-              { val: '100%', label: 'Server Eligibility Guard', color: 'text-purple-400' },
+              { val: '98.4%', label: 'Attendance Accuracy', color: 'text-white' },
+              { val: '15+', label: 'Active Campus Drives', color: 'text-orange-400' },
+              { val: '45 LPA', label: 'Top CTC Offered', color: 'text-white' },
+              { val: '100%', label: 'Server Eligibility Guard', color: 'text-orange-400' },
             ].map((m, idx) => (
               <div
                 key={m.label}
-                className={`p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 backdrop-blur-md transition-all duration-700 transform hover:-translate-y-2 hover:scale-105 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/10 ${
+                className={`p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md transition-all duration-700 transform hover:-translate-y-2 hover:scale-105 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/20 ${
                   heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
                 <span className={`block text-2xl font-extrabold ${m.color}`}>{m.val}</span>
-                <span className="text-[11px] font-semibold text-slate-400">{m.label}</span>
+                <span className="text-[11px] font-semibold text-blue-200/80">{m.label}</span>
               </div>
             ))}
           </div>
 
           {/* Flagship Interactive Glass Command Console Mockup */}
-          <div className="mt-14 max-w-5xl mx-auto rounded-3xl p-1.5 sm:p-2 bg-gradient-to-b from-slate-700/40 via-slate-800/20 to-slate-900/60 border border-slate-700/60 shadow-2xl shadow-indigo-950/70 backdrop-blur-2xl">
-            <div className="rounded-[22px] bg-slate-950/95 border border-slate-800/90 overflow-hidden text-left shadow-2xl">
+          <div className="mt-14 max-w-5xl mx-auto rounded-3xl p-1.5 sm:p-2 bg-gradient-to-b from-white/20 via-white/10 to-white/5 border border-white/20 shadow-2xl shadow-blue-950/80 backdrop-blur-2xl">
+            <div className="rounded-[22px] bg-[#0c1244]/95 border border-white/15 overflow-hidden text-left shadow-2xl">
               {/* Console Window Header */}
-              <div className="px-4 sm:px-6 py-3.5 border-b border-slate-800/80 bg-slate-900/70 flex flex-wrap items-center justify-between gap-3">
+              <div className="px-4 sm:px-6 py-3.5 border-b border-white/10 bg-[#131a64]/80 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1.5">
                     <span className="w-3 h-3 rounded-full bg-rose-500/80 border border-rose-600/40" />
                     <span className="w-3 h-3 rounded-full bg-amber-500/80 border border-amber-600/40" />
                     <span className="w-3 h-3 rounded-full bg-emerald-500/80 border border-emerald-600/40" />
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-[11px] text-slate-300 font-mono">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-[#090d34] border border-white/10 text-[11px] text-blue-200/80 font-mono">
                     <span className="text-emerald-400">●</span>
                     <span className="text-white font-bold">au.campusflow.edu</span>
-                    <span className="text-slate-500">/workspace/live-session</span>
+                    <span className="text-blue-300/60">/workspace/live-session</span>
                   </div>
                 </div>
 
                 {/* Interactive Console Navigation Tabs */}
-                <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-950/90 border border-slate-800 text-[11px] font-semibold">
+                <div className="flex items-center gap-1 p-1 rounded-xl bg-[#090d34]/90 border border-white/10 text-[11px] font-semibold">
                   {[
                     { id: 'overview', label: 'Campus Overview' },
                     { id: 'study', label: 'AI Study Hub' },
@@ -515,8 +515,8 @@ export default function HomePage() {
                       onClick={() => setHeroPreviewTab(t.id)}
                       className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
                         heroPreviewTab === t.id
-                          ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/30 font-bold'
-                          : 'text-slate-400 hover:text-white'
+                          ? 'bg-gradient-to-r from-[#ff6b00] to-[#ff8800] text-white shadow-sm shadow-orange-500/30 font-bold'
+                          : 'text-blue-200/80 hover:text-white'
                       }`}
                     >
                       {t.label}
@@ -530,59 +530,59 @@ export default function HomePage() {
                 {heroPreviewTab === 'overview' && (
                   <div className="space-y-6">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
-                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Overall Standing</span>
+                      <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                        <span className="text-[10px] uppercase font-bold text-blue-200/70 block">Overall Standing</span>
                         <span className="text-xl font-extrabold text-emerald-400">89.4%</span>
-                        <span className="text-[10px] text-slate-500 block">Attendance Safe</span>
+                        <span className="text-[10px] text-blue-200/60 block">Attendance Safe</span>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
-                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Cumulative GPA</span>
-                        <span className="text-xl font-extrabold text-cyan-400">8.82</span>
-                        <span className="text-[10px] text-slate-500 block">Top 5% Cohort</span>
+                      <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                        <span className="text-[10px] uppercase font-bold text-blue-200/70 block">Cumulative GPA</span>
+                        <span className="text-xl font-extrabold text-white">8.82</span>
+                        <span className="text-[10px] text-blue-200/60 block">Top 5% Cohort</span>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
-                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Eligible Drives</span>
-                        <span className="text-xl font-extrabold text-indigo-400">12 Offers</span>
-                        <span className="text-[10px] text-slate-500 block">Google, MSFT, AWS</span>
+                      <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                        <span className="text-[10px] uppercase font-bold text-blue-200/70 block">Eligible Drives</span>
+                        <span className="text-xl font-extrabold text-orange-400">12 Offers</span>
+                        <span className="text-[10px] text-blue-200/60 block">Google, MSFT, AWS</span>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
-                        <span className="text-[10px] uppercase font-bold text-slate-400 block">System Verification</span>
-                        <span className="text-xl font-extrabold text-purple-400">Active</span>
-                        <span className="text-[10px] text-slate-500 block">Zero-Trust JWT</span>
+                      <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                        <span className="text-[10px] uppercase font-bold text-blue-200/70 block">System Verification</span>
+                        <span className="text-xl font-extrabold text-white">Active</span>
+                        <span className="text-[10px] text-blue-200/60 block">Zero-Trust JWT</span>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
+                      <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                            <BookOpen className="w-3.5 h-3.5 text-indigo-400" />
+                            <BookOpen className="w-3.5 h-3.5 text-orange-400" />
                             <span>Today's Academic Schedule</span>
                           </span>
-                          <span className="text-[10px] font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">Semester 6 CSE</span>
+                          <span className="text-[10px] font-bold text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">Semester 6 CSE</span>
                         </div>
                         <div className="space-y-2 text-xs">
-                          <div className="p-2 rounded-lg bg-slate-950/60 border border-slate-800 flex justify-between items-center">
+                          <div className="p-2 rounded-lg bg-[#090d34]/60 border border-white/10 flex justify-between items-center">
                             <div>
                               <span className="font-semibold text-white block">Distributed Cloud Systems</span>
-                              <span className="text-[10px] text-slate-400">Dr. Alan Turing • Hall 204</span>
+                              <span className="text-[10px] text-blue-200/70">Dr. Alan Turing • Hall 204</span>
                             </div>
                             <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">PRESENT</span>
                           </div>
-                          <div className="p-2 rounded-lg bg-slate-950/60 border border-slate-800 flex justify-between items-center">
+                          <div className="p-2 rounded-lg bg-[#090d34]/60 border border-white/10 flex justify-between items-center">
                             <div>
                               <span className="font-semibold text-white block">Full-Stack Lab Practicum</span>
-                              <span className="text-[10px] text-slate-400">Lab CSE-3 • In Progress</span>
+                              <span className="text-[10px] text-blue-200/70">Lab CSE-3 • In Progress</span>
                             </div>
-                            <span className="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded animate-pulse">LIVE</span>
+                            <span className="text-[10px] font-bold text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded animate-pulse">LIVE</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
+                      <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                            <Sparkles className="w-3.5 h-3.5 text-orange-400" />
                             <span>Live Campus Activity Feed</span>
                           </span>
                           <span className="text-[10px] text-emerald-400 flex items-center gap-1">
@@ -591,13 +591,13 @@ export default function HomePage() {
                           </span>
                         </div>
                         <div className="space-y-2 text-xs">
-                          <div className="p-2 rounded-lg bg-slate-950/60 border border-slate-800 flex justify-between items-center">
-                            <span className="text-slate-300 truncate">Microsoft SWE Drive interview slots released</span>
-                            <span className="text-[10px] text-slate-500 font-mono">10m ago</span>
+                          <div className="p-2 rounded-lg bg-[#090d34]/60 border border-white/10 flex justify-between items-center">
+                            <span className="text-blue-100 truncate">Microsoft SWE Drive interview slots released</span>
+                            <span className="text-[10px] text-blue-300/60 font-mono">10m ago</span>
                           </div>
-                          <div className="p-2 rounded-lg bg-slate-950/60 border border-slate-800 flex justify-between items-center">
-                            <span className="text-slate-300 truncate">AI generated 7-day revision roadmap for Algorithms</span>
-                            <span className="text-[10px] text-slate-500 font-mono">25m ago</span>
+                          <div className="p-2 rounded-lg bg-[#090d34]/60 border border-white/10 flex justify-between items-center">
+                            <span className="text-blue-100 truncate">AI generated 7-day revision roadmap for Algorithms</span>
+                            <span className="text-[10px] text-blue-300/60 font-mono">25m ago</span>
                           </div>
                         </div>
                       </div>
@@ -607,32 +607,32 @@ export default function HomePage() {
 
                 {heroPreviewTab === 'study' && (
                   <div className="space-y-4">
-                    <div className="p-4 rounded-2xl bg-indigo-950/30 border border-indigo-500/30 flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center flex-shrink-0">
+                    <div className="p-4 rounded-2xl bg-white/10 border border-orange-500/30 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-orange-500/20 text-orange-400 border border-orange-500/30 flex items-center justify-center flex-shrink-0">
                         <Sparkles className="w-5 h-5" />
                       </div>
                       <div>
                         <h4 className="text-xs font-bold text-white">Hybrid Deterministic AI Revision Engine</h4>
-                        <p className="text-[11px] text-slate-300">
+                        <p className="text-[11px] text-blue-100/80">
                           Formulates custom 7-day study roadmaps based on attendance deficits and mid-term exam weighting.
                         </p>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
-                        <span className="text-[10px] font-bold text-cyan-400 block mb-1">Day 1-2 • Priority 1</span>
+                      <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                        <span className="text-[10px] font-bold text-orange-400 block mb-1">Day 1-2 • Priority 1</span>
                         <span className="font-bold text-white block">Dynamic Programming</span>
-                        <span className="text-[10px] text-slate-400 block mt-1">Weighted 28% of Final Exam</span>
+                        <span className="text-[10px] text-blue-200/70 block mt-1">Weighted 28% of Final Exam</span>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
-                        <span className="text-[10px] font-bold text-indigo-400 block mb-1">Day 3-4 • Priority 2</span>
+                      <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                        <span className="text-[10px] font-bold text-white block mb-1">Day 3-4 • Priority 2</span>
                         <span className="font-bold text-white block">Graph Algorithms & Trees</span>
-                        <span className="text-[10px] text-slate-400 block mt-1">BFS/DFS, Dijkstra Pathing</span>
+                        <span className="text-[10px] text-blue-200/70 block mt-1">BFS/DFS, Dijkstra Pathing</span>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                      <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
                         <span className="text-[10px] font-bold text-emerald-400 block mb-1">Day 5-7 • Mock Tests</span>
                         <span className="font-bold text-white block">Full Lab Exam Simulation</span>
-                        <span className="text-[10px] text-slate-400 block mt-1">Timed Code Submissions</span>
+                        <span className="text-[10px] text-blue-200/70 block mt-1">Timed Code Submissions</span>
                       </div>
                     </div>
                   </div>
@@ -641,33 +641,33 @@ export default function HomePage() {
                 {heroPreviewTab === 'placements' && (
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                      <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                         <div className="flex justify-between items-center mb-2">
                           <span className="font-bold text-white text-xs">Google SWE</span>
-                          <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">42 LPA</span>
+                          <span className="text-[10px] font-bold text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">42 LPA</span>
                         </div>
-                        <span className="text-[11px] text-slate-400 block">Criteria: CGPA ≥ 8.5 • 0 Backlogs</span>
+                        <span className="text-[11px] text-blue-200/80 block">Criteria: CGPA ≥ 8.5 • 0 Backlogs</span>
                         <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400">
                           <CheckCircle2 className="w-3 h-3" /> Eligible on Server
                         </span>
                       </div>
-                      <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                      <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                         <div className="flex justify-between items-center mb-2">
                           <span className="font-bold text-white text-xs">Microsoft Azure</span>
-                          <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">38 LPA</span>
+                          <span className="text-[10px] font-bold text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">38 LPA</span>
                         </div>
-                        <span className="text-[11px] text-slate-400 block">Criteria: CGPA ≥ 8.0 • 0 Backlogs</span>
+                        <span className="text-[11px] text-blue-200/80 block">Criteria: CGPA ≥ 8.0 • 0 Backlogs</span>
                         <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400">
                           <CheckCircle2 className="w-3 h-3" /> Eligible on Server
                         </span>
                       </div>
-                      <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                      <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                         <div className="flex justify-between items-center mb-2">
                           <span className="font-bold text-white text-xs">Amazon AWS</span>
-                          <span className="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">28 LPA</span>
+                          <span className="text-[10px] font-bold text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">28 LPA</span>
                         </div>
-                        <span className="text-[11px] text-slate-400 block">Criteria: CGPA ≥ 7.5 • 0 Backlogs</span>
-                        <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-cyan-400">
+                        <span className="text-[11px] text-blue-200/80 block">Criteria: CGPA ≥ 7.5 • 0 Backlogs</span>
+                        <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400">
                           <CheckCircle2 className="w-3 h-3" /> Eligible on Server
                         </span>
                       </div>
@@ -677,17 +677,17 @@ export default function HomePage() {
 
                 {heroPreviewTab === 'attendance' && (
                   <div className="space-y-4">
-                    <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
                       <div>
                         <span className="text-xs font-bold text-white block">75% Mandatory Attendance Regulatory Guard</span>
-                        <span className="text-[11px] text-slate-400 block mt-0.5">
+                        <span className="text-[11px] text-blue-200/80 block mt-0.5">
                           Autonomous institutions mandate 75% for hall-ticket eligibility. The server enforces instant warnings at 76%.
                         </span>
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="text-right">
                           <span className="text-xl font-extrabold text-emerald-400">89.4%</span>
-                          <span className="text-[10px] text-slate-400 block font-semibold">Safe Standing</span>
+                          <span className="text-[10px] text-blue-200/70 block font-semibold">Safe Standing</span>
                         </div>
                         <div className="w-12 h-12 rounded-full border-4 border-emerald-500 border-t-emerald-400 flex items-center justify-center font-bold text-xs text-white">
                           89%
@@ -701,30 +701,30 @@ export default function HomePage() {
           </div>
 
           {/* Institutional Accreditation & Enterprise Trust Strip */}
-          <div className="mt-16 pt-10 border-t border-slate-800/60 max-w-6xl mx-auto">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest text-center mb-6">
+          <div className="mt-16 pt-10 border-t border-white/10 max-w-6xl mx-auto">
+            <p className="text-[11px] font-bold text-blue-200/80 uppercase tracking-widest text-center mb-6">
               Accredited Institutional Framework • Built for Autonomous Universities
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
-              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center hover:border-indigo-500/40 transition-colors">
-                <span className="block text-xs font-black text-amber-400">NAAC A+</span>
-                <span className="text-[10px] text-slate-400 font-semibold">Autonomous Grade</span>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center hover:border-orange-500/40 transition-colors">
+                <span className="block text-xs font-black text-orange-400">NAAC A+</span>
+                <span className="text-[10px] text-blue-200/80 font-semibold">Autonomous Grade</span>
               </div>
-              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center hover:border-indigo-500/40 transition-colors">
-                <span className="block text-xs font-black text-cyan-400">NBA Accredited</span>
-                <span className="text-[10px] text-slate-400 font-semibold">CSE, ECE, MECH</span>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center hover:border-orange-500/40 transition-colors">
+                <span className="block text-xs font-black text-white">NBA Accredited</span>
+                <span className="text-[10px] text-blue-200/80 font-semibold">CSE, ECE, MECH</span>
               </div>
-              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center hover:border-indigo-500/40 transition-colors">
-                <span className="block text-xs font-black text-emerald-400">AICTE Approved</span>
-                <span className="text-[10px] text-slate-400 font-semibold">Technical Standard</span>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center hover:border-orange-500/40 transition-colors">
+                <span className="block text-xs font-black text-orange-300">AICTE Approved</span>
+                <span className="text-[10px] text-blue-200/80 font-semibold">Technical Standard</span>
               </div>
-              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center hover:border-indigo-500/40 transition-colors">
-                <span className="block text-xs font-black text-indigo-400">NIRF Ranked</span>
-                <span className="text-[10px] text-slate-400 font-semibold">Top Tier Category</span>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center hover:border-orange-500/40 transition-colors">
+                <span className="block text-xs font-black text-white">NIRF Ranked</span>
+                <span className="text-[10px] text-blue-200/80 font-semibold">Top Tier Category</span>
               </div>
-              <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 text-center hover:border-indigo-500/40 transition-colors">
-                <span className="block text-xs font-black text-purple-400">Anurag University</span>
-                <span className="text-[10px] text-slate-400 font-semibold">Code: AU Hyderabad</span>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center hover:border-orange-500/40 transition-colors">
+                <span className="block text-xs font-black text-orange-400 font-bold">Anurag University</span>
+                <span className="text-[10px] text-blue-200/80 font-semibold">Code: AU Hyderabad</span>
               </div>
             </div>
           </div>
@@ -732,32 +732,32 @@ export default function HomePage() {
       </section>
 
       {/* Interactive Simulator Section with Scroll Motion */}
-      <section id="simulator" ref={simulatorRef} className="py-16 md:py-24 bg-slate-950/40 border-y border-slate-800/60 relative">
+      <section id="simulator" ref={simulatorRef} className="py-16 md:py-24 bg-[#0e1450]/40 border-y border-white/10 relative">
         <div
           className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-700 transform ${
             simulatorVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-[0.98]'
           }`}
         >
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-2 flex items-center justify-center gap-1.5 animate-pulse-slow">
+            <h2 className="text-xs font-bold text-orange-400 uppercase tracking-widest mb-2 flex items-center justify-center gap-1.5 animate-pulse-slow">
               <Sliders className="w-3.5 h-3.5" />
               <span>Interactive Live Preview</span>
             </h2>
             <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
               Experience the Platform Across Every Role
             </h3>
-            <p className="mt-3 text-xs sm:text-sm text-slate-400">
+            <p className="mt-3 text-xs sm:text-sm text-blue-200/80">
               Click the tabs below to test live interactive simulator widgets for students, faculty, recruiters, and campus administrators.
             </p>
 
             {/* Interactive Tab Switcher (2x2 on mobile, inline pill bar on desktop) */}
-            <div className="mt-8 grid grid-cols-2 sm:inline-flex p-1.5 rounded-2xl bg-slate-900/90 border border-slate-800 gap-1.5 shadow-inner w-full sm:w-auto max-w-md mx-auto">
+            <div className="mt-8 grid grid-cols-2 sm:inline-flex p-1.5 rounded-2xl bg-[#0a0e38]/90 border border-white/10 gap-1.5 shadow-inner w-full sm:w-auto max-w-md mx-auto">
               <button
                 onClick={() => setActiveTab('student')}
                 className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   activeTab === 'student'
-                    ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-gradient-to-r from-[#ff6b00] to-[#ff8800] text-white shadow-md shadow-orange-500/30'
+                    : 'text-blue-200/80 hover:text-white'
                 }`}
               >
                 <GraduationCap className="w-3.5 h-3.5" />
@@ -767,8 +767,8 @@ export default function HomePage() {
                 onClick={() => setActiveTab('faculty')}
                 className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   activeTab === 'faculty'
-                    ? 'bg-teal-600 text-white shadow-md shadow-teal-600/30'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-gradient-to-r from-[#ff6b00] to-[#ff8800] text-white shadow-md shadow-orange-500/30'
+                    : 'text-blue-200/80 hover:text-white'
                 }`}
               >
                 <BookOpen className="w-3.5 h-3.5" />
@@ -778,8 +778,8 @@ export default function HomePage() {
                 onClick={() => setActiveTab('placement')}
                 className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   activeTab === 'placement'
-                    ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-gradient-to-r from-[#ff6b00] to-[#ff8800] text-white shadow-md shadow-orange-500/30'
+                    : 'text-blue-200/80 hover:text-white'
                 }`}
               >
                 <Briefcase className="w-3.5 h-3.5" />
@@ -789,8 +789,8 @@ export default function HomePage() {
                 onClick={() => setActiveTab('admin')}
                 className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   activeTab === 'admin'
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-gradient-to-r from-[#ff6b00] to-[#ff8800] text-white shadow-md shadow-orange-500/30'
+                    : 'text-blue-200/80 hover:text-white'
                 }`}
               >
                 <Building2 className="w-3.5 h-3.5" />
@@ -803,27 +803,27 @@ export default function HomePage() {
           {activeTab === 'student' && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {/* Card 1: Attendance Dial */}
-              <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold text-slate-300">Attendance Standing</span>
+                  <span className="text-xs font-bold text-white">Attendance Standing</span>
                   <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                     Safe Zone
                   </span>
                 </div>
                 <div className="flex items-center justify-center py-4">
-                  <div className="relative w-28 h-28 flex items-center justify-center rounded-full border-4 border-emerald-500/20 bg-emerald-500/5">
+                  <div className="relative w-28 h-28 flex items-center justify-center rounded-full border-4 border-emerald-500/30 bg-emerald-500/10">
                     <div className="text-center">
                       <span className="text-2xl font-black text-white">88.5%</span>
-                      <span className="text-[10px] text-slate-400 block">Overall</span>
+                      <span className="text-[10px] text-blue-200/70 block">Overall</span>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-2 mt-2 text-xs">
-                  <div className="flex justify-between text-slate-300">
+                  <div className="flex justify-between text-blue-100">
                     <span>DBMS (CS401)</span>
                     <span className="font-semibold text-emerald-400">92%</span>
                   </div>
-                  <div className="flex justify-between text-slate-300">
+                  <div className="flex justify-between text-blue-100">
                     <span>Computer Networks (CS403)</span>
                     <span className="font-semibold text-emerald-400">85%</span>
                   </div>
@@ -831,46 +831,46 @@ export default function HomePage() {
               </div>
 
               {/* Card 2: AI Study Schedule */}
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-slate-900/80 to-slate-950 border border-indigo-500/30 backdrop-blur-md">
-                <div className="flex items-center gap-2 mb-3 text-indigo-400">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+                <div className="flex items-center gap-2 mb-3 text-orange-400">
                   <Sparkles className="w-4 h-4" />
                   <span className="text-xs font-bold uppercase tracking-wider">AI Study Plan (7 Days)</span>
                 </div>
                 <h4 className="text-sm font-bold text-white mb-2">Automated Revision Roadmap</h4>
-                <div className="space-y-2 text-[11px] text-slate-300">
-                  <div className="p-2 rounded-xl bg-slate-950/60 border border-slate-800 flex items-center justify-between">
+                <div className="space-y-2 text-[11px] text-blue-100">
+                  <div className="p-2 rounded-xl bg-[#090d34]/60 border border-white/10 flex items-center justify-between">
                     <span>Mon: Relational Normalization (1NF-BCNF)</span>
-                    <span className="text-indigo-400 font-bold">1.5 hrs</span>
+                    <span className="text-orange-400 font-bold">1.5 hrs</span>
                   </div>
-                  <div className="p-2 rounded-xl bg-slate-950/60 border border-slate-800 flex items-center justify-between">
+                  <div className="p-2 rounded-xl bg-[#090d34]/60 border border-white/10 flex items-center justify-between">
                     <span>Tue: TCP Flow & Congestion Control</span>
-                    <span className="text-indigo-400 font-bold">2.0 hrs</span>
+                    <span className="text-orange-400 font-bold">2.0 hrs</span>
                   </div>
-                  <div className="p-2 rounded-xl bg-slate-950/60 border border-slate-800 flex items-center justify-between">
+                  <div className="p-2 rounded-xl bg-[#090d34]/60 border border-white/10 flex items-center justify-between">
                     <span>Wed: Virtual Memory & Page Faults</span>
-                    <span className="text-indigo-400 font-bold">1.5 hrs</span>
+                    <span className="text-orange-400 font-bold">1.5 hrs</span>
                   </div>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
-                  <span className="text-slate-400">Weak Area Flagged:</span>
-                  <span className="font-bold text-amber-400">Operating Systems (62%)</span>
+                <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px]">
+                  <span className="text-blue-200/70">Weak Area Flagged:</span>
+                  <span className="font-bold text-orange-400">Operating Systems (62%)</span>
                 </div>
               </div>
 
               {/* Card 3: Semester CGPA & Coursework */}
-              <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md flex flex-col justify-between">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-bold text-slate-300">Academic Standing</span>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                    <span className="text-xs font-bold text-white">Academic Standing</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-white border border-white/20">
                       Top 5%
                     </span>
                   </div>
-                  <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 mb-3">
-                    <span className="text-xs text-slate-400">Cumulative GPA:</span>
-                    <span className="block text-3xl font-black text-cyan-400">8.80 / 10.0</span>
+                  <div className="p-4 rounded-xl bg-[#090d34]/60 border border-white/10 mb-3">
+                    <span className="text-xs text-blue-200/70">Cumulative GPA:</span>
+                    <span className="block text-3xl font-black text-white">8.80 / 10.0</span>
                   </div>
-                  <div className="text-xs text-slate-400 space-y-1">
+                  <div className="text-xs text-blue-200/80 space-y-1">
                     <p>• Department: Computer Science (B.Tech)</p>
                     <p>• Semester: 4th Semester (Active)</p>
                     <p>• Active Backlogs: 0</p>
@@ -878,7 +878,7 @@ export default function HomePage() {
                 </div>
                 <button
                   onClick={() => handleLaunchPersona('student1@anurag.edu.in', 'Student@123')}
-                  className="mt-4 w-full py-2.5 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 transition-colors cursor-pointer"
+                  className="mt-4 w-full py-2.5 rounded-xl text-xs font-bold text-white btn-vivid-orange transition-colors cursor-pointer"
                 >
                   Open Rahul's Student Portal →
                 </button>
@@ -890,39 +890,39 @@ export default function HomePage() {
           {activeTab === 'faculty' && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {/* Classroom Sheet */}
-              <div className="lg:col-span-2 p-6 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
+              <div className="lg:col-span-2 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h4 className="text-sm font-bold text-white">Database Management Systems (CS401)</h4>
-                    <p className="text-[11px] text-slate-400">Class Attendance Sheet • 4th Semester CSE</p>
+                    <p className="text-[11px] text-blue-200/70">Class Attendance Sheet • 4th Semester CSE</p>
                   </div>
-                  <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                  <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-white/10 text-white border border-white/20">
                     Live Session
                   </span>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+                  <div className="p-2.5 rounded-xl bg-[#090d34]/80 border border-white/10 flex items-center justify-between">
                     <div>
                       <span className="font-bold text-white block">Rahul Sharma</span>
-                      <span className="text-[10px] text-slate-400">23AUCS001</span>
+                      <span className="text-[10px] text-blue-200/70">23AUCS001</span>
                     </div>
                     <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                       PRESENT
                     </span>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+                  <div className="p-2.5 rounded-xl bg-[#090d34]/80 border border-white/10 flex items-center justify-between">
                     <div>
                       <span className="font-bold text-white block">Priya Patel</span>
-                      <span className="text-[10px] text-slate-400">23AUCS002</span>
+                      <span className="text-[10px] text-blue-200/70">23AUCS002</span>
                     </div>
                     <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                       PRESENT
                     </span>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+                  <div className="p-2.5 rounded-xl bg-[#090d34]/80 border border-white/10 flex items-center justify-between">
                     <div>
                       <span className="font-bold text-white block">Amit Kumar</span>
-                      <span className="text-[10px] text-slate-400">23AUCS003</span>
+                      <span className="text-[10px] text-blue-200/70">23AUCS003</span>
                     </div>
                     <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30">
                       ABSENT (ALERT)
@@ -932,19 +932,19 @@ export default function HomePage() {
               </div>
 
               {/* Faculty Tools */}
-              <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md flex flex-col justify-between">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex flex-col justify-between">
                 <div>
-                  <h4 className="text-xs font-bold text-teal-400 uppercase tracking-wider mb-2">Faculty Diagnostics</h4>
-                  <div className="space-y-3 text-xs text-slate-300">
-                    <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+                  <h4 className="text-xs font-bold text-orange-400 uppercase tracking-wider mb-2">Faculty Diagnostics</h4>
+                  <div className="space-y-3 text-xs text-blue-100">
+                    <div className="p-3 rounded-xl bg-[#090d34]/60 border border-white/10">
                       <span className="font-semibold text-white block mb-1">AI Student Synthesizer</span>
-                      <p className="text-[11px] text-slate-400">
+                      <p className="text-[11px] text-blue-200/70">
                         Generate comprehensive executive summaries on any student's performance with 1 click.
                       </p>
                     </div>
-                    <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+                    <div className="p-3 rounded-xl bg-[#090d34]/60 border border-white/10">
                       <span className="font-semibold text-white block mb-1">Coursework Review Drawer</span>
-                      <p className="text-[11px] text-slate-400">
+                      <p className="text-[11px] text-blue-200/70">
                         Review uploaded assignment submissions, verify timestamps, and return rubric grades.
                       </p>
                     </div>
@@ -952,7 +952,7 @@ export default function HomePage() {
                 </div>
                 <button
                   onClick={() => handleLaunchPersona('faculty.cs@anurag.edu.in', 'Faculty@123')}
-                  className="mt-4 w-full py-2.5 rounded-xl text-xs font-bold text-white bg-teal-600 hover:bg-teal-500 transition-colors cursor-pointer"
+                  className="mt-4 w-full py-2.5 rounded-xl text-xs font-bold text-white btn-vivid-orange transition-colors cursor-pointer"
                 >
                   Launch Dr. Turing's Console →
                 </button>
@@ -964,19 +964,19 @@ export default function HomePage() {
           {activeTab === 'placement' && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {/* Interactive Eligibility Slider */}
-              <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
-                <h4 className="text-xs font-bold text-purple-400 uppercase tracking-wider mb-2">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+                <h4 className="text-xs font-bold text-orange-400 uppercase tracking-wider mb-2">
                   Test Server-Side Eligibility Engine
                 </h4>
-                <p className="text-[11px] text-slate-400 mb-4">
+                <p className="text-[11px] text-blue-200/80 mb-4">
                   Adjust student credentials to see automated qualification against corporate drive criteria:
                 </p>
 
                 <div className="space-y-4 text-xs">
                   <div>
-                    <div className="flex justify-between text-slate-300 mb-1">
+                    <div className="flex justify-between text-blue-100 mb-1">
                       <span>Simulated CGPA:</span>
-                      <span className="font-bold text-cyan-400">{demoCgpa.toFixed(1)}</span>
+                      <span className="font-bold text-orange-400">{demoCgpa.toFixed(1)}</span>
                     </div>
                     <input
                       type="range"
@@ -985,12 +985,12 @@ export default function HomePage() {
                       step="0.1"
                       value={demoCgpa}
                       onChange={(e) => setDemoCgpa(parseFloat(e.target.value))}
-                      className="w-full accent-indigo-500 cursor-pointer"
+                      className="w-full accent-[#ff6b00] cursor-pointer"
                     />
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-slate-300 mb-1">
+                    <div className="flex justify-between text-blue-100 mb-1">
                       <span>Active Backlogs:</span>
                       <span className="font-bold text-rose-400">{demoBacklogs}</span>
                     </div>
@@ -999,10 +999,10 @@ export default function HomePage() {
                         <button
                           key={b}
                           onClick={() => setDemoBacklogs(b)}
-                          className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                          className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                             demoBacklogs === b
-                              ? 'bg-purple-600 text-white'
-                              : 'bg-slate-950 border border-slate-800 text-slate-400'
+                              ? 'bg-gradient-to-r from-[#ff6b00] to-[#ff8800] text-white shadow-xs'
+                              : 'bg-[#090d34] border border-white/10 text-blue-200/80 hover:text-white'
                           }`}
                         >
                           {b} Backlog{b !== 1 ? 's' : ''}
@@ -1014,19 +1014,19 @@ export default function HomePage() {
               </div>
 
               {/* Company Drives Match Matrix */}
-              <div className="lg:col-span-2 p-6 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
-                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+              <div className="lg:col-span-2 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+                <h4 className="text-xs font-bold text-blue-200/80 uppercase tracking-wider mb-3">
                   Live Drive Eligibility Qualification
                 </h4>
                 <div className="space-y-2.5 text-xs">
                   {/* Google */}
-                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                  <div className="p-3 rounded-xl bg-[#090d34]/80 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-extrabold text-white text-sm">Google</span>
-                        <span className="text-[10px] text-slate-400">Software Engineer III • 42 LPA</span>
+                        <span className="text-[10px] text-blue-200/70">Software Engineer III • 42 LPA</span>
                       </div>
-                      <span className="text-[10px] text-slate-500 block mt-0.5">Requires CGPA ≥ 8.5 & 0 Backlogs</span>
+                      <span className="text-[10px] text-blue-300/60 block mt-0.5">Requires CGPA ≥ 8.5 & 0 Backlogs</span>
                     </div>
                     {isEligibleForGoogle ? (
                       <span className="self-start sm:self-auto flex items-center gap-1 text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
@@ -1042,13 +1042,13 @@ export default function HomePage() {
                   </div>
 
                   {/* Amazon */}
-                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                  <div className="p-3 rounded-xl bg-[#090d34]/80 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-extrabold text-white text-sm">Amazon AWS</span>
-                        <span className="text-[10px] text-slate-400">Cloud Development Associate • 28 LPA</span>
+                        <span className="text-[10px] text-blue-200/70">Cloud Development Associate • 28 LPA</span>
                       </div>
-                      <span className="text-[10px] text-slate-500 block mt-0.5">Requires CGPA ≥ 7.5 & 0 Backlogs</span>
+                      <span className="text-[10px] text-blue-300/60 block mt-0.5">Requires CGPA ≥ 7.5 & 0 Backlogs</span>
                     </div>
                     {isEligibleForAmazon ? (
                       <span className="self-start sm:self-auto flex items-center gap-1 text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
@@ -1064,13 +1064,13 @@ export default function HomePage() {
                   </div>
 
                   {/* Infosys */}
-                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                  <div className="p-3 rounded-xl bg-[#090d34]/80 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-extrabold text-white text-sm">Infosys Ltd</span>
-                        <span className="text-[10px] text-slate-400">Specialist Programmer • 9.5 LPA</span>
+                        <span className="text-[10px] text-blue-200/70">Specialist Programmer • 9.5 LPA</span>
                       </div>
-                      <span className="text-[10px] text-slate-500 block mt-0.5">Requires CGPA ≥ 6.0 & ≤ 1 Backlog</span>
+                      <span className="text-[10px] text-blue-300/60 block mt-0.5">Requires CGPA ≥ 6.0 & ≤ 1 Backlog</span>
                     </div>
                     {isEligibleForInfosys ? (
                       <span className="self-start sm:self-auto flex items-center gap-1 text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
@@ -1092,50 +1092,50 @@ export default function HomePage() {
           {/* Tab 4: Governance Interactive Simulator */}
           {activeTab === 'admin' && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
-                <h4 className="text-xs font-bold text-blue-400 uppercase tracking-wider mb-2">Departmental Structure</h4>
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+                <h4 className="text-xs font-bold text-orange-400 uppercase tracking-wider mb-2">Departmental Structure</h4>
                 <div className="space-y-2 mt-3 text-xs">
-                  <div className="p-2 rounded-xl bg-slate-950/60 border border-slate-800 flex justify-between">
+                  <div className="p-2 rounded-xl bg-[#090d34]/60 border border-white/10 flex justify-between">
                     <span className="font-semibold text-white">Computer Science (CSE)</span>
-                    <span className="text-blue-400 font-bold">4 Faculty • 8 Students</span>
+                    <span className="text-orange-400 font-bold">4 Faculty • 8 Students</span>
                   </div>
-                  <div className="p-2 rounded-xl bg-slate-950/60 border border-slate-800 flex justify-between">
+                  <div className="p-2 rounded-xl bg-[#090d34]/60 border border-white/10 flex justify-between">
                     <span className="font-semibold text-white">Electronics (ECE)</span>
-                    <span className="text-blue-400 font-bold">1 Faculty • 1 Student</span>
+                    <span className="text-orange-400 font-bold">1 Faculty • 1 Student</span>
                   </div>
-                  <div className="p-2 rounded-xl bg-slate-950/60 border border-slate-800 flex justify-between">
+                  <div className="p-2 rounded-xl bg-[#090d34]/60 border border-white/10 flex justify-between">
                     <span className="font-semibold text-white">Mechanical (MECH)</span>
-                    <span className="text-blue-400 font-bold">1 Faculty • 1 Student</span>
+                    <span className="text-orange-400 font-bold">1 Faculty • 1 Student</span>
                   </div>
                 </div>
               </div>
 
-              <div className="lg:col-span-2 p-6 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md flex flex-col justify-between">
+              <div className="lg:col-span-2 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="text-xs font-bold text-white uppercase tracking-wider">
                       Pending Approvals Queue (Anurag University)
                     </h4>
-                    <span className="text-[10px] text-amber-400 font-bold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                    <span className="text-[10px] text-orange-400 font-bold bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">
                       2 Needs Review
                     </span>
                   </div>
                   <div className="space-y-2 text-xs">
-                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+                    <div className="p-2.5 rounded-xl bg-[#090d34]/80 border border-white/10 flex items-center justify-between">
                       <div>
                         <span className="font-bold text-white block">Bonafide Certificate Request</span>
-                        <span className="text-[10px] text-slate-400">By Rahul Sharma • For Passport Application</span>
+                        <span className="text-[10px] text-blue-200/70">By Rahul Sharma • For Passport Application</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-500/20 text-orange-300">
                         PENDING
                       </span>
                     </div>
-                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+                    <div className="p-2.5 rounded-xl bg-[#090d34]/80 border border-white/10 flex items-center justify-between">
                       <div>
                         <span className="font-bold text-white block">Medical Leave Sanction</span>
-                        <span className="text-[10px] text-slate-400">By Amit Kumar • 3 Days with Doctor Slip</span>
+                        <span className="text-[10px] text-blue-200/70">By Amit Kumar • 3 Days with Doctor Slip</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-500/20 text-orange-300">
                         PENDING
                       </span>
                     </div>
@@ -1143,7 +1143,7 @@ export default function HomePage() {
                 </div>
                 <button
                   onClick={() => handleLaunchPersona('admin@anurag.edu.in', 'Admin@123')}
-                  className="mt-4 w-full py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 transition-colors cursor-pointer"
+                  className="mt-4 w-full py-2.5 rounded-xl text-xs font-bold text-white btn-vivid-orange transition-colors cursor-pointer"
                 >
                   Enter Campus Administrator Workspace →
                 </button>
@@ -1160,14 +1160,14 @@ export default function HomePage() {
             personasVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="inline-flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 animate-pulse-slow">
+          <div className="inline-flex items-center gap-2 bg-white/10 text-orange-400 border border-orange-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 animate-pulse-slow">
             <Users className="w-3.5 h-3.5" />
             <span>Role-Based Command Centers</span>
           </div>
           <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
             Launch Any Persona with 1-Click
           </h3>
-          <p className="mt-3 text-xs sm:text-sm text-slate-400">
+          <p className="mt-3 text-xs sm:text-sm text-blue-200/80">
             Click any demo portal card below to jump straight to the Sign-In console with pre-filled credentials for instant evaluation.
           </p>
         </div>
@@ -1178,7 +1178,7 @@ export default function HomePage() {
             return (
               <div
                 key={p.id}
-                className={`p-6 rounded-2xl bg-slate-950/70 border border-slate-800 hover:border-indigo-500/60 transition-all duration-500 flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:shadow-indigo-500/15 group transform ${
+                className={`p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-orange-500/60 transition-all duration-500 flex flex-col justify-between hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl hover:shadow-orange-500/15 group transform ${
                   personasVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-[0.97]'
                 }`}
                 style={{ transitionDelay: `${idx * 100}ms` }}
@@ -1190,25 +1190,25 @@ export default function HomePage() {
                     >
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-slate-300">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#090d34] border border-white/10 text-blue-200/90">
                       {p.highlight}
                     </span>
                   </div>
 
-                  <h4 className="text-base font-extrabold text-white group-hover:text-indigo-400 transition-colors">
+                  <h4 className="text-base font-extrabold text-white group-hover:text-orange-400 transition-colors">
                     {p.role}
                   </h4>
-                  <span className="text-xs font-semibold text-slate-400 block mb-2">{p.title}</span>
-                  <p className="text-xs text-slate-400 leading-relaxed mb-4">{p.description}</p>
+                  <span className="text-xs font-semibold text-blue-200/70 block mb-2">{p.title}</span>
+                  <p className="text-xs text-blue-100/80 leading-relaxed mb-4">{p.description}</p>
                 </div>
 
-                <div className="pt-4 border-t border-slate-800/80">
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 mb-3 font-mono">
+                <div className="pt-4 border-t border-white/10">
+                  <div className="flex items-center justify-between text-[11px] text-blue-200/60 mb-3 font-mono">
                     <span>{p.email}</span>
                   </div>
                   <button
                     onClick={() => handleLaunchPersona(p.email, p.password)}
-                    className="w-full py-2.5 rounded-xl text-xs font-bold text-white bg-slate-900 hover:bg-indigo-600 border border-slate-700 hover:border-indigo-500 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                    className="w-full py-2.5 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-gradient-to-r hover:from-[#ff6b00] hover:to-[#ff8800] border border-white/15 hover:border-transparent transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                   >
                     <span>Launch {p.role} Console</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -1221,21 +1221,21 @@ export default function HomePage() {
       </section>
 
       {/* Architectural Bento Grid with Scroll Motion */}
-      <section id="features" ref={featuresRef} className="py-20 md:py-28 bg-slate-950/40 border-t border-slate-800/80">
+      <section id="features" ref={featuresRef} className="py-20 md:py-28 bg-[#0e1450]/40 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 transform ${
               featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
-            <div className="inline-flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 animate-pulse-slow">
+            <div className="inline-flex items-center gap-2 bg-white/10 text-orange-400 border border-orange-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 animate-pulse-slow">
               <Layers className="w-3.5 h-3.5" />
               <span>Full-Stack Architecture & Bento Layout</span>
             </div>
             <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
               Engineered for Precision, Zero Hallucinations
             </h3>
-            <p className="mt-3 text-xs sm:text-sm text-slate-400">
+            <p className="mt-3 text-xs sm:text-sm text-blue-200/80">
               Built on production-grade MERN primitives with multi-tenant MongoDB isolation, deterministic rule engines, and sub-millisecond cryptographic JWT authorization.
             </p>
           </div>
@@ -1244,44 +1244,44 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Bento 1: Large 2-Col AI Study Engine */}
             <div
-              className={`lg:col-span-2 p-7 rounded-3xl bg-slate-900/40 border border-slate-800/80 hover:border-indigo-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-indigo-500/10 transform ${
+              className={`lg:col-span-2 p-7 rounded-3xl bg-white/5 border border-white/10 hover:border-orange-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-orange-500/15 transform ${
                 featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-500 p-2.5 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#ff6b00] to-[#ffa133] p-2.5 flex items-center justify-center text-white shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">
                     <Sparkles className="w-6 h-6" />
                   </div>
-                  <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                  <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30">
                     Dual Hybrid AI Engine
                   </span>
                 </div>
-                <h4 className="text-lg font-extrabold text-white mb-2 group-hover:text-indigo-300 transition-colors">
+                <h4 className="text-lg font-extrabold text-white mb-2 group-hover:text-orange-300 transition-colors">
                   Deterministic Study Diagnostics & AI Roadmaps
                 </h4>
-                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-xl">
+                <p className="text-xs sm:text-sm text-blue-100/80 leading-relaxed max-w-xl">
                   Connects live student course enrollments with historical syllabus exam weighting. If Gemini API credentials are omitted, it automatically falls back to an intelligent mathematical rules engine that formulates accredited 7-day revision plans without hallucinations.
                 </p>
               </div>
 
               {/* Interactive Mock Prompt Banner */}
-              <div className="mt-6 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono">
-                <div className="flex items-center justify-between text-slate-400 pb-2 border-b border-slate-800/80 text-[11px]">
+              <div className="mt-6 p-4 rounded-2xl bg-[#090d34]/90 border border-white/10 text-xs font-mono">
+                <div className="flex items-center justify-between text-blue-200/70 pb-2 border-b border-white/10 text-[11px]">
                   <span>AI Request: Study Roadmap • CSE Semester 6</span>
                   <span className="text-emerald-400 font-bold">200 OK • 18ms</span>
                 </div>
-                <div className="pt-3 space-y-1.5 text-slate-300 text-[11px]">
-                  <p className="text-cyan-400 font-semibold">→ Primary Focus: Dynamic Programming & Binary Search Trees (28% marks)</p>
-                  <p className="text-indigo-400 font-semibold">→ Secondary Focus: Cloud Distributed Transaction Isolation (22% marks)</p>
-                  <p className="text-slate-400">→ Scheduled Practice: 3 Timed Lab Coding Challenges</p>
+                <div className="pt-3 space-y-1.5 text-blue-100 text-[11px]">
+                  <p className="text-orange-400 font-semibold">→ Primary Focus: Dynamic Programming & Binary Search Trees (28% marks)</p>
+                  <p className="text-white font-semibold">→ Secondary Focus: Cloud Distributed Transaction Isolation (22% marks)</p>
+                  <p className="text-blue-200/80">→ Scheduled Practice: 3 Timed Lab Coding Challenges</p>
                 </div>
               </div>
             </div>
 
             {/* Bento 2: 75% Attendance Guardrail */}
             <div
-              className={`p-7 rounded-3xl bg-slate-900/40 border border-slate-800/80 hover:border-emerald-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-emerald-500/10 transform ${
+              className={`p-7 rounded-3xl bg-white/5 border border-white/10 hover:border-emerald-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-emerald-500/15 transform ${
                 featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: '100ms' }}
@@ -1293,12 +1293,12 @@ export default function HomePage() {
                 <h4 className="text-base font-extrabold text-white mb-2 group-hover:text-emerald-300 transition-colors">
                   75% Attendance Regulatory Guard
                 </h4>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-blue-100/80 leading-relaxed">
                   Autonomous university regulations mandate a minimum of 75% attendance for examination eligibility. Real-time notifications alert students when attendance drops under 76%.
                 </p>
               </div>
 
-              <div className="mt-6 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+              <div className="mt-6 p-4 rounded-2xl bg-[#090d34]/90 border border-white/10 flex items-center justify-between">
                 <div>
                   <span className="text-xs font-bold text-white block">Threshold Monitor</span>
                   <span className="text-[10px] text-emerald-400 font-semibold">Safe Standing: 89.4%</span>
@@ -1311,29 +1311,29 @@ export default function HomePage() {
 
             {/* Bento 3: Server-Side Placement Engine */}
             <div
-              className={`p-7 rounded-3xl bg-slate-900/40 border border-slate-800/80 hover:border-violet-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-violet-500/10 transform ${
+              className={`p-7 rounded-3xl bg-white/5 border border-white/10 hover:border-orange-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-orange-500/15 transform ${
                 featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: '150ms' }}
             >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-500 p-2.5 flex items-center justify-center text-white mb-4 shadow-lg shadow-violet-500/20 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#ff6b00] to-[#ff8800] p-2.5 flex items-center justify-center text-white mb-4 shadow-lg shadow-orange-500/25 group-hover:scale-110 transition-transform">
                   <Briefcase className="w-6 h-6" />
                 </div>
-                <h4 className="text-base font-extrabold text-white mb-2 group-hover:text-violet-300 transition-colors">
+                <h4 className="text-base font-extrabold text-white mb-2 group-hover:text-orange-300 transition-colors">
                   Deterministic Server Placement Guard
                 </h4>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-blue-100/80 leading-relaxed">
                   Even if a visitor tampers with the frontend client, the backend placementController enforces strict database-level checks on live CGPA and backlogs before recording any application.
                 </p>
               </div>
 
-              <div className="mt-6 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1.5 text-[11px]">
-                <div className="flex justify-between items-center text-slate-300">
+              <div className="mt-6 p-4 rounded-2xl bg-[#090d34]/90 border border-white/10 space-y-1.5 text-[11px]">
+                <div className="flex justify-between items-center text-blue-100">
                   <span>Google SWE (CGPA ≥ 8.5):</span>
                   <span className="text-emerald-400 font-bold">ALLOWED</span>
                 </div>
-                <div className="flex justify-between items-center text-slate-300">
+                <div className="flex justify-between items-center text-blue-100">
                   <span>Backlogs Allowed:</span>
                   <span className="text-rose-400 font-bold">0 MAX</span>
                 </div>
@@ -1342,34 +1342,34 @@ export default function HomePage() {
 
             {/* Bento 4: Large 2-Col Multi-Tenant Isolation */}
             <div
-              className={`lg:col-span-2 p-7 rounded-3xl bg-slate-900/40 border border-slate-800/80 hover:border-blue-500/50 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl hover:shadow-blue-500/10 transform ${
+              className={`lg:col-span-2 p-7 rounded-3xl bg-white/5 border border-white/10 hover:border-white/30 transition-all duration-500 group flex flex-col justify-between hover:shadow-2xl transform ${
                 featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: '200ms' }}
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 p-2.5 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-white/15 p-2.5 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
                     <Building2 className="w-6 h-6" />
                   </div>
-                  <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">
+                  <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-white/10 text-white border border-white/20">
                     Enterprise Multi-Tenancy
                   </span>
                 </div>
-                <h4 className="text-lg font-extrabold text-white mb-2 group-hover:text-blue-300 transition-colors">
+                <h4 className="text-lg font-extrabold text-white mb-2 group-hover:text-orange-300 transition-colors">
                   Institutional Scoping & Cross-Campus Scalability
                 </h4>
-                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-xl">
+                <p className="text-xs sm:text-sm text-blue-100/80 leading-relaxed max-w-xl">
                   Every user, department, course, subject, attendance log, and job drive is indexed and partitioned by institutional boundaries. A single CampusFlow cluster can power multiple autonomous colleges with zero cross-tenant data leakage.
                 </p>
               </div>
 
-              <div className="mt-6 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="mt-6 p-4 rounded-2xl bg-[#090d34]/90 border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-blue-400" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-orange-400" />
                   <span className="font-semibold text-white">Anurag University (Code AU)</span>
                 </div>
-                <span className="text-[11px] text-slate-400 font-mono">Scoped Collections: 14 • Isolated DB Indexing</span>
+                <span className="text-[11px] text-blue-200/70 font-mono">Scoped Collections: 14 • Isolated DB Indexing</span>
               </div>
             </div>
           </div>
@@ -1379,37 +1379,37 @@ export default function HomePage() {
       {/* Placement Hub with Interactive Screener */}
       <section id="placements" ref={placementsRef} className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className={`p-8 md:p-12 rounded-3xl bg-gradient-to-r from-indigo-950/80 via-slate-900 to-purple-950/80 border border-indigo-500/30 hover:border-indigo-500/60 shadow-2xl shadow-indigo-950/60 relative overflow-hidden transition-all duration-700 transform ${
+          className={`p-8 md:p-12 rounded-3xl bg-gradient-to-r from-[#171f78] via-[#121858] to-[#0e1450] border border-white/15 hover:border-orange-500/50 shadow-2xl shadow-blue-950/80 relative overflow-hidden transition-all duration-700 transform ${
             placementsVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.96] translate-y-12'
           }`}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             {/* Left Column Description */}
             <div className="lg:col-span-6">
-              <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-2 block">
+              <span className="text-[11px] font-bold text-orange-400 uppercase tracking-wider mb-2 block">
                 Corporate Recruitment Engine
               </span>
               <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-snug">
                 Connected with Industry Leaders & Global Tech Giants
               </h3>
-              <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="mt-3 text-xs sm:text-sm text-blue-100/85 leading-relaxed">
                 CampusFlow automates the entire recruitment lifecycle for Anurag University students—from dynamic criteria screening to multi-stage interview scheduling and offer letter verification.
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-2.5 text-xs font-semibold text-slate-200">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/70 border border-slate-800">
+              <div className="mt-6 flex flex-wrap gap-2.5 text-xs font-semibold text-white">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#090d34]/70 border border-white/10">
                   <Check className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Google (42 LPA)</span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#090d34]/70 border border-white/10">
                   <Check className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Microsoft (38 LPA)</span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#090d34]/70 border border-white/10">
                   <Check className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Amazon AWS (28 LPA)</span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#090d34]/70 border border-white/10">
                   <Check className="w-3.5 h-3.5 text-emerald-400" />
                   <span>TCS Digital (9.5 LPA)</span>
                 </div>
@@ -1417,12 +1417,12 @@ export default function HomePage() {
             </div>
 
             {/* Right Column: Live Interactive Placement Eligibility Screener */}
-            <div className="lg:col-span-6 p-6 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-xl backdrop-blur-xl">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div className="lg:col-span-6 p-6 rounded-2xl bg-[#0a0e38]/95 border border-white/15 shadow-xl backdrop-blur-xl">
+              <div className="flex items-center justify-between pb-4 border-b border-white/10">
                 <span className="text-xs font-extrabold text-white uppercase tracking-wider">
                   Live Eligibility Screener Sandbox
                 </span>
-                <span className="text-[10px] text-indigo-400 font-bold bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
+                <span className="text-[10px] text-orange-400 font-bold bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">
                   Dynamic Server Evaluation
                 </span>
               </div>
@@ -1431,8 +1431,8 @@ export default function HomePage() {
                 {/* CGPA Slider */}
                 <div>
                   <div className="flex justify-between text-xs font-semibold mb-1.5">
-                    <span className="text-slate-300">Your Current CGPA:</span>
-                    <span className="text-indigo-400 font-bold">{demoCgpa.toFixed(1)} / 10.0</span>
+                    <span className="text-blue-100">Your Current CGPA:</span>
+                    <span className="text-orange-400 font-bold">{demoCgpa.toFixed(1)} / 10.0</span>
                   </div>
                   <input
                     type="range"
@@ -1441,15 +1441,15 @@ export default function HomePage() {
                     step="0.1"
                     value={demoCgpa}
                     onChange={(e) => setDemoCgpa(parseFloat(e.target.value))}
-                    className="w-full accent-indigo-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer"
+                    className="w-full accent-[#ff6b00] h-1.5 bg-[#121858] rounded-lg cursor-pointer"
                   />
                 </div>
 
                 {/* Backlogs Selector */}
                 <div>
                   <div className="flex justify-between text-xs font-semibold mb-1.5">
-                    <span className="text-slate-300">Active Backlogs:</span>
-                    <span className="text-cyan-400 font-bold">{demoBacklogs} Active</span>
+                    <span className="text-blue-100">Active Backlogs:</span>
+                    <span className="text-white font-bold">{demoBacklogs} Active</span>
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     {[0, 1, 2].map((b) => (
@@ -1458,8 +1458,8 @@ export default function HomePage() {
                         onClick={() => setDemoBacklogs(b)}
                         className={`py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                           demoBacklogs === b
-                            ? 'bg-cyan-600 text-white shadow-xs'
-                            : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+                            ? 'bg-gradient-to-r from-[#ff6b00] to-[#ff8800] text-white shadow-xs'
+                            : 'bg-[#090d34] text-blue-200/80 hover:text-white border border-white/10'
                         }`}
                       >
                         {b === 2 ? '2+ Backlogs' : `${b} Backlog`}
@@ -1470,33 +1470,33 @@ export default function HomePage() {
 
                 {/* Live Real-Time Drive Unlocks */}
                 <div className="pt-2 space-y-2 text-xs">
-                  <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+                  <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
                     <div>
                       <span className="font-bold text-white block">Google Software Engineer (42 LPA)</span>
-                      <span className="text-[10px] text-slate-400">Min CGPA 8.5 • 0 Backlogs</span>
+                      <span className="text-[10px] text-blue-200/70">Min CGPA 8.5 • 0 Backlogs</span>
                     </div>
                     {isEligibleForGoogle ? (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                         ELIGIBLE
                       </span>
                     ) : (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">
                         INELIGIBLE
                       </span>
                     )}
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+                  <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
                     <div>
                       <span className="font-bold text-white block">Microsoft Azure Core (38 LPA)</span>
-                      <span className="text-[10px] text-slate-400">Min CGPA 8.0 • 0 Backlogs</span>
+                      <span className="text-[10px] text-blue-200/70">Min CGPA 8.0 • 0 Backlogs</span>
                     </div>
                     {demoCgpa >= 8.0 && demoBacklogs === 0 ? (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                         ELIGIBLE
                       </span>
                     ) : (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">
                         INELIGIBLE
                       </span>
                     )}
@@ -1515,7 +1515,7 @@ export default function HomePage() {
             faqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="inline-flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 animate-pulse-slow">
+          <div className="inline-flex items-center gap-2 bg-white/10 text-orange-400 border border-orange-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-3 animate-pulse-slow">
             <Zap className="w-3.5 h-3.5" />
             <span>Frequently Asked Questions</span>
           </div>
@@ -1526,24 +1526,24 @@ export default function HomePage() {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className={`rounded-2xl bg-slate-900/40 border border-slate-800 hover:border-indigo-500/40 overflow-hidden transition-all duration-500 transform ${
+              className={`rounded-2xl bg-white/5 border border-white/10 hover:border-orange-500/40 overflow-hidden transition-all duration-500 transform ${
                 faqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
               style={{ transitionDelay: `${idx * 80}ms` }}
             >
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? -1 : idx)}
-                className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 text-xs sm:text-sm font-bold text-white hover:text-indigo-400 transition-colors cursor-pointer"
+                className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 text-xs sm:text-sm font-bold text-white hover:text-orange-300 transition-colors cursor-pointer"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-slate-400 flex-shrink-0 transition-transform duration-200 ${
-                    openFaq === idx ? 'rotate-180 text-indigo-400' : ''
+                  className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${
+                    openFaq === idx ? 'rotate-180 text-orange-400' : 'text-blue-200/80'
                   }`}
                 />
               </button>
               {openFaq === idx && (
-                <div className="px-4 pb-5 sm:px-5 text-xs text-slate-400 leading-relaxed border-t border-slate-800/60 pt-3 animate-in fade-in duration-200">
+                <div className="px-4 pb-5 sm:px-5 text-xs text-blue-100/85 leading-relaxed border-t border-white/10 pt-3 animate-in fade-in duration-200">
                   {faq.a}
                 </div>
               )}
@@ -1553,7 +1553,7 @@ export default function HomePage() {
       </section>
 
       {/* Final Call to Action with Scroll Motion */}
-      <section ref={ctaRef} className="py-20 border-t border-slate-800/80 bg-slate-950/80 text-center relative overflow-hidden">
+      <section ref={ctaRef} className="py-20 border-t border-white/10 bg-[#0c1244] text-center relative overflow-hidden">
         <div
           className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-700 transform ${
             ctaVisible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-8'
@@ -1562,19 +1562,19 @@ export default function HomePage() {
           <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
             Ready to Explore CampusFlow?
           </h3>
-          <p className="mt-3 text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+          <p className="mt-3 text-xs sm:text-sm text-blue-200/80 max-w-xl mx-auto">
             Log in to your institutional workspace or test any role in under 10 seconds.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/login"
-              className="px-6 py-3 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 rounded-xl hover:brightness-110 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all"
+              className="px-6 py-3 text-xs sm:text-sm font-bold text-white btn-vivid-orange rounded-xl shadow-lg cursor-pointer"
             >
               Sign In to Your Workspace
             </Link>
             <a
               href="#personas"
-              className="px-6 py-3 text-xs sm:text-sm font-bold text-slate-300 bg-slate-900 hover:bg-slate-800 rounded-xl border border-slate-700 hover:border-slate-600 hover:-translate-y-0.5 transition-all"
+              className="px-6 py-3 text-xs sm:text-sm font-bold text-white bg-white/10 hover:bg-white/20 rounded-xl border border-white/20 hover:border-white/40 hover:-translate-y-0.5 transition-all"
             >
               Select Demo Persona
             </a>
@@ -1583,24 +1583,24 @@ export default function HomePage() {
       </section>
 
       {/* Enterprise Multi-Column Footer */}
-      <footer className="py-14 bg-slate-950 border-t border-slate-900 text-xs text-slate-400">
+      <footer className="py-14 bg-[#080d32] border-t border-white/10 text-xs text-blue-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
             {/* Col 1: Brand & University Info */}
             <div className="lg:col-span-2 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#ff6b00] to-[#ffa133] flex items-center justify-center text-white font-bold shadow-md shadow-orange-500/25">
                   <GraduationCap className="w-4 h-4" />
                 </div>
                 <span className="text-base font-extrabold text-white">CampusFlow OS</span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-white/10 text-white border border-white/20">
                   AU Hyderabad
                 </span>
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+              <p className="text-xs text-blue-200/70 leading-relaxed max-w-sm">
                 Unified institutional operating platform engineered for Anurag University. Integrating academic tracking, AI revision assistance, biometric attendance guardrails, and automated job drive funnels.
               </p>
-              <div className="text-[11px] text-slate-500">
+              <div className="text-[11px] text-blue-300/60">
                 Venkatapur, Ghatkesar, Medchal-Malkajgiri district, Hyderabad, Telangana 500088
               </div>
             </div>
@@ -1608,42 +1608,42 @@ export default function HomePage() {
             {/* Col 2: Institutional Portals */}
             <div className="space-y-2.5">
               <span className="text-xs font-bold text-white uppercase tracking-wider block">Portals</span>
-              <ul className="space-y-1.5 text-slate-400 text-xs">
-                <li><a href="#personas" className="hover:text-white transition-colors">Super Administrator</a></li>
-                <li><a href="#personas" className="hover:text-white transition-colors">Campus Administrator</a></li>
-                <li><a href="#personas" className="hover:text-white transition-colors">Faculty Suite</a></li>
-                <li><a href="#personas" className="hover:text-white transition-colors">Student Workstation</a></li>
-                <li><a href="#personas" className="hover:text-white transition-colors">Placement Officer</a></li>
+              <ul className="space-y-1.5 text-blue-200/75 text-xs">
+                <li><a href="#personas" className="hover:text-orange-400 transition-colors">Super Administrator</a></li>
+                <li><a href="#personas" className="hover:text-orange-400 transition-colors">Campus Administrator</a></li>
+                <li><a href="#personas" className="hover:text-orange-400 transition-colors">Faculty Suite</a></li>
+                <li><a href="#personas" className="hover:text-orange-400 transition-colors">Student Workstation</a></li>
+                <li><a href="#personas" className="hover:text-orange-400 transition-colors">Placement Officer</a></li>
               </ul>
             </div>
 
             {/* Col 3: Core Modules */}
             <div className="space-y-2.5">
               <span className="text-xs font-bold text-white uppercase tracking-wider block">Modules</span>
-              <ul className="space-y-1.5 text-slate-400 text-xs">
-                <li><a href="#simulator" className="hover:text-white transition-colors">Attendance Guardrail</a></li>
-                <li><a href="#features" className="hover:text-white transition-colors">Deterministic AI Engine</a></li>
-                <li><a href="#placements" className="hover:text-white transition-colors">Corporate Placement Hub</a></li>
-                <li><a href="#simulator" className="hover:text-white transition-colors">Department Governance</a></li>
-                <li><a href="#features" className="hover:text-white transition-colors">Audit Telemetry</a></li>
+              <ul className="space-y-1.5 text-blue-200/75 text-xs">
+                <li><a href="#simulator" className="hover:text-orange-400 transition-colors">Attendance Guardrail</a></li>
+                <li><a href="#features" className="hover:text-orange-400 transition-colors">Deterministic AI Engine</a></li>
+                <li><a href="#placements" className="hover:text-orange-400 transition-colors">Corporate Placement Hub</a></li>
+                <li><a href="#simulator" className="hover:text-orange-400 transition-colors">Department Governance</a></li>
+                <li><a href="#features" className="hover:text-orange-400 transition-colors">Audit Telemetry</a></li>
               </ul>
             </div>
 
             {/* Col 4: Accreditations */}
             <div className="space-y-2.5">
               <span className="text-xs font-bold text-white uppercase tracking-wider block">Accreditations</span>
-              <ul className="space-y-1.5 text-slate-400 text-xs">
-                <li><span className="text-amber-400 font-semibold">NAAC A+ Grade</span></li>
-                <li><span className="text-cyan-400 font-semibold">NBA Accredited (CSE/ECE)</span></li>
-                <li><span className="text-emerald-400 font-semibold">AICTE Approved</span></li>
-                <li><span className="text-indigo-400 font-semibold">UGC Autonomous</span></li>
-                <li><span className="text-purple-400 font-semibold">NIRF Tier 1 Ranked</span></li>
+              <ul className="space-y-1.5 text-blue-200/75 text-xs">
+                <li><span className="text-orange-400 font-semibold">NAAC A+ Grade</span></li>
+                <li><span className="text-white font-semibold">NBA Accredited (CSE/ECE)</span></li>
+                <li><span className="text-orange-300 font-semibold">AICTE Approved</span></li>
+                <li><span className="text-white font-semibold">UGC Autonomous</span></li>
+                <li><span className="text-orange-400 font-semibold">NIRF Tier 1 Ranked</span></li>
               </ul>
             </div>
           </div>
 
           {/* Footer Bottom Strip */}
-          <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
+          <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-blue-300/60 text-[11px]">
             <div>
               © 2026 CampusFlow OS • Anurag University. All rights reserved.
             </div>

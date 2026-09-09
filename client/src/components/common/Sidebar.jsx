@@ -196,21 +196,21 @@ export default function Sidebar({ isOpen, onClose }) {
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-slate-950 via-[#0B0F19] to-[#0A0D16] border-r border-slate-800/70 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-[#19227d] via-[#141b66] to-[#0e1450] border-r border-white/10 text-white flex flex-col transition-transform duration-300 ease-in-out shadow-2xl shadow-blue-950/60 lg:translate-x-0 lg:static lg:inset-auto ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Brand Header */}
-        <div className="h-20 flex items-center justify-between px-6 border-b border-slate-800/80">
+        <div className="h-20 flex items-center justify-between px-6 border-b border-white/10 bg-white/5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/25">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#ff6b00] to-[#ffa133] flex items-center justify-center text-white font-black text-xl shadow-lg shadow-orange-500/35">
               C
             </div>
             <div>
-              <span className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300 tracking-tight block">
+              <span className="text-xl font-black text-white tracking-tight block">
                 CampusFlow
               </span>
-              <span className="text-[10px] text-indigo-400 font-semibold tracking-wider uppercase block -mt-1">
+              <span className="text-[10px] text-orange-400 font-bold tracking-wider uppercase block -mt-1">
                 Enterprise Suite
               </span>
             </div>
@@ -219,15 +219,15 @@ export default function Sidebar({ isOpen, onClose }) {
 
         {/* Current User Badge Card */}
         <div className="px-4 py-4">
-          <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800/80 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-indigo-500 to-violet-600 text-white font-bold flex items-center justify-center text-sm shadow-sm flex-shrink-0">
+          <div className="p-3 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md flex items-center gap-3 shadow-md">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#ff6b00] to-[#ff8c00] text-white font-bold flex items-center justify-center text-sm shadow-md shadow-orange-500/25 flex-shrink-0">
               {user.name?.[0] || 'U'}
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-xs font-bold text-white truncate">{user.name}</p>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className={`inline-block w-1.5 h-1.5 rounded-full bg-gradient-to-r ${roleMeta.color}`} />
-                <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold truncate">
+                <span className="inline-block w-2 h-2 rounded-full bg-orange-400 shadow-xs shadow-orange-400" />
+                <span className="text-[10px] text-blue-200 uppercase tracking-wider font-semibold truncate">
                   {roleMeta.label}
                 </span>
               </div>
@@ -247,21 +247,21 @@ export default function Sidebar({ isOpen, onClose }) {
                 className={({ isActive }) =>
                   `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all group ${
                     isActive
-                      ? 'bg-gradient-to-r from-indigo-600/25 via-indigo-600/15 to-transparent text-white font-semibold border-l-3 border-indigo-500 shadow-inner'
+                      ? 'bg-gradient-to-r from-[#ff6b00] to-[#ff8c00] text-white font-bold shadow-lg shadow-orange-500/30'
                       : item.highlight
-                      ? 'text-indigo-300 hover:text-white hover:bg-indigo-950/40'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-900/60'
+                      ? 'text-orange-300 hover:text-white hover:bg-white/10'
+                      : 'text-blue-100/80 hover:text-white hover:bg-white/10'
                   }`
                 }
               >
                 <div className="flex items-center gap-3">
                   <Icon className={`w-4 h-4 transition-colors ${
-                    item.highlight ? 'text-indigo-400 animate-pulse' : 'text-slate-400 group-hover:text-indigo-400'
+                    item.highlight ? 'text-orange-400 animate-pulse' : 'text-blue-200 group-hover:text-white'
                   }`} />
                   <span>{item.label}</span>
                 </div>
                 {item.highlight && (
-                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-orange-500/20 text-orange-300 border border-orange-500/40">
                     AI
                   </span>
                 )}
@@ -271,10 +271,10 @@ export default function Sidebar({ isOpen, onClose }) {
         </nav>
 
         {/* Footer Logout */}
-        <div className="p-4 border-t border-slate-800/80">
+        <div className="p-4 border-t border-white/10 bg-white/5">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold text-rose-400 hover:text-white hover:bg-rose-950/40 border border-slate-800 hover:border-rose-900/50 transition-all cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-[#ff6b00] border border-white/15 hover:border-orange-500 transition-all cursor-pointer shadow-sm hover:shadow-orange-500/30"
           >
             <LogOut className="w-4 h-4" />
             Sign Out

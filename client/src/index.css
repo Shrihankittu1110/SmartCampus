@@ -152,3 +152,37 @@
   background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(2, 6, 23, 0.95) 100%);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.12);
 }
+
+/* Reference Theme: Deep Royal Space Blue, Crisp White & Vivid Orange */
+.bg-space-cobalt {
+  background-color: #171f78;
+  background-image: 
+    radial-gradient(circle at 50% 18%, #2837b2 0%, #1a2380 48%, #111758 100%);
+}
+
+.bg-space-radial {
+  background: radial-gradient(circle at 50% 25%, rgba(66, 99, 235, 0.35) 0%, rgba(30, 42, 140, 0.15) 55%, transparent 100%);
+}
+
+.glow-orange {
+  box-shadow: 0 6px 25px -4px rgba(255, 107, 0, 0.45);
+}
+
+.btn-vivid-orange {
+  background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(255, 107, 0, 0.38);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-vivid-orange:hover {
+  background: linear-gradient(135deg, #ff7a12 0%, #ff9514 100%);
+  box-shadow: 0 8px 28px rgba(255, 107, 0, 0.55);
+  transform: translateY(-1.5px);
+}
+
+.orbit-ring {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  pointer-events: none;
+}
