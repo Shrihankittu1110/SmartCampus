@@ -55,28 +55,28 @@ export default function Login() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-800/80">
+      <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/10">
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-indigo-400 transition-colors group"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-200 hover:text-white transition-colors group"
         >
-          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform text-indigo-400" />
+          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform text-orange-400" />
           <span>Back to Home</span>
         </Link>
-        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/25">
+        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-white border border-white/20">
           Anurag University
         </span>
       </div>
 
       <div className="text-center mb-6">
         <h2 className="text-xl font-extrabold text-white">Sign in to your portal</h2>
-        <p className="text-xs text-slate-400 mt-1">
+        <p className="text-xs text-blue-200/80 mt-1">
           Access your institutional role workspace
         </p>
       </div>
 
       {error && (
-        <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 flex items-center gap-2">
+        <div className="mb-4 p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 text-xs text-rose-200 flex items-center gap-2">
           <AlertCircle className="w-4 h-4 flex-shrink-0 text-rose-400" />
           <span>{error}</span>
         </div>
@@ -84,12 +84,12 @@ export default function Login() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+          <label className="block text-xs font-semibold text-blue-100 uppercase tracking-wider">
             Email Address
           </label>
           <div className="mt-1 relative rounded-xl shadow-xs">
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-              <Mail className="h-4 w-4 text-slate-500" />
+              <Mail className="h-4 w-4 text-blue-300/60" />
             </div>
             <input
               type="email"
@@ -98,21 +98,21 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="user@apex.edu"
-              className="block w-full pl-10 pr-3 py-2.5 text-xs text-white bg-slate-950/60 border border-slate-700/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 placeholder-slate-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-900/50"
+              className="block w-full pl-10 pr-3 py-2.5 text-xs text-white bg-[#0a0e38]/80 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500 placeholder-blue-200/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#0a0e38]/40"
             />
           </div>
         </div>
 
         <div>
           <div className="flex items-center justify-between">
-            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+            <label className="block text-xs font-semibold text-blue-100 uppercase tracking-wider">
               Password
             </label>
             <Link
               to="/forgot-password"
               tabIndex={loading ? -1 : 0}
-              className={`text-xs text-indigo-400 font-medium transition-colors ${
-                loading ? 'pointer-events-none opacity-50' : 'hover:text-indigo-300'
+              className={`text-xs text-orange-400 font-medium transition-colors ${
+                loading ? 'pointer-events-none opacity-50' : 'hover:text-orange-300'
               }`}
             >
               Forgot password?
@@ -120,7 +120,7 @@ export default function Login() {
           </div>
           <div className="mt-1 relative rounded-xl shadow-xs">
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-              <Lock className="h-4 w-4 text-slate-500" />
+              <Lock className="h-4 w-4 text-blue-300/60" />
             </div>
             <input
               type={showPassword ? 'text' : 'password'}
@@ -129,19 +129,19 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="block w-full pl-10 pr-10 py-2.5 text-xs text-white bg-slate-950/60 border border-slate-700/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 placeholder-slate-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-900/50"
+              className="block w-full pl-10 pr-10 py-2.5 text-xs text-white bg-[#0a0e38]/80 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500 placeholder-blue-200/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#0a0e38]/40"
             />
             <button
               type="button"
               disabled={loading}
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-blue-300/70 hover:text-white transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? (
-                <EyeOff className="h-4 w-4 text-indigo-400" />
+                <EyeOff className="h-4 w-4 text-orange-400" />
               ) : (
-                <Eye className="h-4 w-4 text-slate-400 hover:text-white" />
+                <Eye className="h-4 w-4 text-blue-200 hover:text-white" />
               )}
             </button>
           </div>
@@ -150,7 +150,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 hover:brightness-110 shadow-lg shadow-indigo-500/25 disabled:opacity-60 disabled:cursor-not-allowed transition-all cursor-pointer"
+          className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white btn-vivid-orange shadow-lg shadow-orange-500/30 disabled:opacity-60 disabled:cursor-not-allowed transition-all cursor-pointer"
         >
           {loading ? (
             <>
@@ -167,9 +167,9 @@ export default function Login() {
       </form>
 
       {/* Demo Credentials Quick Switcher */}
-      <div className="mt-6 pt-5 border-t border-slate-800">
-        <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 mb-2.5">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+      <div className="mt-6 pt-5 border-t border-white/15">
+        <div className="flex items-center gap-1.5 text-xs font-semibold text-orange-400 mb-2.5">
+          <Sparkles className="w-3.5 h-3.5 text-orange-400" />
           <span>Quick Demo Logins (Click to Autofill):</span>
         </div>
         <div className="grid grid-cols-2 gap-2 text-[10px] sm:text-[11px]">
@@ -177,55 +177,55 @@ export default function Login() {
             type="button"
             disabled={loading}
             onClick={() => handleFillDemo('superadmin@campusflow.edu', 'Admin@123', 'Super Admin')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-purple-950/40 hover:border-purple-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Super Admin</span>
-            <span className="text-purple-400 text-[9px] sm:text-[10px] block truncate">Global Control</span>
+            <span className="text-orange-300 text-[9px] sm:text-[10px] block truncate">Global Control</span>
           </button>
           <button
             type="button"
             disabled={loading}
             onClick={() => handleFillDemo('admin@anurag.edu.in', 'Admin@123', 'Campus Admin')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-indigo-950/40 hover:border-indigo-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Campus Admin</span>
-            <span className="text-indigo-400 text-[9px] sm:text-[10px] block truncate">Anurag University</span>
+            <span className="text-orange-300 text-[9px] sm:text-[10px] block truncate">Anurag University</span>
           </button>
           <button
             type="button"
             disabled={loading}
             onClick={() => handleFillDemo('faculty.cs@anurag.edu.in', 'Faculty@123', 'Faculty (CSE)')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-teal-950/40 hover:border-teal-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Faculty (CSE)</span>
-            <span className="text-teal-400 text-[9px] sm:text-[10px] block truncate">Dr. Alan Turing</span>
+            <span className="text-emerald-400 text-[9px] sm:text-[10px] block truncate">Dr. Alan Turing</span>
           </button>
           <button
             type="button"
             disabled={loading}
             onClick={() => handleFillDemo('student1@anurag.edu.in', 'Student@123', 'Rahul Sharma')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-cyan-950/40 hover:border-cyan-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Student (Safe)</span>
-            <span className="text-cyan-400 text-[9px] sm:text-[10px] block truncate">Rahul (CGPA 8.8)</span>
+            <span className="text-cyan-300 text-[9px] sm:text-[10px] block truncate">Rahul (CGPA 8.8)</span>
           </button>
           <button
             type="button"
             disabled={loading}
             onClick={() => handleFillDemo('student3@anurag.edu.in', 'Student@123', 'Amit Kumar')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-amber-950/40 hover:border-amber-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Student (Alert)</span>
-            <span className="text-amber-400 text-[9px] sm:text-[10px] block truncate">Amit (Att: 58%)</span>
+            <span className="text-amber-300 text-[9px] sm:text-[10px] block truncate">Amit (Att: 58%)</span>
           </button>
           <button
             type="button"
             disabled={loading}
             onClick={() => handleFillDemo('placement@anurag.edu.in', 'Placement@123', 'Placement Cell')}
-            className="p-2 text-left rounded-xl bg-slate-950/60 hover:bg-violet-950/40 hover:border-violet-500/50 border border-slate-800 transition-all text-slate-300 min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
           >
             <span className="font-bold text-white block truncate">Placement Cell</span>
-            <span className="text-violet-400 text-[9px] sm:text-[10px] block truncate">Marcus Brody</span>
+            <span className="text-orange-300 text-[9px] sm:text-[10px] block truncate">Marcus Brody</span>
           </button>
         </div>
       </div>

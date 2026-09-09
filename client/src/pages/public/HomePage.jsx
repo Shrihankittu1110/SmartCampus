@@ -227,7 +227,7 @@ export default function HomePage() {
   const isEligibleForInfosys = demoCgpa >= 6.0 && demoBacklogs <= 1;
 
   return (
-    <div className="min-h-screen bg-space-cobalt text-white font-sans selection:bg-orange-500/30 selection:text-orange-200 relative overflow-x-hidden bg-grid-pattern">
+    <div className="min-h-screen bg-space-cobalt text-white font-sans selection:bg-orange-500/30 selection:text-orange-200 relative overflow-x-hidden">
       {/* Top Reading Scroll Progress Indicator */}
       <div
         className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-[#ff6b00] via-[#ff8800] to-[#ffa133] z-[100] transition-all duration-75 shadow-sm shadow-orange-500/50"
