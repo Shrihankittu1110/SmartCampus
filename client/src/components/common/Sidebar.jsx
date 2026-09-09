@@ -19,6 +19,7 @@ import {
   ClipboardList,
   Award,
   ChevronRight,
+  GraduationCap,
 } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 
@@ -203,8 +204,10 @@ export default function Sidebar({ isOpen, onClose }) {
         {/* Brand Header */}
         <div className="h-20 flex items-center justify-between px-6 border-b border-white/10 bg-white/5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#ff6b00] to-[#ffa133] flex items-center justify-center text-white font-black text-xl shadow-lg shadow-orange-500/35">
-              C
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#ff6b00] to-[#ffa133] p-[1.5px] shadow-lg shadow-orange-500/30">
+              <div className="w-full h-full bg-[#0e1450] rounded-[10px] flex items-center justify-center">
+                <GraduationCap className="w-5 h-5 text-orange-400" />
+              </div>
             </div>
             <div>
               <span className="text-xl font-black text-white tracking-tight block">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, GraduationCap } from 'lucide-react';
 
 export default function AuthLayout() {
   return (
@@ -24,8 +24,10 @@ export default function AuthLayout() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md z-10 text-center">
         <Link to="/" className="inline-flex items-center gap-3 group">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#ff6b00] to-[#ffa133] flex items-center justify-center text-white font-black text-2xl shadow-xl shadow-orange-500/35 group-hover:scale-105 transition-all">
-            C
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#ff6b00] to-[#ffa133] p-[2px] shadow-xl shadow-orange-500/35 group-hover:scale-105 transition-all">
+            <div className="w-full h-full bg-[#0e1450] rounded-[14px] flex items-center justify-center">
+              <GraduationCap className="w-6 h-6 text-orange-400" />
+            </div>
           </div>
           <div className="text-left">
             <span className="text-2xl font-black text-white tracking-tight block">
