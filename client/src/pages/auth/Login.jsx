@@ -20,22 +20,19 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const qEmail = params.get('email');
-    const qPass = params.get('password');
-    if (qEmail) setEmail(qEmail);
-    if (qPass) setPassword(qPass);
-  }, [location.search]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const performLogin = async (targetEmail, targetPassword, roleLabel = null) => {
     setError('');
     setLoading(true);
 
     try {
-      await login({ email, password });
-      flashToast('Welcome back to Anurag University.', 'success', 'Login Successful');
+      await login({ email: targetEmail, password: targetPassword });
+      flashToast(
+        roleLabel
+          ? `Welcome to Anurag University — Logged in as ${roleLabel}.`
+          : 'Welcome back to Anurag University.',
+        'success',
+        'Login Successful'
+      );
       navigate('/dashboard');
     } catch (err) {
       const msg = err.response?.data?.message || err.message || 'Login failed. Please check credentials.';
@@ -46,11 +43,28 @@ export default function Login() {
     }
   };
 
-  const handleFillDemo = (demoEmail, demoPassword, roleLabel) => {
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const qEmail = params.get('email');
+    const qPass = params.get('password');
+    const auto = params.get('autoLogin');
+    if (qEmail) setEmail(qEmail);
+    if (qPass) setPassword(qPass);
+
+    if (qEmail && qPass && (auto === 'true' || auto === '1')) {
+      performLogin(qEmail, qPass);
+    }
+  }, [location.search]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await performLogin(email, password);
+  };
+
+  const handleDemoLogin = async (demoEmail, demoPassword, roleLabel) => {
     setEmail(demoEmail);
     setPassword(demoPassword);
-    setError('');
-    showToast(`Autofilled ${roleLabel} demo credentials into form`, 'info', 'Credentials Loaded');
+    await performLogin(demoEmail, demoPassword, roleLabel);
   };
 
   return (
@@ -168,63 +182,84 @@ export default function Login() {
 
       {/* Demo Credentials Quick Switcher */}
       <div className="mt-6 pt-5 border-t border-white/15">
-        <div className="flex items-center gap-1.5 text-xs font-semibold text-orange-400 mb-2.5">
-          <Sparkles className="w-3.5 h-3.5 text-orange-400" />
-          <span>Quick Demo Logins (Click to Autofill):</span>
+        <div className="flex items-center justify-between mb-2.5">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-orange-400">
+            <Sparkles className="w-3.5 h-3.5 text-orange-400" />
+            <span>Instant 1-Click Demo Portals:</span>
+          </div>
+          <span className="text-[10px] text-blue-200/60 font-semibold">Click any role to enter</span>
         </div>
         <div className="grid grid-cols-2 gap-2 text-[10px] sm:text-[11px]">
           <button
             type="button"
             disabled={loading}
-            onClick={() => handleFillDemo('superadmin@campusflow.edu', 'Admin@123', 'Super Admin')}
-            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            onClick={() => handleDemoLogin('superadmin@campusflow.edu', 'Admin@123', 'Super Admin')}
+            className="p-2.5 text-left rounded-xl bg-white/5 hover:bg-orange-500/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none group"
           >
-            <span className="font-bold text-white block truncate">Super Admin</span>
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-white block truncate group-hover:text-orange-300">Super Admin</span>
+              <span className="text-[9px] px-1 py-0.2 rounded bg-white/10 text-orange-400 font-bold">1-Click</span>
+            </div>
             <span className="text-orange-300 text-[9px] sm:text-[10px] block truncate">Global Control</span>
           </button>
           <button
             type="button"
             disabled={loading}
-            onClick={() => handleFillDemo('admin@anurag.edu.in', 'Admin@123', 'Campus Admin')}
-            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            onClick={() => handleDemoLogin('admin@anurag.edu.in', 'Admin@123', 'Campus Admin')}
+            className="p-2.5 text-left rounded-xl bg-white/5 hover:bg-orange-500/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none group"
           >
-            <span className="font-bold text-white block truncate">Campus Admin</span>
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-white block truncate group-hover:text-orange-300">Campus Admin</span>
+              <span className="text-[9px] px-1 py-0.2 rounded bg-white/10 text-orange-400 font-bold">1-Click</span>
+            </div>
             <span className="text-orange-300 text-[9px] sm:text-[10px] block truncate">Anurag University</span>
           </button>
           <button
             type="button"
             disabled={loading}
-            onClick={() => handleFillDemo('faculty.cs@anurag.edu.in', 'Faculty@123', 'Faculty (CSE)')}
-            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            onClick={() => handleDemoLogin('faculty.cs@anurag.edu.in', 'Faculty@123', 'Faculty (CSE)')}
+            className="p-2.5 text-left rounded-xl bg-white/5 hover:bg-emerald-500/15 hover:border-emerald-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none group"
           >
-            <span className="font-bold text-white block truncate">Faculty (CSE)</span>
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-white block truncate group-hover:text-emerald-300">Faculty (CSE)</span>
+              <span className="text-[9px] px-1 py-0.2 rounded bg-white/10 text-emerald-400 font-bold">1-Click</span>
+            </div>
             <span className="text-emerald-400 text-[9px] sm:text-[10px] block truncate">Dr. Alan Turing</span>
           </button>
           <button
             type="button"
             disabled={loading}
-            onClick={() => handleFillDemo('student1@anurag.edu.in', 'Student@123', 'Rahul Sharma')}
-            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            onClick={() => handleDemoLogin('student1@anurag.edu.in', 'Student@123', 'Rahul Sharma')}
+            className="p-2.5 text-left rounded-xl bg-white/5 hover:bg-cyan-500/15 hover:border-cyan-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none group"
           >
-            <span className="font-bold text-white block truncate">Student (Safe)</span>
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-white block truncate group-hover:text-cyan-300">Student (Safe)</span>
+              <span className="text-[9px] px-1 py-0.2 rounded bg-white/10 text-cyan-400 font-bold">1-Click</span>
+            </div>
             <span className="text-cyan-300 text-[9px] sm:text-[10px] block truncate">Rahul (CGPA 8.8)</span>
           </button>
           <button
             type="button"
             disabled={loading}
-            onClick={() => handleFillDemo('student3@anurag.edu.in', 'Student@123', 'Amit Kumar')}
-            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            onClick={() => handleDemoLogin('student3@anurag.edu.in', 'Student@123', 'Amit Kumar')}
+            className="p-2.5 text-left rounded-xl bg-white/5 hover:bg-amber-500/15 hover:border-amber-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none group"
           >
-            <span className="font-bold text-white block truncate">Student (Alert)</span>
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-white block truncate group-hover:text-amber-300">Student (Alert)</span>
+              <span className="text-[9px] px-1 py-0.2 rounded bg-white/10 text-amber-400 font-bold">1-Click</span>
+            </div>
             <span className="text-amber-300 text-[9px] sm:text-[10px] block truncate">Amit (Att: 58%)</span>
           </button>
           <button
             type="button"
             disabled={loading}
-            onClick={() => handleFillDemo('placement@anurag.edu.in', 'Placement@123', 'Placement Cell')}
-            className="p-2 text-left rounded-xl bg-white/5 hover:bg-white/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
+            onClick={() => handleDemoLogin('placement@anurag.edu.in', 'Placement@123', 'Placement Cell')}
+            className="p-2.5 text-left rounded-xl bg-white/5 hover:bg-orange-500/15 hover:border-orange-500/50 border border-white/10 transition-all text-white min-w-0 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none group"
           >
-            <span className="font-bold text-white block truncate">Placement Cell</span>
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-white block truncate group-hover:text-orange-300">Placement Cell</span>
+              <span className="text-[9px] px-1 py-0.2 rounded bg-white/10 text-orange-400 font-bold">1-Click</span>
+            </div>
             <span className="text-orange-300 text-[9px] sm:text-[10px] block truncate">Marcus Brody</span>
           </button>
         </div>

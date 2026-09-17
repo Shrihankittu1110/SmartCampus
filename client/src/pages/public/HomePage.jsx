@@ -96,7 +96,7 @@ export default function HomePage() {
 
   // Quick Persona Demo Navigation
   const handleLaunchPersona = (email, password) => {
-    navigate(`/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+    navigate(`/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&autoLogin=true`);
   };
 
   const rolePersonas = [
