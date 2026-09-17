@@ -251,7 +251,10 @@ export default function AttendanceManager() {
       </div>
 
       {/* Attendance Roster Table */}
-      <div className="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+      {loading ? (
+        <LoadingSkeleton rows={3} message="Loading Attendance Sheet" />
+      ) : (
+        <div className="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
           <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
             Student Roster ({students.length})
@@ -324,6 +327,7 @@ export default function AttendanceManager() {
           </table>
         </div>
       </div>
+      )}
     </div>
   );
 }

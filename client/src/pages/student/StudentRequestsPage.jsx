@@ -188,7 +188,11 @@ export default function StudentRequestsPage() {
         )}
       </div>
 
-      <DataTable columns={columns} data={requests} searchKey="subject" />
+      {loading ? (
+        <LoadingSkeleton rows={3} message="Loading Campus Requests" />
+      ) : (
+        <DataTable columns={columns} data={requests} searchKey="subject" />
+      )}
 
       {/* Submit Request Modal */}
       <Modal

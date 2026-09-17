@@ -62,7 +62,10 @@ export default function StudentGradesPage() {
       </div>
 
       {/* Grades Table */}
-      <div className="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+      {loading ? (
+        <LoadingSkeleton rows={3} message="Loading Grades & Transcript" />
+      ) : (
+        <div className="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-slate-100">
           <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
             Official Grade Sheet
@@ -114,6 +117,7 @@ export default function StudentGradesPage() {
           </table>
         </div>
       </div>
+      )}
     </div>
   );
 }

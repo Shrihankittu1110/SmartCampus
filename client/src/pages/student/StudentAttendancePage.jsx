@@ -69,8 +69,12 @@ export default function StudentAttendancePage() {
         </div>
       )}
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {loading ? (
+        <LoadingSkeleton rows={3} message="Loading Attendance Records" />
+      ) : (
+        <>
+          {/* KPI Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Overall Attendance"
           value={`${overall.percentage}%`}
@@ -192,6 +196,8 @@ export default function StudentAttendancePage() {
           ))}
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 }

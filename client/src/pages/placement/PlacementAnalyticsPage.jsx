@@ -77,8 +77,12 @@ export default function PlacementAnalyticsPage() {
         </button>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {loading ? (
+        <LoadingSkeleton rows={3} message="Loading Placement Analytics" />
+      ) : (
+        <>
+          {/* KPI Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Average Package"
           value={`${data?.averagePackage || 0} LPA`}
@@ -137,6 +141,8 @@ export default function PlacementAnalyticsPage() {
           )}
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 }

@@ -123,7 +123,11 @@ export default function CompaniesPage() {
         </button>
       </div>
 
-      <DataTable columns={columns} data={companies} searchKey="name" />
+      {loading ? (
+        <LoadingSkeleton rows={3} message="Loading Corporate Recruiters" />
+      ) : (
+        <DataTable columns={columns} data={companies} searchKey="name" />
+      )}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Register Partner Company">
         <form onSubmit={handleCreate} className="space-y-3">

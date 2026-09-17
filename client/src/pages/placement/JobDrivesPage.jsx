@@ -246,7 +246,11 @@ export default function JobDrivesPage() {
         </button>
       </div>
 
-      <DataTable columns={columns} data={drives} searchKey="title" />
+      {loading ? (
+        <LoadingSkeleton rows={3} message="Loading Recruitment Drives" />
+      ) : (
+        <DataTable columns={columns} data={drives} searchKey="title" />
+      )}
 
       {/* Create Drive Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Publish Recruitment Drive">

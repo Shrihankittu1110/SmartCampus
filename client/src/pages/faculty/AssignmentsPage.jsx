@@ -206,7 +206,11 @@ export default function AssignmentsPage() {
         </button>
       </div>
 
-      <DataTable columns={columns} data={assignments} searchKey="title" />
+      {loading ? (
+        <LoadingSkeleton rows={3} message="Loading Coursework & Assignments" />
+      ) : (
+        <DataTable columns={columns} data={assignments} searchKey="title" />
+      )}
 
       {/* Create Assignment Modal */}
       <Modal
