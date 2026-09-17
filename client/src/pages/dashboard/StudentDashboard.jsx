@@ -74,151 +74,162 @@ export default function StudentDashboard() {
         </div>
       </div>
 
-      {/* Attendance Warning Banner if Critical or Warning */}
-      {attendanceStatus !== 'Safe' && (
-        <div
-          className={`p-4 rounded-2xl border flex items-start gap-3 shadow-xs ${
-            attendanceStatus === 'Critical'
-              ? 'bg-rose-50/90 border-rose-200 text-rose-900'
-              : 'bg-amber-50/90 border-amber-200 text-amber-900'
-          }`}
-        >
-          <div className={`p-2 rounded-xl flex-shrink-0 ${
-            attendanceStatus === 'Critical' ? 'bg-rose-200/60 text-rose-700' : 'bg-amber-200/60 text-amber-700'
-          }`}>
-            <AlertTriangle className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-sm font-bold">
-              Attendance Alert: {stats?.attendancePercentage}% Standing ({attendanceStatus})
-            </p>
-            <p className="text-xs mt-0.5 leading-relaxed text-slate-600">
-              Your overall class attendance is below the mandatory 75% institutional threshold. Please attend upcoming lectures to prevent exam detention.
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* KPI Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          title="Overall Attendance"
-          value={`${stats?.attendancePercentage || 100}%`}
-          icon={CalendarCheck}
-          description={`Standing: ${attendanceStatus}`}
-          variant={attendanceVariant}
-          trend={attendanceStatus === 'Safe' ? 'On Track' : 'Alert'}
+      {loading ? (
+        <LoadingSkeleton
+          type="dashboard"
+          kpiCount={4}
+          rows={3}
+          message="Loading Student Dashboard"
         />
-        <StatCard
-          title="Active Problem Sets"
-          value={stats?.upcomingAssignmentsCount || 0}
-          icon={FileText}
-          description="Due in current cycle"
-          variant="indigo"
-        />
-        <StatCard
-          title="Placement Drives"
-          value={stats?.placementOpportunitiesCount || 0}
-          icon={Briefcase}
-          description="Live recruiting openings"
-          variant="purple"
-        />
-        <StatCard
-          title="Cumulative CGPA"
-          value={user?.cgpa || '8.80'}
-          icon={Award}
-          description="Scale 0.00 – 10.00"
-          variant="teal"
-          trend="Top 10%"
-        />
-      </div>
-
-      {/* Two Column Layout: Academic Scorecard & AI Action Hub */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Grades Transcript (2 cols) */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <div>
-              <h2 className="text-base font-bold text-slate-800">Academic Scorecard</h2>
-              <p className="text-xs text-slate-400">Current semester evaluated coursework</p>
-            </div>
-            <Link
-              to="/student/grades"
-              className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1 group"
+      ) : (
+        <>
+          {/* Attendance Warning Banner if Critical or Warning */}
+          {attendanceStatus !== 'Safe' && (
+            <div
+              className={`p-4 rounded-2xl border flex items-start gap-3 shadow-xs ${
+                attendanceStatus === 'Critical'
+                  ? 'bg-rose-50/90 border-rose-200 text-rose-900'
+                  : 'bg-amber-50/90 border-amber-200 text-amber-900'
+              }`}
             >
-              Full Transcript <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
+              <div className={`p-2 rounded-xl flex-shrink-0 ${
+                attendanceStatus === 'Critical' ? 'bg-rose-200/60 text-rose-700' : 'bg-amber-200/60 text-amber-700'
+              }`}>
+                <AlertTriangle className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-sm font-bold">
+                  Attendance Alert: {stats?.attendancePercentage}% Standing ({attendanceStatus})
+                </p>
+                <p className="text-xs mt-0.5 leading-relaxed text-slate-600">
+                  Your overall class attendance is below the mandatory 75% institutional threshold. Please attend upcoming lectures to prevent exam detention.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* KPI Metric Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <StatCard
+              title="Overall Attendance"
+              value={`${stats?.attendancePercentage || 100}%`}
+              icon={CalendarCheck}
+              description={`Standing: ${attendanceStatus}`}
+              variant={attendanceVariant}
+              trend={attendanceStatus === 'Safe' ? 'On Track' : 'Alert'}
+            />
+            <StatCard
+              title="Active Problem Sets"
+              value={stats?.upcomingAssignmentsCount || 0}
+              icon={FileText}
+              description="Due in current cycle"
+              variant="indigo"
+            />
+            <StatCard
+              title="Placement Drives"
+              value={stats?.placementOpportunitiesCount || 0}
+              icon={Briefcase}
+              description="Live recruiting openings"
+              variant="purple"
+            />
+            <StatCard
+              title="Cumulative CGPA"
+              value={user?.cgpa || '8.80'}
+              icon={Award}
+              description="Scale 0.00 – 10.00"
+              variant="teal"
+              trend="Top 10%"
+            />
           </div>
 
-          <div className="divide-y divide-slate-100">
-            {stats?.recentGrades?.length > 0 ? (
-              stats.recentGrades.map((g) => (
-                <div key={g._id} className="py-3.5 flex items-center justify-between hover:bg-slate-50/50 px-2 rounded-xl transition-colors">
-                  <div>
-                    <p className="text-sm font-bold text-slate-800">
-                      {g.subjectId?.name || 'Subject'}
-                    </p>
-                    <p className="text-xs text-slate-400">Code: {g.subjectId?.code || 'N/A'}</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-base font-black text-slate-800">{g.marks}%</span>
-                    <Badge variant="indigo" size="sm">
-                      Grade {g.grade}
-                    </Badge>
-                  </div>
+          {/* Two Column Layout: Academic Scorecard & AI Action Hub */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Recent Grades Transcript (2 cols) */}
+            <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div>
+                  <h2 className="text-base font-bold text-slate-800">Academic Scorecard</h2>
+                  <p className="text-xs text-slate-400">Current semester evaluated coursework</p>
                 </div>
-              ))
-            ) : (
-              <p className="py-8 text-center text-xs text-slate-400">No grades recorded yet.</p>
-            )}
-          </div>
-        </div>
+                <Link
+                  to="/student/grades"
+                  className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1 group"
+                >
+                  Full Transcript <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+              </div>
 
-        {/* AI & Placements Quick Hub (1 col) */}
-        <div className="space-y-4">
-          {/* AI Study Planner Card */}
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-900 via-[#1e1b4b] to-violet-950 p-6 text-white shadow-md border border-indigo-500/30">
-            <div className="flex items-center gap-2 text-indigo-300 font-bold text-xs uppercase tracking-wider">
-              <Sparkles className="w-4 h-4 text-cyan-400" />
-              Cognitive Study Engine
+              <div className="divide-y divide-slate-100">
+                {stats?.recentGrades?.length > 0 ? (
+                  stats.recentGrades.map((g) => (
+                    <div key={g._id} className="py-3.5 flex items-center justify-between hover:bg-slate-50/50 px-2 rounded-xl transition-colors">
+                      <div>
+                        <p className="text-sm font-bold text-slate-800">
+                          {g.subjectId?.name || 'Subject'}
+                        </p>
+                        <p className="text-xs text-slate-400">Code: {g.subjectId?.code || 'N/A'}</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-base font-black text-slate-800">{g.marks}%</span>
+                        <Badge variant="indigo" size="sm">
+                          Grade {g.grade}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="py-8 text-center text-xs text-slate-400">No grades recorded yet.</p>
+                )}
+              </div>
             </div>
-            <h3 className="text-lg font-bold mt-2 text-white">
-              7-Day Exam Revision Planner
-            </h3>
-            <p className="text-xs text-indigo-200/80 mt-1 leading-relaxed">
-              Synthesize custom schedules, target weak subject areas, and prepare with verified references.
-            </p>
-            <Link
-              to="/student/ai-study-assistant"
-              className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-slate-950 bg-gradient-to-r from-cyan-300 to-indigo-300 hover:brightness-105 px-4 py-2.5 rounded-xl transition-all shadow-md"
-            >
-              Generate Revision Plan <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
 
-          {/* Placements Shortcut Card */}
-          <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-xs space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Career Center
-              </span>
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            {/* AI & Placements Quick Hub (1 col) */}
+            <div className="space-y-4">
+              {/* AI Study Planner Card */}
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-900 via-[#1e1b4b] to-violet-950 p-6 text-white shadow-md border border-indigo-500/30">
+                <div className="flex items-center gap-2 text-indigo-300 font-bold text-xs uppercase tracking-wider">
+                  <Sparkles className="w-4 h-4 text-cyan-400" />
+                  Cognitive Study Engine
+                </div>
+                <h3 className="text-lg font-bold mt-2 text-white">
+                  7-Day Exam Revision Planner
+                </h3>
+                <p className="text-xs text-indigo-200/80 mt-1 leading-relaxed">
+                  Synthesize custom schedules, target weak subject areas, and prepare with verified references.
+                </p>
+                <Link
+                  to="/student/ai-study-assistant"
+                  className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-slate-950 bg-gradient-to-r from-cyan-300 to-indigo-300 hover:brightness-105 px-4 py-2.5 rounded-xl transition-all shadow-md"
+                >
+                  Generate Revision Plan <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+              {/* Placements Shortcut Card */}
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-5 shadow-xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                    Career Center
+                  </span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-800">Recruitment Drives</p>
+                  <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
+                    Automated eligibility matching against top hiring partners.
+                  </p>
+                </div>
+                <Link
+                  to="/student/placements"
+                  className="w-full flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100/80 rounded-xl transition-colors"
+                >
+                  Explore Job Openings
+                </Link>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-bold text-slate-800">Recruitment Drives</p>
-              <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
-                Automated eligibility matching against top hiring partners.
-              </p>
-            </div>
-            <Link
-              to="/student/placements"
-              className="w-full flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100/80 rounded-xl transition-colors"
-            >
-              Explore Job Openings
-            </Link>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 }

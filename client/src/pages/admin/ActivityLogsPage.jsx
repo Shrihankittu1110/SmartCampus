@@ -72,7 +72,11 @@ export default function ActivityLogsPage() {
         </div>
       </div>
 
-      <DataTable columns={columns} data={logs} searchKey="action" searchPlaceholder="Search action..." />
+      {loading ? (
+        <LoadingSkeleton rows={5} message="Loading Security Audit Logs" />
+      ) : (
+        <DataTable columns={columns} data={logs} searchKey="action" searchPlaceholder="Search action..." />
+      )}
     </div>
   );
 }

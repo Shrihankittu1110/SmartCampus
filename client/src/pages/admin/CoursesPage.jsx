@@ -106,7 +106,11 @@ export default function CoursesPage() {
         </button>
       </div>
 
-      <DataTable columns={columns} data={courses} searchKey="name" />
+      {loading ? (
+        <LoadingSkeleton rows={4} message="Loading Degree Courses" />
+      ) : (
+        <DataTable columns={columns} data={courses} searchKey="name" />
+      )}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Create New Degree Course">
         <form onSubmit={handleCreate} className="space-y-3">

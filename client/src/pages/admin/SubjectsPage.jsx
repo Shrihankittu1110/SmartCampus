@@ -130,7 +130,11 @@ export default function SubjectsPage() {
         </button>
       </div>
 
-      <DataTable columns={columns} data={subjects} searchKey="name" />
+      {loading ? (
+        <LoadingSkeleton rows={4} message="Loading Subjects Curriculum" />
+      ) : (
+        <DataTable columns={columns} data={subjects} searchKey="name" />
+      )}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Create New Subject">
         <form onSubmit={handleCreate} className="space-y-3">

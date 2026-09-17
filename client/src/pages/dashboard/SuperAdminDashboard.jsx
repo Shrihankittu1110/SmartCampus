@@ -138,53 +138,64 @@ export default function SuperAdminDashboard() {
         </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          title="Colleges Registered"
-          value={stats?.totalInstitutions || 0}
-          icon={Building2}
-          description="Active tenant boundaries"
-          variant="indigo"
+      {loading ? (
+        <LoadingSkeleton
+          type="dashboard"
+          kpiCount={4}
+          rows={4}
+          message="Loading Global System Overview"
         />
-        <StatCard
-          title="Total Platform Users"
-          value={stats?.totalUsers || 0}
-          icon={Users}
-          description="Across all institutions"
-          variant="blue"
-        />
-        <StatCard
-          title="Total Student Body"
-          value={stats?.totalStudents || 0}
-          icon={GraduationCap}
-          description="Active enrolled learners"
-          variant="emerald"
-        />
-        <StatCard
-          title="Active Recruitment"
-          value={stats?.activeDrives || 0}
-          icon={Briefcase}
-          description="Live corporate drives"
-          variant="purple"
-        />
-      </div>
-
-      {/* Institutions Directory */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div>
-            <h2 className="text-base font-bold text-slate-800">Institutions Directory</h2>
-            <p className="text-xs text-slate-400">Accredited collegiate tenants</p>
+      ) : (
+        <>
+          {/* KPI Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <StatCard
+              title="Colleges Registered"
+              value={stats?.totalInstitutions || 0}
+              icon={Building2}
+              description="Active tenant boundaries"
+              variant="indigo"
+            />
+            <StatCard
+              title="Total Platform Users"
+              value={stats?.totalUsers || 0}
+              icon={Users}
+              description="Across all institutions"
+              variant="blue"
+            />
+            <StatCard
+              title="Total Student Body"
+              value={stats?.totalStudents || 0}
+              icon={GraduationCap}
+              description="Active enrolled learners"
+              variant="emerald"
+            />
+            <StatCard
+              title="Active Recruitment"
+              value={stats?.activeDrives || 0}
+              icon={Briefcase}
+              description="Live corporate drives"
+              variant="purple"
+            />
           </div>
-        </div>
-        <DataTable
-          columns={columns}
-          data={institutions}
-          searchKey="name"
-          searchPlaceholder="Search institutions by name or code..."
-        />
-      </div>
+
+          {/* Institutions Directory */}
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div>
+                <h2 className="text-base font-bold text-slate-800">Institutions Directory</h2>
+                <p className="text-xs text-slate-400">Accredited collegiate tenants</p>
+              </div>
+            </div>
+            <DataTable
+              columns={columns}
+              data={institutions}
+              searchKey="name"
+              searchPlaceholder="Search institutions by name or code..."
+            />
+          </div>
+        </>
+      )}
 
       {/* Create Institution Modal */}
       <Modal

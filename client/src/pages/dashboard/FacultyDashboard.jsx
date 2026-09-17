@@ -117,78 +117,89 @@ export default function FacultyDashboard() {
         </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <StatCard
-          title="Assigned Subjects"
-          value={stats?.assignedSubjectsCount || 0}
-          icon={BookOpen}
-          description="Active teaching curriculum"
-          variant="teal"
+      {loading ? (
+        <LoadingSkeleton
+          type="dashboard"
+          kpiCount={3}
+          rows={3}
+          message="Loading Faculty Command Center"
         />
-        <StatCard
-          title="Assignments Created"
-          value={stats?.assignmentsCreated || 0}
-          icon={FileText}
-          description="Current semester problem sets"
-          variant="indigo"
-        />
-        <StatCard
-          title="Pending Submissions"
-          value={stats?.pendingGrading || 0}
-          icon={Clock}
-          description="Awaiting evaluation & marks"
-          variant="amber"
-        />
-      </div>
-
-      {/* Assigned Subjects Grid */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div>
-            <h2 className="text-base font-bold text-slate-800">My Assigned Courses & Classes</h2>
-            <p className="text-xs text-slate-400">Classroom sessions and coursework</p>
+      ) : (
+        <>
+          {/* KPI Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <StatCard
+              title="Assigned Subjects"
+              value={stats?.assignedSubjectsCount || 0}
+              icon={BookOpen}
+              description="Active teaching curriculum"
+              variant="teal"
+            />
+            <StatCard
+              title="Assignments Created"
+              value={stats?.assignmentsCreated || 0}
+              icon={FileText}
+              description="Current semester problem sets"
+              variant="indigo"
+            />
+            <StatCard
+              title="Pending Submissions"
+              value={stats?.pendingGrading || 0}
+              icon={Clock}
+              description="Awaiting evaluation & marks"
+              variant="amber"
+            />
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {stats?.assignedSubjects?.map((sub) => (
-            <div
-              key={sub._id}
-              className="p-5 rounded-2xl border border-slate-200/80 bg-slate-50/40 hover:bg-slate-50/90 transition-all flex flex-col justify-between hover:shadow-md"
-            >
+          {/* Assigned Subjects Grid */}
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div>
-                <div className="flex items-center justify-between">
-                  <Badge variant="teal">{sub.code}</Badge>
-                  <span className="text-xs font-semibold text-slate-500">
-                    Semester {sub.semester} • {sub.credits} Credits
-                  </span>
-                </div>
-                <h3 className="font-bold text-slate-800 text-base mt-2.5">{sub.name}</h3>
-                <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
-                  {sub.description || 'Core subject covering theoretical principles, algorithms, and lab coursework.'}
-                </p>
-              </div>
-
-              <div className="mt-5 pt-4 border-t border-slate-200/70 flex items-center justify-between">
-                <Link
-                  to={`/faculty/attendance?subjectId=${sub._id}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-600 hover:text-teal-700 bg-teal-50 px-3 py-1.5 rounded-lg border border-teal-200/60 transition-colors"
-                >
-                  <CalendarCheck className="w-4 h-4" /> Mark Attendance
-                </Link>
-                <Link
-                  to={`/faculty/assignments?subjectId=${sub._id}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-indigo-600"
-                >
-                  <FileText className="w-4 h-4" /> Coursework
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                <h2 className="text-base font-bold text-slate-800">My Assigned Courses & Classes</h2>
+                <p className="text-xs text-slate-400">Classroom sessions and coursework</p>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {stats?.assignedSubjects?.map((sub) => (
+                <div
+                  key={sub._id}
+                  className="p-5 rounded-2xl border border-slate-200/80 bg-slate-50/40 hover:bg-slate-50/90 transition-all flex flex-col justify-between hover:shadow-md"
+                >
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <Badge variant="teal">{sub.code}</Badge>
+                      <span className="text-xs font-semibold text-slate-500">
+                        Semester {sub.semester} • {sub.credits} Credits
+                      </span>
+                    </div>
+                    <h3 className="font-bold text-slate-800 text-base mt-2.5">{sub.name}</h3>
+                    <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                      {sub.description || 'Core subject covering theoretical principles, algorithms, and lab coursework.'}
+                    </p>
+                  </div>
+
+                  <div className="mt-5 pt-4 border-t border-slate-200/70 flex items-center justify-between">
+                    <Link
+                      to={`/faculty/attendance?subjectId=${sub._id}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-600 hover:text-teal-700 bg-teal-50 px-3 py-1.5 rounded-lg border border-teal-200/60 transition-colors"
+                    >
+                      <CalendarCheck className="w-4 h-4" /> Mark Attendance
+                    </Link>
+                    <Link
+                      to={`/faculty/assignments?subjectId=${sub._id}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-indigo-600"
+                    >
+                      <FileText className="w-4 h-4" /> Coursework
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
 
       {/* AI Performance Summarizer Modal */}
       <Modal

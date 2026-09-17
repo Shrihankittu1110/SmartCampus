@@ -101,7 +101,11 @@ export default function DepartmentsPage() {
         </button>
       </div>
 
-      <DataTable columns={columns} data={departments} searchKey="name" />
+      {loading ? (
+        <LoadingSkeleton rows={4} message="Loading Academic Departments" />
+      ) : (
+        <DataTable columns={columns} data={departments} searchKey="name" />
+      )}
 
       <Modal
         isOpen={isModalOpen}

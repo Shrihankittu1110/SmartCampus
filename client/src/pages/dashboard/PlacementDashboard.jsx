@@ -134,61 +134,72 @@ export default function PlacementDashboard() {
         </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatCard
-          title="Recruiters"
-          value={stats?.companiesCount || 0}
-          icon={Building2}
-          description="Active corporate partners"
-          variant="purple"
+      {loading ? (
+        <LoadingSkeleton
+          type="dashboard"
+          kpiCount={5}
+          rows={3}
+          message="Loading Placement Command Center"
         />
-        <StatCard
-          title="Active Drives"
-          value={stats?.activeDrivesCount || 0}
-          icon={Briefcase}
-          description="Live recruitment cycles"
-          variant="indigo"
-        />
-        <StatCard
-          title="Applications"
-          value={stats?.applicationsCount || 0}
-          icon={Users}
-          description="Submitted candidates"
-          variant="blue"
-        />
-        <StatCard
-          title="Shortlisted"
-          value={stats?.shortlistedCount || 0}
-          icon={CheckCircle2}
-          description="In evaluation rounds"
-          variant="amber"
-        />
-        <StatCard
-          title="Offers Made"
-          value={stats?.selectedCount || 0}
-          icon={Award}
-          description="Accepted packages"
-          variant="emerald"
-        />
-      </div>
-
-      {/* Active Drives Table */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div>
-            <h2 className="text-base font-bold text-slate-800">Live Campus Recruitment Drives</h2>
-            <p className="text-xs text-slate-400">Current season corporate placement drives</p>
+      ) : (
+        <>
+          {/* KPI Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <StatCard
+              title="Recruiters"
+              value={stats?.companiesCount || 0}
+              icon={Building2}
+              description="Active corporate partners"
+              variant="purple"
+            />
+            <StatCard
+              title="Active Drives"
+              value={stats?.activeDrivesCount || 0}
+              icon={Briefcase}
+              description="Live recruitment cycles"
+              variant="indigo"
+            />
+            <StatCard
+              title="Applications"
+              value={stats?.applicationsCount || 0}
+              icon={Users}
+              description="Submitted candidates"
+              variant="blue"
+            />
+            <StatCard
+              title="Shortlisted"
+              value={stats?.shortlistedCount || 0}
+              icon={CheckCircle2}
+              description="In evaluation rounds"
+              variant="amber"
+            />
+            <StatCard
+              title="Offers Made"
+              value={stats?.selectedCount || 0}
+              icon={Award}
+              description="Accepted packages"
+              variant="emerald"
+            />
           </div>
-          <Link
-            to="/placement/analytics"
-            className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
-          >
-            Placement Analytics <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-        <DataTable columns={columns} data={drives} searchKey="title" />
-      </div>
+
+          {/* Active Drives Table */}
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div>
+                <h2 className="text-base font-bold text-slate-800">Live Campus Recruitment Drives</h2>
+                <p className="text-xs text-slate-400">Current season corporate placement drives</p>
+              </div>
+              <Link
+                to="/placement/analytics"
+                className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
+              >
+                Placement Analytics <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+            <DataTable columns={columns} data={drives} searchKey="title" />
+          </div>
+        </>
+      )}
     </div>
   );
 }

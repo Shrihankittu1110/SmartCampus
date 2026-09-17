@@ -4,10 +4,11 @@ export default function LoadingSkeleton({
   rows = 3,
   message = 'Loading',
   type = 'cards',
+  kpiCount = 4,
   className = '',
 }) {
   return (
-    <div className={`space-y-5 animate-in fade-in duration-200 ${className}`}>
+    <div className={`space-y-6 animate-in fade-in duration-200 ${className}`}>
       {/* Loading Name & Animated Dots */}
       <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-slate-100/90 border border-slate-200/70 text-xs font-semibold text-slate-600 shadow-2xs">
         <div className="flex items-center space-x-1">
@@ -21,17 +22,22 @@ export default function LoadingSkeleton({
         </span>
       </div>
 
-      {type === 'stats-and-table' ? (
+      {/* Dashboard & Stats-and-Table Layout */}
+      {(type === 'dashboard' || type === 'stats-and-table') ? (
         <div className="space-y-6">
-          {/* 3 KPI Card Skeletons */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {Array.from({ length: 3 }).map((_, i) => (
+          {/* KPI Skeleton Card Frames */}
+          <div
+            className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${
+              kpiCount === 5 ? 'lg:grid-cols-5' : kpiCount === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
+            }`}
+          >
+            {Array.from({ length: kpiCount }).map((_, i) => (
               <div
                 key={i}
                 className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs animate-pulse space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <div className="h-3 w-28 bg-slate-200/80 rounded" />
+                  <div className="h-3.5 w-24 bg-slate-200/80 rounded" />
                   <div className="w-9 h-9 bg-slate-100 rounded-xl" />
                 </div>
                 <div className="h-7 w-20 bg-slate-200/70 rounded" />
@@ -40,14 +46,15 @@ export default function LoadingSkeleton({
             ))}
           </div>
 
-          {/* Table Container Skeleton */}
-          <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden animate-pulse">
-            <div className="px-6 py-4 border-b border-slate-100">
-              <div className="h-4 w-40 bg-slate-200/80 rounded" />
+          {/* Main Content / Table Frame Skeleton */}
+          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden animate-pulse">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+              <div className="h-4 w-44 bg-slate-200/80 rounded" />
+              <div className="h-4 w-20 bg-slate-100 rounded" />
             </div>
             <div className="p-6 space-y-3">
               {Array.from({ length: rows }).map((_, i) => (
-                <div key={i} className="h-10 bg-slate-50 border border-slate-100 rounded-lg w-full" />
+                <div key={i} className="h-11 bg-slate-50 border border-slate-100 rounded-xl w-full" />
               ))}
             </div>
           </div>

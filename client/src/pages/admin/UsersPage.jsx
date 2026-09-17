@@ -210,12 +210,16 @@ export default function UsersPage() {
         ))}
       </div>
 
-      <DataTable
-        columns={columns}
-        data={users}
-        searchKey="name"
-        searchPlaceholder="Search by name, email, roll number..."
-      />
+      {loading ? (
+        <LoadingSkeleton rows={5} message="Loading Users Directory" />
+      ) : (
+        <DataTable
+          columns={columns}
+          data={users}
+          searchKey="name"
+          searchPlaceholder="Search by name, email, roll number..."
+        />
+      )}
 
       {/* Create User Modal */}
       <Modal

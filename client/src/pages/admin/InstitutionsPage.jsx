@@ -109,7 +109,11 @@ export default function InstitutionsPage() {
         </button>
       </div>
 
-      <DataTable columns={columns} data={institutions} searchKey="name" />
+      {loading ? (
+        <LoadingSkeleton rows={4} message="Loading Institutions Directory" />
+      ) : (
+        <DataTable columns={columns} data={institutions} searchKey="name" />
+      )}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Register New College">
         <form onSubmit={handleCreate} className="space-y-3">
