@@ -16,6 +16,7 @@ import {
   recordPlacementOutcome,
   getPlacementAnalytics,
   exportPlacementCSV,
+  analyzeResumeATS,
 } from '../controllers/placementController.js';
 import { requireAuth } from '../middleware/auth.js';
 import { requireRole } from '../middleware/role.js';
@@ -36,6 +37,9 @@ router.get('/export', requireRole(ROLES.PLACEMENT_OFFICER, ROLES.COLLEGE_ADMIN, 
 router.post('/companies', requireRole(ROLES.PLACEMENT_OFFICER, ROLES.COLLEGE_ADMIN, ROLES.SUPER_ADMIN), createCompany);
 router.get('/companies', getCompanies);
 router.put('/companies/:id', requireRole(ROLES.PLACEMENT_OFFICER, ROLES.COLLEGE_ADMIN, ROLES.SUPER_ADMIN), updateCompany);
+
+// AI Resume Analysis
+router.post('/resume/analyze', upload.single('resume'), analyzeResumeATS);
 
 // Drives
 router.post('/drives', requireRole(ROLES.PLACEMENT_OFFICER, ROLES.COLLEGE_ADMIN, ROLES.SUPER_ADMIN), createJobDrive);

@@ -28,7 +28,7 @@ beforeAll(async () => {
     .post('/api/auth/login')
     .send({ email: 'admin@anurag.edu.in', password: 'Admin@123' });
   adminToken = adminLogin.body.data.accessToken;
-});
+}, 60000);
 
 afterAll(async () => {
   await disconnectDB();

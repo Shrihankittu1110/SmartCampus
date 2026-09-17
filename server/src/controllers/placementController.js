@@ -8,8 +8,14 @@ import { ROLES, APPLICATION_STATUS } from '../config/constants.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
 import { logActivity } from '../utils/auditLogger.js';
 import { sendNotification } from '../utils/notify.js';
+import fs from 'fs';
 import { checkStudentEligibility } from '../services/eligibilityService.js';
 import { generatePlacementCSV } from '../services/exportService.js';
+import {
+  extractResumeText,
+  extractEntities,
+  matchResumeWithDrive,
+} from '../services/resumeParserService.js';
 
 // --- COMPANY MANAGEMENT ---
 export const createCompany = async (req, res, next) => {
@@ -548,3 +554,56 @@ export const exportPlacementCSV = async (req, res, next) => {
     next(err);
   }
 };
+
+// --- AI RESUME PARSER & ATS MATCHER ---
+export const analyzeResumeATS = async (req, res, next) => {
+  try {
+    let rawText = '';
+    if (req.file) {
+      const buffer = req.file.buffer || (req.file.path ? fs.readFileSync(req.file.path) : null);
+      if (!buffer) {
+        return errorResponse(res, 400, 'Could not read uploaded resume file.');
+      }
+      rawText = await extractResumeText(buffer, req.file.mimetype);
+    } else if (req.body.resumeText) {
+      rawText = req.body.resumeText;
+    } else {
+      return errorResponse(res, 400, 'Please upload a PDF resume or provide resume text.');
+    }
+
+    if (!rawText || rawText.length < 30) {
+      return errorResponse(res, 400, 'Unable to extract legible text from this resume. Please ensure it is not a scanned image PDF.');
+    }
+
+    let jobDrive = null;
+    if (req.body.jobDriveId) {
+      jobDrive = await JobDrive.findById(req.body.jobDriveId).populate('companyId', 'name');
+    }
+
+    const entities = extractEntities(rawText);
+    const analysis = matchResumeWithDrive({
+      resumeEntities: entities,
+      rawText,
+      jobDrive: jobDrive || {
+        title: req.body.targetRole || 'Software Development Engineer',
+        requiredSkills: ['JavaScript', 'React', 'Node.js', 'Python', 'SQL', 'Data Structures', 'Git'],
+      },
+    });
+
+    return successResponse(res, 200, 'Resume analyzed successfully', {
+      ...analysis,
+      jobDrive: jobDrive
+        ? {
+            id: jobDrive._id,
+            title: jobDrive.title,
+            company: jobDrive.companyId?.name,
+            locations: jobDrive.locations,
+            package: jobDrive.package,
+          }
+        : null,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+

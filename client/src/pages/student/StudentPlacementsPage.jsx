@@ -4,6 +4,7 @@ import Modal from '../../components/common/Modal';
 import Badge from '../../components/common/Badge';
 import LoadingSkeleton from '../../components/common/LoadingSkeleton';
 import Toast from '../../components/common/Toast';
+import ResumeAnalyzerModal from '../../components/placement/ResumeAnalyzerModal';
 import {
   Briefcase,
   Building2,
@@ -13,6 +14,8 @@ import {
   Upload,
   Calendar,
   Award,
+  Sparkles,
+  Zap,
 } from 'lucide-react';
 
 export default function StudentPlacementsPage() {
@@ -22,6 +25,8 @@ export default function StudentPlacementsPage() {
   const [resumeFile, setResumeFile] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [showAnalyzer, setShowAnalyzer] = useState(false);
+  const [targetDriveForAnalysis, setTargetDriveForAnalysis] = useState(null);
 
   const loadDrives = async () => {
     try {
@@ -75,6 +80,34 @@ export default function StudentPlacementsPage() {
         </p>
       </div>
 
+      {/* AI Resume Matcher Banner */}
+      <div className="p-4 rounded-2xl bg-gradient-to-r from-[#19227d] via-[#141b66] to-[#0e1450] text-white border border-white/10 shadow-lg shadow-blue-950/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#ff6b00] to-[#ffa133] p-[1.5px] shadow-md shadow-orange-500/30 flex-shrink-0">
+            <div className="w-full h-full bg-[#0e1450] rounded-[10px] flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-orange-400" />
+            </div>
+          </div>
+          <div>
+            <h2 className="text-sm font-bold text-white">AI Resume ATS Matcher & Optimizer</h2>
+            <p className="text-xs text-blue-200/80">
+              Evaluate your resume compatibility with active campus recruitment drives, identify missing skills, and optimize keywords.
+            </p>
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            setTargetDriveForAnalysis(null);
+            setShowAnalyzer(true);
+          }}
+          className="px-4 py-2 rounded-xl text-xs font-bold text-white btn-vivid-orange shadow-md shadow-orange-500/30 flex items-center gap-2 cursor-pointer whitespace-nowrap self-stretch sm:self-auto justify-center"
+        >
+          <Zap className="w-4 h-4" />
+          <span>Scan My Resume</span>
+        </button>
+      </div>
+
       <div className="space-y-4">
         {drives.map((drive) => {
           const myApp = drive.myApplication;
@@ -106,31 +139,46 @@ export default function StudentPlacementsPage() {
                     <p className="text-[10px] text-slate-400">CTC Package</p>
                   </div>
 
-                  {myApp ? (
-                    <Badge
-                      variant={
-                        myApp.status === 'SELECTED'
-                          ? 'emerald'
-                          : myApp.status === 'REJECTED'
-                          ? 'rose'
-                          : myApp.status === 'INTERVIEW'
-                          ? 'purple'
-                          : 'blue'
-                      }
-                    >
-                      {myApp.status}: {myApp.currentStage || 'In Progress'}
-                    </Badge>
-                  ) : isEligible ? (
+                  <div className="flex items-center gap-2">
                     <button
-                      disabled={isPastDeadline}
-                      onClick={() => setApplyingDrive(drive)}
-                      className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow-xs disabled:opacity-40 transition-colors cursor-pointer"
+                      type="button"
+                      onClick={() => {
+                        setTargetDriveForAnalysis(drive._id);
+                        setShowAnalyzer(true);
+                      }}
+                      className="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200/80 transition-colors flex items-center gap-1 cursor-pointer"
+                      title="Analyze your resume ATS compatibility for this role"
                     >
-                      {isPastDeadline ? 'Deadline Passed' : 'Apply Now'}
+                      <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+                      <span>ATS Match</span>
                     </button>
-                  ) : (
-                    <Badge variant="rose">Not Eligible</Badge>
-                  )}
+
+                    {myApp ? (
+                      <Badge
+                        variant={
+                          myApp.status === 'SELECTED'
+                            ? 'emerald'
+                            : myApp.status === 'REJECTED'
+                            ? 'rose'
+                            : myApp.status === 'INTERVIEW'
+                            ? 'purple'
+                            : 'blue'
+                        }
+                      >
+                        {myApp.status}: {myApp.currentStage || 'In Progress'}
+                      </Badge>
+                    ) : isEligible ? (
+                      <button
+                        disabled={isPastDeadline}
+                        onClick={() => setApplyingDrive(drive)}
+                        className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow-xs disabled:opacity-40 transition-colors cursor-pointer"
+                      >
+                        {isPastDeadline ? 'Deadline Passed' : 'Apply Now'}
+                      </button>
+                    ) : (
+                      <Badge variant="rose">Not Eligible</Badge>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -203,6 +251,21 @@ export default function StudentPlacementsPage() {
           </div>
         </form>
       </Modal>
+
+      {/* AI Resume Analyzer Modal */}
+      <ResumeAnalyzerModal
+        isOpen={showAnalyzer}
+        onClose={() => setShowAnalyzer(false)}
+        drives={drives}
+        defaultDriveId={targetDriveForAnalysis}
+        onApply={(driveId, resume) => {
+          const target = drives.find((d) => d._id === driveId);
+          if (target) {
+            setApplyingDrive(target);
+            setResumeFile(resume);
+          }
+        }}
+      />
     </div>
   );
 }

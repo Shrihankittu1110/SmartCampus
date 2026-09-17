@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import dns from 'dns';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 import { logger } from '../utils/logger.js';
 
 try {
@@ -9,13 +10,18 @@ try {
 let mongoMemoryServer = null;
 
 export const connectDB = async () => {
+  if (mongoose.connection.readyState === 1) {
+    return;
+  }
+
   const uri = process.env.MONGODB_URI;
+  const isTest = process.env.NODE_ENV === 'test';
 
   try {
     if (uri && !uri.includes('memory')) {
       logger.info(`Attempting connection to MongoDB at: ${uri.replace(/\/\/.*@/, '//***@')}`);
       await mongoose.connect(uri, {
-        serverSelectionTimeoutMS: 10000,
+        serverSelectionTimeoutMS: isTest ? 3500 : 10000,
       });
       logger.info('Connected to MongoDB successfully.');
       return;
@@ -24,9 +30,8 @@ export const connectDB = async () => {
     logger.warn(`Failed to connect to configured MongoDB URI (${err.message}). Falling back to in-memory MongoDB...`);
   }
 
-  // Fallback to MongoMemoryServer for standalone out-of-the-box run
+  // Fallback to MongoMemoryServer for standalone/offline runs and tests
   try {
-    const { MongoMemoryServer } = await import('mongodb-memory-server');
     mongoMemoryServer = await MongoMemoryServer.create();
     const memoryUri = mongoMemoryServer.getUri();
     await mongoose.connect(memoryUri);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNotifications } from '../../context/NotificationContext';
+import { useSocket } from '../../context/SocketContext';
 import { Link } from 'react-router-dom';
 import {
   Menu,
@@ -11,10 +12,12 @@ import {
   Shield,
   Sparkles,
   ChevronDown,
+  Radio,
 } from 'lucide-react';
 
 export default function Navbar({ onToggleSidebar }) {
   const { user } = useAuth();
+  const { isConnected } = useSocket();
   const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -31,10 +34,25 @@ export default function Navbar({ onToggleSidebar }) {
           <Menu className="w-5 h-5" />
         </button>
 
-        <div className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-100/80 border border-slate-200/60">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100/80 border border-slate-200/60">
+          <span
+            className={`w-2 h-2 rounded-full ${
+              isConnected
+                ? 'bg-emerald-500 shadow-sm shadow-emerald-500/50 animate-pulse'
+                : 'bg-slate-400'
+            }`}
+          />
           <span className="text-xs font-semibold text-slate-700 truncate max-w-xs">
             {user?.institutionId?.name || 'CampusFlow Multi-Tenant'}
+          </span>
+          <span
+            className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider ${
+              isConnected
+                ? 'bg-emerald-50 text-emerald-600 border border-emerald-200/60'
+                : 'bg-slate-100 text-slate-500 border border-slate-200'
+            }`}
+          >
+            {isConnected ? 'Live Sync' : 'Offline'}
           </span>
         </div>
       </div>

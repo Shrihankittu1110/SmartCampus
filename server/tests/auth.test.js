@@ -6,7 +6,7 @@ import { seedDatabase } from '../src/seed/seed.js';
 beforeAll(async () => {
   await connectDB();
   await seedDatabase();
-});
+}, 60000);
 
 afterAll(async () => {
   await disconnectDB();

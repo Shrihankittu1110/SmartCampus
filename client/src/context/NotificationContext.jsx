@@ -29,8 +29,23 @@ export const NotificationProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       fetchNotifications();
-      const interval = setInterval(fetchNotifications, 60000); // Poll every minute
-      return () => clearInterval(interval);
+      const interval = setInterval(fetchNotifications, 60000); // Background fallback polling
+
+      // Real-time listener from SocketContext
+      const handleLiveNotification = (e) => {
+        const newNotif = e.detail;
+        if (newNotif) {
+          setNotifications((prev) => [newNotif, ...prev]);
+          setUnreadCount((prev) => prev + 1);
+        }
+      };
+
+      window.addEventListener('campusflow:new_notification', handleLiveNotification);
+
+      return () => {
+        clearInterval(interval);
+        window.removeEventListener('campusflow:new_notification', handleLiveNotification);
+      };
     }
   }, [user]);
 

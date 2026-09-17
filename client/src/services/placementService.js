@@ -39,6 +39,14 @@ export const placementService = {
     return res.data;
   },
 
+  // AI Resume Analysis
+  analyzeResume: async (formData) => {
+    const res = await api.post('/placements/resume/analyze', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return res.data;
+  },
+
   // Applications
   getMyApplications: async () => {
     const res = await api.get('/placements/my-applications');
