@@ -41,8 +41,6 @@ export default function PlacementDashboard() {
     loadData();
   }, []);
 
-  if (loading) return <LoadingSkeleton rows={6} />;
-
   const columns = [
     {
       header: 'Company & Role',

@@ -36,8 +36,6 @@ export default function CollegeAdminDashboard() {
     loadStats();
   }, []);
 
-  if (loading) return <LoadingSkeleton rows={6} />;
-
   return (
     <div className="space-y-7">
       {/* Header Banner */}

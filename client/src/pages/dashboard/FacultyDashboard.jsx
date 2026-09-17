@@ -86,8 +86,6 @@ export default function FacultyDashboard() {
     }
   };
 
-  if (loading) return <LoadingSkeleton rows={6} />;
-
   return (
     <div className="space-y-7">
       {/* Executive Faculty Banner */}

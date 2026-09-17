@@ -61,8 +61,6 @@ export default function ActivityLogsPage() {
     },
   ];
 
-  if (loading) return <LoadingSkeleton rows={6} />;
-
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">

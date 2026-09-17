@@ -83,8 +83,6 @@ export default function EventsPage() {
     }
   };
 
-  if (loading && events.length === 0) return <LoadingSkeleton rows={6} />;
-
   return (
     <div className="space-y-6">
       {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage('')} />}
@@ -107,16 +105,23 @@ export default function EventsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {events.map((event) => {
-          const isRegistered = event.attendees?.some(
-            (a) =>
-              a.studentId?._id?.toString() === user?._id?.toString() ||
-              a.studentId?.toString() === user?._id?.toString()
-          );
+        {events.length === 0 ? (
+          <div className="col-span-full bg-white rounded-xl border border-slate-200/80 p-12 text-center text-slate-400">
+            <Calendar className="w-10 h-10 mx-auto mb-2 text-slate-300" />
+            <p className="font-semibold text-slate-600">No Scheduled Events</p>
+            <p className="text-xs text-slate-400 mt-1">There are no upcoming campus events or academic activities right now.</p>
+          </div>
+        ) : (
+          events.map((event) => {
+            const isRegistered = event.attendees?.some(
+              (a) =>
+                a.studentId?._id?.toString() === user?._id?.toString() ||
+                a.studentId?.toString() === user?._id?.toString()
+            );
 
-          return (
-            <div
-              key={event._id}
+            return (
+              <div
+                key={event._id}
               className="bg-white rounded-xl border border-slate-200/80 p-5 shadow-sm space-y-3 flex flex-col justify-between"
             >
               <div>
@@ -167,9 +172,10 @@ export default function EventsPage() {
                   )}
                 </div>
               </div>
-            </div>
-          );
-        })}
+              </div>
+            );
+          })
+        )}
       </div>
 
       {/* Announce Event Modal */}

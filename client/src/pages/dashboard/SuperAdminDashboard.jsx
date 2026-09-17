@@ -63,8 +63,6 @@ export default function SuperAdminDashboard() {
     }
   };
 
-  if (loading) return <LoadingSkeleton rows={6} />;
-
   const columns = [
     {
       header: 'Institution',

@@ -67,8 +67,6 @@ export default function StudentPlacementsPage() {
     }
   };
 
-  if (loading && drives.length === 0) return <LoadingSkeleton rows={6} />;
-
   return (
     <div className="space-y-6">
       {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage('')} />}
@@ -109,7 +107,14 @@ export default function StudentPlacementsPage() {
       </div>
 
       <div className="space-y-4">
-        {drives.map((drive) => {
+        {drives.length === 0 ? (
+          <div className="bg-white rounded-xl border border-slate-200/80 p-12 text-center text-slate-400">
+            <Briefcase className="w-10 h-10 mx-auto mb-2 text-slate-300" />
+            <p className="font-semibold text-slate-600">No Active Drives Currently</p>
+            <p className="text-xs text-slate-400 mt-1">There are no ongoing placement drives scheduled right now. Check back soon.</p>
+          </div>
+        ) : (
+          drives.map((drive) => {
           const myApp = drive.myApplication;
           const isEligible = drive.isEligible;
           const reasons = drive.ineligibilityReasons || [];
@@ -208,7 +213,8 @@ export default function StudentPlacementsPage() {
               </div>
             </div>
           );
-        })}
+        })
+      )}
       </div>
 
       {/* Apply Modal */}

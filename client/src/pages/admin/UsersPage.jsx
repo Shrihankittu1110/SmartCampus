@@ -168,8 +168,6 @@ export default function UsersPage() {
     },
   ];
 
-  if (loading && users.length === 0) return <LoadingSkeleton rows={6} />;
-
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

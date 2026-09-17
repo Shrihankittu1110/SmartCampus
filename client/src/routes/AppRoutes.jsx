@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // Layouts & Guard
@@ -7,47 +7,47 @@ import AuthLayout from '../layouts/AuthLayout';
 import ProtectedRoute from './ProtectedRoute';
 import RouteLoadingScreen from '../components/common/RouteLoadingScreen';
 
-// Lazy-loaded Public & Auth Pages
-const HomePage = lazy(() => import('../pages/public/HomePage'));
-const Login = lazy(() => import('../pages/auth/Login'));
-const Register = lazy(() => import('../pages/auth/Register'));
-const ForgotPassword = lazy(() => import('../pages/auth/ForgotPassword'));
-const ResetPassword = lazy(() => import('../pages/auth/ResetPassword'));
-const VerifyEmail = lazy(() => import('../pages/auth/VerifyEmail'));
+// Public & Auth Pages
+import HomePage from '../pages/public/HomePage';
+import Login from '../pages/auth/Login';
+import Register from '../pages/auth/Register';
+import ForgotPassword from '../pages/auth/ForgotPassword';
+import ResetPassword from '../pages/auth/ResetPassword';
+import VerifyEmail from '../pages/auth/VerifyEmail';
 
-// Lazy-loaded Dashboard & Role Pages
-const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+// Dashboard & Role Pages
+import Dashboard from '../pages/dashboard/Dashboard';
 
-// Lazy-loaded Admin Pages
-const InstitutionsPage = lazy(() => import('../pages/admin/InstitutionsPage'));
-const UsersPage = lazy(() => import('../pages/admin/UsersPage'));
-const DepartmentsPage = lazy(() => import('../pages/admin/DepartmentsPage'));
-const CoursesPage = lazy(() => import('../pages/admin/CoursesPage'));
-const SubjectsPage = lazy(() => import('../pages/admin/SubjectsPage'));
-const ActivityLogsPage = lazy(() => import('../pages/admin/ActivityLogsPage'));
+// Admin Pages
+import InstitutionsPage from '../pages/admin/InstitutionsPage';
+import UsersPage from '../pages/admin/UsersPage';
+import DepartmentsPage from '../pages/admin/DepartmentsPage';
+import CoursesPage from '../pages/admin/CoursesPage';
+import SubjectsPage from '../pages/admin/SubjectsPage';
+import ActivityLogsPage from '../pages/admin/ActivityLogsPage';
 
-// Lazy-loaded Academic / Faculty Pages
-const AttendanceManager = lazy(() => import('../pages/faculty/AttendanceManager'));
-const AssignmentsPage = lazy(() => import('../pages/faculty/AssignmentsPage'));
+// Academic / Faculty Pages
+import AttendanceManager from '../pages/faculty/AttendanceManager';
+import AssignmentsPage from '../pages/faculty/AssignmentsPage';
 
-// Lazy-loaded Student Pages
-const StudentAttendancePage = lazy(() => import('../pages/student/StudentAttendancePage'));
-const StudentAssignmentsPage = lazy(() => import('../pages/student/StudentAssignmentsPage'));
-const StudentGradesPage = lazy(() => import('../pages/student/StudentGradesPage'));
-const StudentRequestsPage = lazy(() => import('../pages/student/StudentRequestsPage'));
-const StudentPlacementsPage = lazy(() => import('../pages/student/StudentPlacementsPage'));
-const AIStudyAssistantPage = lazy(() => import('../pages/student/AIStudyAssistantPage'));
+// Student Pages
+import StudentAttendancePage from '../pages/student/StudentAttendancePage';
+import StudentAssignmentsPage from '../pages/student/StudentAssignmentsPage';
+import StudentGradesPage from '../pages/student/StudentGradesPage';
+import StudentRequestsPage from '../pages/student/StudentRequestsPage';
+import StudentPlacementsPage from '../pages/student/StudentPlacementsPage';
+import AIStudyAssistantPage from '../pages/student/AIStudyAssistantPage';
 
-// Lazy-loaded Placement Pages
-const CompaniesPage = lazy(() => import('../pages/placement/CompaniesPage'));
-const JobDrivesPage = lazy(() => import('../pages/placement/JobDrivesPage'));
-const PlacementAnalyticsPage = lazy(() => import('../pages/placement/PlacementAnalyticsPage'));
+// Placement Pages
+import CompaniesPage from '../pages/placement/CompaniesPage';
+import JobDrivesPage from '../pages/placement/JobDrivesPage';
+import PlacementAnalyticsPage from '../pages/placement/PlacementAnalyticsPage';
 
-// Lazy-loaded Shared Pages
-const EventsPage = lazy(() => import('../pages/shared/EventsPage'));
-const AnnouncementsPage = lazy(() => import('../pages/shared/AnnouncementsPage'));
-const ProfilePage = lazy(() => import('../pages/shared/ProfilePage'));
-const NotFound = lazy(() => import('../pages/shared/NotFound'));
+// Shared Pages
+import EventsPage from '../pages/shared/EventsPage';
+import AnnouncementsPage from '../pages/shared/AnnouncementsPage';
+import ProfilePage from '../pages/shared/ProfilePage';
+import NotFound from '../pages/shared/NotFound';
 
 export default function AppRoutes() {
   return (

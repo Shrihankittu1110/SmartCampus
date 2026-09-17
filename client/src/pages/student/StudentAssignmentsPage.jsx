@@ -61,8 +61,6 @@ export default function StudentAssignmentsPage() {
     }
   };
 
-  if (loading && assignments.length === 0) return <LoadingSkeleton rows={6} />;
-
   return (
     <div className="space-y-6">
       {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage('')} />}
@@ -75,7 +73,14 @@ export default function StudentAssignmentsPage() {
       </div>
 
       <div className="space-y-4">
-        {assignments.map((assignment) => {
+        {assignments.length === 0 ? (
+          <div className="bg-white rounded-xl border border-slate-200/80 p-12 text-center text-slate-400">
+            <FileText className="w-10 h-10 mx-auto mb-2 text-slate-300" />
+            <p className="font-semibold text-slate-600">No Coursework Assigned</p>
+            <p className="text-xs text-slate-400 mt-1">There are currently no active assignments for your enrolled subjects.</p>
+          </div>
+        ) : (
+          assignments.map((assignment) => {
           const isPastDue = new Date() > new Date(assignment.dueDate);
           const submission = assignment.submission;
           const status = submission ? submission.status : 'PENDING';
@@ -191,7 +196,8 @@ export default function StudentAssignmentsPage() {
               </div>
             </div>
           );
-        })}
+        })
+      )}
       </div>
 
       {/* Upload Submission Modal */}

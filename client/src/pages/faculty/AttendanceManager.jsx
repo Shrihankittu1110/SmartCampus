@@ -146,8 +146,6 @@ export default function AttendanceManager() {
     }
   };
 
-  if (loading && subjects.length === 0) return <LoadingSkeleton rows={6} />;
-
   const presentCount = Object.values(attendanceMap).filter((s) => s === 'PRESENT').length;
   const absentCount = Object.values(attendanceMap).filter((s) => s === 'ABSENT').length;
 

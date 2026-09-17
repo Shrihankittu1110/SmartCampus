@@ -61,8 +61,6 @@ export default function AnnouncementsPage() {
     }
   };
 
-  if (loading && announcements.length === 0) return <LoadingSkeleton rows={5} />;
-
   return (
     <div className="space-y-6">
       {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage('')} />}
@@ -85,7 +83,14 @@ export default function AnnouncementsPage() {
       </div>
 
       <div className="space-y-4">
-        {announcements.map((item) => (
+        {announcements.length === 0 ? (
+          <div className="bg-white rounded-xl border border-slate-200/80 p-12 text-center text-slate-400">
+            <Bell className="w-10 h-10 mx-auto mb-2 text-slate-300" />
+            <p className="font-semibold text-slate-600">No Announcements Yet</p>
+            <p className="text-xs text-slate-400 mt-1">There are currently no active circulars or announcements posted.</p>
+          </div>
+        ) : (
+          announcements.map((item) => (
           <div
             key={item._id}
             className="bg-white rounded-xl border border-slate-200/80 p-5 shadow-sm space-y-2"
@@ -123,7 +128,8 @@ export default function AnnouncementsPage() {
               Published by: {item.author?.name || 'Administration'}
             </p>
           </div>
-        ))}
+        ))
+      )}
       </div>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Broadcast Announcement">

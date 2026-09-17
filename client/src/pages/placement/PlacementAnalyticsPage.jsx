@@ -54,8 +54,6 @@ export default function PlacementAnalyticsPage() {
     }
   };
 
-  if (loading) return <LoadingSkeleton rows={6} />;
-
   const chartData =
     data?.departmentStats?.map((d) => ({
       name: d.department,

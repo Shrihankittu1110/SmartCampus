@@ -31,8 +31,6 @@ export default function StudentAttendancePage() {
     loadAttendance();
   }, []);
 
-  if (loading) return <LoadingSkeleton rows={6} />;
-
   const overall = data?.overall || { percentage: 100, status: 'Safe', totalSessions: 0 };
   const subjects = data?.subjectBreakdown || [];
   const recent = data?.recentRecords || [];

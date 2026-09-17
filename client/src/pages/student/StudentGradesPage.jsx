@@ -24,8 +24,6 @@ export default function StudentGradesPage() {
     loadGrades();
   }, []);
 
-  if (loading) return <LoadingSkeleton rows={6} />;
-
   const summary = data?.summary || { totalSubjects: 0, totalCredits: 0, cgpa: 8.8 };
   const grades = data?.grades || [];
 

@@ -38,8 +38,6 @@ export default function StudentDashboard() {
     loadStats();
   }, []);
 
-  if (loading) return <LoadingSkeleton rows={6} />;
-
   const attendanceStatus = stats?.attendanceStatus || 'Safe';
   const attendanceVariant =
     attendanceStatus === 'Safe' ? 'emerald' : attendanceStatus === 'Warning' ? 'amber' : 'rose';

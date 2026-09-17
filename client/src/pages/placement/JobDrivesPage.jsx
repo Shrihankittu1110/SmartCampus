@@ -227,8 +227,6 @@ export default function JobDrivesPage() {
     },
   ];
 
-  if (loading && drives.length === 0) return <LoadingSkeleton rows={6} />;
-
   return (
     <div className="space-y-6">
       {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage('')} />}
